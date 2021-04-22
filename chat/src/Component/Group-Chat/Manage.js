@@ -1,9 +1,13 @@
 import { Component } from "react";
 
 export default class Manage extends Component {
+    constructor(props) {
+        super(props)
+    }
+
     render () {
         return (
-            <div className = "show">
+            <div className = {this.props.StatusManage}>
                 <span className = "arrow-down"></span>
                 <div className = "menu-manage">
                     <ul>

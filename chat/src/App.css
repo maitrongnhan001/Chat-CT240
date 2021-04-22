@@ -2,12 +2,20 @@ body {
   position: relative;
   z-index: 100;
 }
+.App {
+  display: flex;
+}
 
+/* chat app container col 1 */
+.chat-app-container-col-1{
+  width: 340px;
+  height: 100%;
+  margin: 0;
+}
 /* Component Group-Chat */
 .Header-Group-chat {
-  width: 20%;
-  height: 100%;
-  overflow: scroll-y;
+  width: 100%;
+  height: 100px;
   margin-top: 10px;
   position: relative;
   z-index: 100;
@@ -31,6 +39,7 @@ body {
 
 .Header-Group-chat .Manage svg{
   margin-left: 2.5px;
+  margin-top: 2px;
 }
 
 .Header-Group-chat .Manage:hover {
@@ -125,4 +134,217 @@ body {
 
 .menu-manage ul li:hover{
   background: #BBBBBB;
+}
+
+/* list group chat */
+.ListGroupChat {
+  position: relative;
+  z-index: 100px;
+  width: 100%;
+  height: 730px;
+  overflow-y: scroll;
+}
+
+.ListGroupChat .chat-user {
+  width: 95%;
+  padding: 0;
+  margin: 0 auto;
+}
+
+.ListGroupChat .chat-user .row {
+  border-radius: 10px;
+  height: 80px;
+}
+
+.ListGroupChat .chat-user .row:hover{
+  background: #ccc;
+}
+
+.ListGroupChat .chat-user .avartar-in-list-group{
+  width: 60px;
+  height: 60px;
+  border-radius: 60px;
+  padding: 0;
+  margin: 10px auto;
+}
+
+.ListGroupChat .chat-user p{
+  text-align: left;
+  font-size: 20px;
+  margin-top: 25px;
+}
+/* chat-app-container-col-2 */
+.chat-app-container-col-2 {
+  border-left: 1px solid #BBBBBB;
+  border-right: 1px solid #BBBBBB;
+  margin-left: 10px;
+  width: 55%;
+  height: 100%;
+}
+
+.header-chat {
+  width: 100%;
+  height: 80px;
+  box-shadow: 0 2px 5px #BBBBBB;
+}
+
+.header-chat .avatar {
+  width: 60px;
+  height: 60px;
+  margin-top: 10px;
+  border-radius: 60px;
+}
+
+.header-chat p{
+  margin-top: 20px;
+}
+
+/* Chat */
+.chat {
+  width: 100%;
+  height: 700px;
+  overflow-y: scroll;
+}
+/* user chat */
+.user-chat {
+  width: 97%;
+  margin: 10px auto;
+}
+.user-chat .avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  padding: 0;
+}
+
+.user-chat .chat-content {
+  max-width: 300px;
+  word-wrap: break-word;
+  margin-top: 10px;
+}
+
+.user-chat .right {
+  float: right;
+}
+
+.user-chat .left {
+  float: left;
+}
+
+.user-chat .chat-content .color-content{
+  background: #BBBBBB;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.user-chat .chat-content .color-content-me{
+  background: rgb(0, 153, 255);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.inline{
+  display: inline;
+}
+
+.block {
+  display: block;
+}
+
+/* input chat */
+.input-chat {
+  width: 95%;
+  margin: 0 auto;
+}
+
+.input-chat .message-chat {
+  width: 100%;
+  height: 40px;
+  border-radius: 15px;
+  position: absolute;
+  top: 10px;
+  border: 0;
+  background: #ccc;
+  padding: 0 20px 0 20px;
+}
+
+.input-chat .submit-message {
+  background: none;
+  border: 0;
+  position: absolute;
+  top: 12px;
+  margin-left: 5px;
+}
+
+/* information */
+.chat-app-container-col-3 {
+  margin-left: 10px;
+  width: 400px;
+  height: 100%;
+}
+
+.information{
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.information .header-information{
+  width: 100%;
+  height: 220px;
+  margin-top: 20px;
+}
+
+.information .header-information .center {
+  width: 150px;
+  margin: 0 auto;
+}
+
+.information .header-information .avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 150px;
+  margin: 0 auto;
+}
+
+.information .header-information p{
+  text-align: center;
+  font-size: 30px;
+  margin-top: 10px;
+}
+
+.information .manager-information-user {
+  width: 99%;
+  margin: 0 auto;
+}
+
+.information .manager-information-user hr {
+  margin: 0;
+}
+
+.information .manager-information-user ul {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.information .manager-information-user ul li {
+  width: 100%;
+  height: 70px;
+  list-style: none;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.information .manager-information-user ul li:hover {
+  background-color: #BBBBBB;
+}
+
+.information .manager-information-user ul li a {
+  position: relative;
+  top: 20px;
+  text-decoration: none;
+  color: #111;
+  font-size: 20px;
 }
