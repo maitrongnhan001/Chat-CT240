@@ -7,8 +7,8 @@ export default class Chat extends Component {
         super(props);
     }
     scrollToBottom = () => {
-        this.messagesEnd.scrollIntoView({ behavior: "smooth" });
-      }
+        this.messagesEnd.scrollIntoView({ behavior: "auto" });
+    }
       
     componentDidMount() {
         this.scrollToBottom();
@@ -18,6 +18,7 @@ export default class Chat extends Component {
         this.scrollToBottom();
     }
     render () {
+        console.log(this.props);
         return (
             <div className = "chat">
                 {this.props.Contents.map((Content) => {
@@ -25,7 +26,6 @@ export default class Chat extends Component {
                         let PathAvatar = "";
                         this.props.user.forEach((UserInfor) => {
                             if(UserInfor.UserName === Content.UserName){
-                                console.log(Content);
                                 PathAvatar = UserInfor.PathAvatar;
                             }
                         });

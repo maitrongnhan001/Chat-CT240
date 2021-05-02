@@ -1,0 +1,47 @@
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html lang="en">
+    <%- include('./Layouts/Header.ejs'); -%>
+<body>
+<!-- main -->
+<div class="center-container">
+	<!--header-->
+	<div class="header-w3l">
+		<h1>Online Login Form</h1>
+	</div>
+	<!--//header-->
+	<div class="main-content-agile">
+		<div class="sub-main-w3">	
+			<div class="wthree-pro">
+				<h2>Login Quick</h2>
+			</div>
+			<form action="/Login" method="post">
+                <div class="pom-agile">
+					<input placeholder="User Name" name="UserName" class="user" type="text" required="">
+					<span class="icon1"><i class="fa fa-user" aria-hidden="true"><%= Message.MessageUserName %></i></span>
+				</div>
+				<div class="pom-agile">
+					<input  placeholder="Password" name="Password" class="pass" type="password" required="">
+					<span class="icon2"><i class="fa fa-unlock" aria-hidden="true"><%= Message.MessagePassword %></i></span>
+				</div>
+				<div class="sub-w3l">
+                    <div class="row">
+                        <h6 class="left"><a href="/Register">Register</a></h6>
+					    <h6 class="right"><a href="#">Forgot Password?</a></h6>
+                    </div>
+					<div class="right-w3l">
+						<input type="submit" value="Login">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--//main-->
+    <%- include('./Layouts/Footer.ejs'); -%>
+</div>
+</body>
+</html>

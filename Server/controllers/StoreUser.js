@@ -1,0 +1,18 @@
+const User = require('../models/User.js');
+const path = require('path');
+
+module.exports = (req, res) => {
+    let image = req.files.image;
+    image.mv(path.resolve(__dirname, '../public/images/AvatarUsers', image.name), function (error) {
+        User.create({
+                UserName: req.body.Username,
+                Password: req.body.Password,
+                PathAvatar: '/images/AvatarUsers/' + image.name
+            }, function (err, UserInfo) {
+                if(err) {
+                    return res.render('Register', {MessageUser: 'User is exist'});
+                }
+                res.redirect('/');
+            });
+        });
+}

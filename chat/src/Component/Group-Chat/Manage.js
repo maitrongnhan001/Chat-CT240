@@ -11,7 +11,7 @@ export default class Manage extends Component {
                 <span className = "arrow-down"></span>
                 <div className = "menu-manage">
                     <ul>
-                        <li><a href = "/">Delete Group</a></li>
+                        <li><a href = "http://localhost:4000">Delete Group</a></li>
                         <hr/>
                         <li><a href = "/">Group Management</a></li>
                         <hr/>

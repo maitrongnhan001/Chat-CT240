@@ -602,17 +602,40 @@ export default class App extends Component {
                     ]
                 },
             ],
-            UserChat : {
-                UserName: "",
-                PathAvatar: "./img/Account/white.jpg"
-            },
-            Contents: [
-                {
-                    UserName: "",
-                    Content: "",
-                    Time: new Date()
-                }
+            ManageItems: [
+                "Add Group",
+                "Delete Chat",
+            ],
+            LinkItems: [
+                "/",
+                "/"
             ]
+        }
+    }
+    //check manager information
+    checkManage = (UserChatInformation) =>{
+        if(UserChatInformation.indexOf("G") != -1){
+            this.setState({
+                ManageItems: [
+                    "Add User",
+                    "Out Group",
+                ],
+                LinkItems: [
+                    "/",
+                    "/"
+                ]
+            });
+        }else{
+            this.setState({
+                ManageItems: [
+                    "Add Group",
+                    "Delete Chat",
+                ],
+                LinkItems: [
+                    "/",
+                    "/"
+                ]
+            });
         }
     }
     //click from list user
@@ -642,6 +665,19 @@ export default class App extends Component {
             UserChat: user,
             Contents: chatContent
         });
+        this.checkManage(UserChatInformation);
+    }
+
+    componentWillMount() {
+        //when first render componnet then set state: UserChat and Contents
+        //after switch the first data to component chat
+        let UserChatData, ContentsData;
+        UserChatData = this.state.user[0];
+        ContentsData = this.state.ListChatContent[0].Chat;
+        this.setState({
+            UserChat: UserChatData,
+            Contents: ContentsData
+        })
     }
 
     render () {
@@ -666,7 +702,10 @@ export default class App extends Component {
                     <Input />
                 </div>
                 <div className = "chat-app-container-col-3">
-                    <Infomation  UserChat = {this.state.UserChat}/>
+                    <Infomation  UserChat = {this.state.UserChat}
+                                Manage = {this.state.ManageItems}
+                                Link = {this.state.LinkItems}
+                    />
                 </div>
             </div>
         );

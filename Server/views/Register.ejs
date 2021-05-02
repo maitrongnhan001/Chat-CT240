@@ -1,0 +1,53 @@
+<!--Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html lang="en">
+    <%- include('./Layouts/Header.ejs'); -%>
+<body>
+<!-- main -->
+<div class="center-container">
+	<!--header-->
+	<div class="header-w3l">
+		<h1>Register</h1>
+	</div>
+	<!--//header-->
+	<div class="main-content-agile">
+		<div class="sub-main-w3">	
+			<div class="wthree-pro">
+				<h2>Register</h2>
+			</div>
+			<form action="/Register/StoreUser" method="post" enctype="multipart/form-data">
+				<div class="pom-agile">
+					<input placeholder="User Name" name="Username" class="user" type="text" required>
+					<span class="icon1"><i id="messageUser" class="fa fa-user" aria-hidden="true"><%= MessageUser %></i></span>
+				</div>
+				<div class="pom-agile">
+					<input  placeholder="Password" name="Password" class="pass" id="Pass" type="password" required>
+					<span class="icon2"><i id="messagePassword" class="fa fa-unlock" aria-hidden="true"></i></span>
+				</div>
+                <div class="pom-agile">
+					<input  placeholder="Enter Again Password" name="rePassword" class="pass" id="rePass" type="password" required>
+					<span class="icon2"><i id="messageRePassword" class="fa fa-unlock" aria-hidden="true"></i></span>
+				</div>
+                <div class="pom-agile">
+					<input placeholder="Choose Aavata to change" name="image" class="user" type="file" required>
+					<span class="icon1"><i id="messageAvatar" class="fa fa-user" aria-hidden="true"></i></span>
+				</div>
+                <div class="sub-w3l">
+					<div class="right-w3l">
+						<input id="btnSubmit" type="submit" value="Change">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<!--//main-->
+	<%- include('./Layouts/Footer.ejs') -%>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/app.js"></script>
+</div>
+</body>
+</html>
