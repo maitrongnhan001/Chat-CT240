@@ -18,7 +18,6 @@ export default class Chat extends Component {
         this.scrollToBottom();
     }
     render () {
-        console.log(this.props);
         return (
             <div className = "chat">
                 {this.props.Contents.map((Content) => {

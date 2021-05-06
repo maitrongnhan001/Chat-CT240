@@ -7,6 +7,9 @@ import HeaderChat from "./Component/Chat/Header.js";
 import Chat from "./Component/Chat/Chat.js";
 import Input from "./Component/Chat/Input.js";
 import Infomation from "./Component/Infomation/Infomation.js";
+import io from "socket.io-client";
+
+const ENDPOINT = 'http://localhost:4000';
 
 export default class App extends Component {
     constructor (props) {
@@ -678,6 +681,15 @@ export default class App extends Component {
             UserChat: UserChatData,
             Contents: ContentsData
         })
+    }
+
+    componentDidMount() {
+        const socket = io.connect(ENDPOINT, {
+            "force new connection" : true,
+            "reconnectionAttempts": "Infinity", 
+            "timeout" : 10000,                  
+            "transports" : ["websocket"]
+        });
     }
 
     render () {
