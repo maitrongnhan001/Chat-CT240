@@ -16,6 +16,7 @@ module.exports = (req, res) => {
             bcrypt.compare(Password, UserData.Password, (error, same) => {
                 if(same) {
                     //successfully
+                    req.session.UserName = UserData.UserName;
                     res.redirect('http://localhost:3000');
                 }else{
                     MessageData.Password = "Password is invalid";

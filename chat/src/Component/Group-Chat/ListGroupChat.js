@@ -17,24 +17,28 @@ export default class ListGroupChat extends Component {
     }
 
     componentWillMount () {
-        const ListUserChat_Temp = [];
+        let ListUserChat_Temp = [];
         this.props.ListChat.forEach((element) => {
-            if(element.ID.indexOf("G") != -1) {
-                ListUserChat_Temp.push({
-                    ID: element.ID,
-                    UserName: element.UserName,
-                    PathAvatar: element.PathAvatar
-                });
-            }else{
-                this.props.ListUser.forEach( (user) => {
-                    if(user.UserName === element.UserName) {
-                        ListUserChat_Temp.push({
-                            ID: element.ID,
-                            UserName: element.UserName,
-                            PathAvatar: user.PathAvatar
-                        });
-                    }
-                });
+            try{
+                if(element.ID.indexOf("G") != -1) {
+                    ListUserChat_Temp.push({
+                        ID: element.ID,
+                        UserName: element.UserName,
+                        PathAvatar: element.PathAvatar
+                    });
+                }else{
+                    this.props.ListUser.forEach( (user) => {
+                        if(user.UserName === element.UserName) {
+                            ListUserChat_Temp.push({
+                                ID: element.ID,
+                                UserName: element.UserName,
+                                PathAvatar: user.PathAvatar
+                            });
+                        }
+                    });
+                }
+            }catch(e){
+                ListUserChat_Temp = [];
             }
         });
         this.setState ({
