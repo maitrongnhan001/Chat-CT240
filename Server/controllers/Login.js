@@ -2,10 +2,6 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User.js');
 
 module.exports = (req, res) => {
-    const MessageData = {
-        MessageUserName: '',
-        MessagePassword: ''
-    }
     const {UserName, Password} = req.body;
     User.findOne(
         {
@@ -17,19 +13,14 @@ module.exports = (req, res) => {
                 if(same) {
                     //successfully
                     req.session.UserName = UserData.UserName;
-                    res.redirect('http://localhost:3000');
+                    //respone is api
+                    res.redirect('http://localhost:3000/chat');
                 }else{
-                    MessageData.Password = "Password is invalid";
-                    res.render('Login', {
-                        Message: MessageData
-                    });
+                    res.redirect('http://localhost:3000/LoginError');
                 }
             })
         }else{
-            MessageData.MessageUserName = 'User is not exist';
-            res.render('Login', {
-                Message: MessageData
-            });
+            res.redirect('http://localhost:3000/LoginError');
         }
     })
 }

@@ -27,8 +27,9 @@ nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
 img{max-width:100%;}
 /*end reset*/
-body {
-    background: url(../images/background/1.jpg)no-repeat center top;
+
+.center-container {
+    background: url(../images/background/1.jpg)no-repeat center top; 
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -38,6 +39,7 @@ body {
     background-position: center;
     text-align: center;
 	font-family: 'Open Sans', sans-serif;
+    height: 900px;
 }
 /*--header--*/
 .header-w3l {

@@ -10,9 +10,9 @@ module.exports = (req, res) => {
                 PathAvatar: '/images/AvatarUsers/' + image.name
             }, function (err, UserInfo) {
                 if(err) {
-                    return res.render('Register', {MessageUser: 'User is exist'});
+                    return res.redirect('http://localhost:3000/RegisterError')
                 }
-                res.redirect('/');
+                res.redirect('http://localhost:3000');
             });
         });
 }

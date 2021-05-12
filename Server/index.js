@@ -23,33 +23,23 @@ var io = require("socket.io")(server);
 const ChatController = require('./controllers/Chat.js');
 io.on('connection', ChatController);
 
-const LoginController = require('./controllers/LoginController.js');
-const RegisterController = require('./controllers/RegisterController.js');
-const DeleteController = require('./controllers/DeleteController.js');
+const Chat = require('./controllers/Chat.js');
 const UserManagementController = require('./controllers/UserManagementController.js');
 const StoreUser = require('./controllers/StoreUser.js');
 const Login = require('./controllers/Login.js');
+const SourceDataChat = require('./controllers/SourceDataChat.js');
 
 app.use(express.static('public'));
 
-app.get('/', LoginController);
-
-app.post('/Login', Login);
-
-app.get('/Delete', DeleteController);
-
-app.get('/Register', RegisterController);
-
-app.post('/Register/StoreUser', StoreUser);
+app.post('/Register/Store', StoreUser);
 
 app.get('/UserManagement', UserManagementController);
 
-const Chat = require('./controllers/Chat.js');
 app.get('/chat', Chat);
 
-app.post('/getData', (req, res) => {
+app.post('/api/login', Login);
 
-});
+app.post('/api/sourceDataChat', SourceDataChat);
 
 server.listen(4000, () => {
     console.log("OK. App listening on port 4000");
