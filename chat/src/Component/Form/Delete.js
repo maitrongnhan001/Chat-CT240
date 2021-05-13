@@ -1,5 +1,7 @@
 import { Component } from 'react';
 
+import '../../StyleForm.css'
+
 export default class Delete extends Component {
     render() {
         return (

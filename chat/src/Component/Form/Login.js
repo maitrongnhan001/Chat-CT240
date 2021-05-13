@@ -1,4 +1,7 @@
 import { Component } from "react";
+
+import '../../StyleForm.css'
+
 import axios from 'axios';
 export default class Login extends Component {
     constructor(props) {

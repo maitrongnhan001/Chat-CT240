@@ -13,9 +13,10 @@ const ENDPOINT = 'http://localhost:4000';
 export default class ChatApp extends Component {
     constructor(props) {
         super(props);
-        alert(this.props.MyUserName);
         this.state = {
             Me: {
+                MyName: String,
+                PathAvatar: String
             },
             user: [
                 {
@@ -34,6 +35,7 @@ export default class ChatApp extends Component {
                     ID: String,
                     Chat: [
                         {
+                            _id: String,
                             UserName: String,
                             Content: String,
                             Time: new Date()
@@ -116,7 +118,7 @@ export default class ChatApp extends Component {
         this.setState({
             UserChat: UserChatData,
             Contents: ContentsData
-        })
+        });
     }
 
     componentDidMount() {
@@ -126,14 +128,32 @@ export default class ChatApp extends Component {
             "timeout": 10000,
             "transports": ["websocket"]
         });
+        axios.get('/api/sourceDataChat')
+            .then(Response => {
+                this.setState({
+                    Me: Response.data.Me,
+                    user: Response.data.user,
+                    ListChat: Response.data.ListChat,
+                    ListChatContent: Response.data.ListChatContent
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
 
-        axios.post('/api/sourceDataChat')
-                .then(Response => {
-                    console.log(Response);
-                })
-                .catch(error => {
-                    console.log('loi');
-                })
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.Me !== prevState.Me) {
+            //when first render componnet then set state: UserChat and Contents
+            //after switch the first data to component chat
+            let UserChatData, ContentsData;
+            UserChatData = this.state.user[0];
+            ContentsData = this.state.ListChatContent[0].Chat;
+            this.setState({
+                UserChat: UserChatData,
+                Contents: ContentsData
+            });
+        }
     }
 
     render() {

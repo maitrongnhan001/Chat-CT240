@@ -39,7 +39,7 @@ app.get('/chat', Chat);
 
 app.post('/api/login', Login);
 
-app.post('/api/sourceDataChat', SourceDataChat);
+app.get('/api/sourceDataChat', SourceDataChat);
 
 server.listen(4000, () => {
     console.log("OK. App listening on port 4000");

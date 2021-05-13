@@ -1,10 +1,16 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 const ChatSchema = new Schema({
+    ListUser: [
+        {
+            UserName: String
+        },
+    ],
     ContentChat: [
         {
             UserName: String,
-            Content: String
+            Content: String,
+            Time: Date
         },
     ]
 });
