@@ -1,6 +1,17 @@
 import { Component } from "react";
 
 export default class Input extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            ContentData: ''
+        }
+    }
+
+    HandleContent = (event) => {
+        this.setState({ContentData: event.target.value});
+    }
+
     render() {
         return (
             <div className="input-chat">
@@ -9,11 +20,17 @@ export default class Input extends Component {
                         <div className="col-11">
                             <input className="message-chat"
                                 type="text"
+                                name="ContentChat"
+                                onChange={this.HandleContent}
                                 placeholder="Nhập tin nhắn">
                             </input>
                         </div>
                         <div className="col-1">
-                            <button className = "submit-message">
+                            <button className = "submit-message"
+                                    onClick = { () => this.props.HandleContentChat(
+                                        this.state.ContentData
+                                    )}
+                            >
                                 <svg aria-label="Direct"
                                     class="_8-yf5 "
                                     fill="#262626"

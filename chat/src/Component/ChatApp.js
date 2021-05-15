@@ -10,6 +10,13 @@ import Infomation from "./Infomation/Infomation.js";
 import io from "socket.io-client";
 const ENDPOINT = 'http://localhost:4000';
 
+const socket = io.connect(ENDPOINT, {
+    "force new connection": true,
+    "reconnectionAttempts": "Infinity",
+    "timeout": 10000,
+    "transports": ["websocket"]
+});
+
 export default class ChatApp extends Component {
     constructor(props) {
         super(props);
@@ -104,30 +111,53 @@ export default class ChatApp extends Component {
         });
         this.setState({
             UserChat: user,
-            Contents: chatContent
+            Contents: chatContent,
+            IdData: UserChatInformation
         });
         this.checkManage(UserChatInformation);
+    }
+
+    //send message
+    HandleContentChat = (ContentData) => {
+        let TimeData = new Date();
+        //set data
+        const ChatData = {
+            UserName: this.state.Me.MyName,
+            Content: ContentData,
+            Time: TimeData.getTime()
+        };
+        //get ListChatContent
+        let StateListChatContent = this.state.ListChatContent;
+        //Find elemet of ListChatContent by IdData
+        let index;
+        for(index in StateListChatContent) {
+            if(StateListChatContent[index].ID === this.state.IdData) {
+                StateListChatContent[index].Chat.push(ChatData);
+                break;
+            }
+        }
+        //set state
+        this.setState({
+            ListChatContent: StateListChatContent
+        });
+        socket.emit('client-send-data', ChatData);
     }
 
     componentWillMount() {
         //when first render componnet then set state: UserChat and Contents
         //after switch the first data to component chat
-        let UserChatData, ContentsData;
+        let UserChatData, ContentsData, Id;
         UserChatData = this.state.user[0];
         ContentsData = this.state.ListChatContent[0].Chat;
+        Id = this.state.ListChatContent[0].ID;
         this.setState({
             UserChat: UserChatData,
-            Contents: ContentsData
+            Contents: ContentsData,
+            IdData: Id
         });
     }
 
     componentDidMount() {
-        const socket = io.connect(ENDPOINT, {
-            "force new connection": true,
-            "reconnectionAttempts": "Infinity",
-            "timeout": 10000,
-            "transports": ["websocket"]
-        });
         axios.get('/api/sourceDataChat')
             .then(Response => {
                 this.setState({
@@ -146,12 +176,14 @@ export default class ChatApp extends Component {
         if (this.state.Me !== prevState.Me) {
             //when first render componnet then set state: UserChat and Contents
             //after switch the first data to component chat
-            let UserChatData, ContentsData;
+            let UserChatData, ContentsData, Id;
             UserChatData = this.state.user[0];
             ContentsData = this.state.ListChatContent[0].Chat;
+            Id = this.state.ListChatContent[0].ID;
             this.setState({
                 UserChat: UserChatData,
-                Contents: ContentsData
+                Contents: ContentsData,
+                IdData: Id
             });
         }
     }
@@ -175,7 +207,9 @@ export default class ChatApp extends Component {
                         UserChat={this.state.UserChat}
                         Contents={this.state.Contents}
                     />
-                    <Input />
+                    <Input
+                        HandleContentChat = {this.HandleContentChat}
+                    />
                 </div>
                 <div className="chat-app-container-col-3">
                     <Infomation UserChat={this.state.UserChat}

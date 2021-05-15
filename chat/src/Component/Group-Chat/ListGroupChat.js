@@ -43,7 +43,6 @@ export default class ListGroupChat extends Component {
                 ListUserChat_Temp = [];
             }
         });
-        console.log(prevState);
         if(ListUserChat_Temp !== prevState.ListUserChat) {
             return { ListUserChat: ListUserChat_Temp };
         }

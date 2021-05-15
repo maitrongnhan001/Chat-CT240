@@ -87,7 +87,6 @@ module.exports = (req, res) => {
                 const Data = {
                     Me, user, ListChat, ListChatContent
                 }
-                console.log(Data);
                 res.json({
                     Me, user, ListChat, ListChatContent
                 })

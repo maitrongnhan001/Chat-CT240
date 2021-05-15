@@ -1,4 +1,4 @@
-/* format form */
+
 /*--
 Author: W3layouts
 Author URL: http://w3layouts.com
@@ -70,15 +70,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	font-family: 'Open Sans', sans-serif;
     letter-spacing: 1px;
 }
-.row{
+.center-container .main-content-agile .row{
     position: relative;
     display: flex;
 }
-.row .left{
+.center-container .main-content-agile .row .left{
     position: absolute;
     left: 0;
 }
-.row .right{
+.center-container .main-content-agile .row .right{
     position: absolute;
     right: 0;
 }
@@ -148,15 +148,15 @@ span.icon2 {
 /*--//main--*/
 
 /*--footer--*/
-.footer p {
+.center-container .footer p {
     font-size: .9em;
     color: white;
     letter-spacing: 2px;
 }
-.footer p a {
+.center-container .footer p a {
     color: #fff;
 }
-.footer p a:hover {
+.center-container .footer p a:hover {
     color: #ea2858;
 }
 /*--//footer--*/
@@ -170,10 +170,10 @@ span.icon2 {
 
 }
 @media(max-width: 1440px){
-	.footer {
+	.center-container .footer {
 		padding-bottom: 3em;
 	}
-	.sub-main-w3 {
+	.center-container .sub-main-w3 {
 		width: 29%;
 		margin: 7em auto 9em;
 	}
@@ -208,7 +208,7 @@ span.icon2 {
 		width: 42%;
 		margin: 6em auto 8em;
 	}
-	.footer {
+	.center-container .footer {
 		padding-bottom: 2.5em;
 	}
 }
@@ -236,7 +236,7 @@ span.icon2 {
 	}
 }
 @media(max-width: 667px){
-	.footer {
+	.center-container .footer {
 		padding-bottom: 2em;
 	}
 }
@@ -250,7 +250,7 @@ span.icon2 {
 	.sub-main-w3 input[type="submit"] {
 		font-size: .95em;
 	}
-	.footer p {
+	.center-container .footer p {
 		letter-spacing: 1px;
 	}
 	.right-w3l {
@@ -282,7 +282,7 @@ span.icon2 {
 		width: 69%;
 		margin: 6em auto 6.3em;
 	}
-	.footer p {
+	.center-container .footer p {
 		line-height: 1.9;
 	}
 }
@@ -344,7 +344,7 @@ span.icon2 {
 	.sub-main-w3 input[type="submit"] {
 		font-size: .8em;
 	}
-	.footer p {
+	.center-container .footer p {
 		font-size: .8em;
 	}
 	.sub-main-w3 {
@@ -355,11 +355,10 @@ span.icon2 {
 		width: 80%;
 	}
 }
-/*--//responsive--*/
+/*--responsive--*/
 
 .ErrorMessage {
     color: red;
     padding: 10px;
 }
 
-/* font */
