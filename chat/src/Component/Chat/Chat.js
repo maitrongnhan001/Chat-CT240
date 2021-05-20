@@ -13,6 +13,10 @@ export default class Chat extends Component {
     componentDidMount() {
         this.scrollToBottom();
     }
+
+    componentWillUpdate() {
+        this.scrollToBottom();
+    }
       
     componentDidUpdate() {
         this.scrollToBottom();

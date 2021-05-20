@@ -1,15 +1,19 @@
-const ChatSchema = require('../models/Chat.js');
+const Chat = require('../models/Chat.js');
 const User = require('../models/User.js');
 const RoomChat = require('../models/RoomChat.js');
-
+let count = 0;
 module.exports = (Socket) => {
-    console.log("Connecting");
-
-    Socket.on("client-send-data", Data => {
+    //join all room
+    let IdData;
+    Socket.on('Client-join-room', Data => {
+        IdData = Data;
         console.log(Data);
-    })
-
-    Socket.on('disconnect', () => {
-        console.log(Socket.id + 'ngat ket noi');
-    })
+        Data.forEach( element => {
+            Socket.join(element);
+        });
+    });
+    //listening client send message
+    Socket.on("Client-send-data", Data => {
+        Socket.to(Data.Id).emit('Server-send-data', Data);
+    });
 }

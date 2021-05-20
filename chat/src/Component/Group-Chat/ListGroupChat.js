@@ -39,9 +39,7 @@ export default class ListGroupChat extends Component {
                         }
                     });
                 }
-            } catch (e) {
-                ListUserChat_Temp = [];
-            }
+            } catch (e) {}
         });
         if(ListUserChat_Temp !== prevState.ListUserChat) {
             return { ListUserChat: ListUserChat_Temp };

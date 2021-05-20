@@ -3,7 +3,6 @@ const Chat = require('../models/Chat.js');
 const RoomChat = require('../models/RoomChat.js')
 
 module.exports = (req, res) => {
-    console.log(req.session.UserName);
     //find all chat
     let Me = {};
     let user = [];
@@ -53,7 +52,7 @@ module.exports = (req, res) => {
             //get user chated
             ListChat.forEach(ValueUser1 => {
                 UserData.forEach(ValueUser2 => {
-                    if(ValueUser2.UserName == ValueUser1.UserName) {
+                    if (ValueUser2.UserName == ValueUser1.UserName) {
                         user.push({
                             UserName: ValueUser2.UserName,
                             PathAvatar: ValueUser2.PathAvatar
@@ -65,18 +64,18 @@ module.exports = (req, res) => {
             UserData.forEach(ValueUser1 => {
                 let found = true;
                 ListChat.forEach(ValueUser2 => {
-                    if(ValueUser1.UserName == ValueUser2.UserName ||
-                    ValueUser1.UserName == req.session.UserName) {
+                    if (ValueUser1.UserName == ValueUser2.UserName ||
+                        ValueUser1.UserName == req.session.UserName) {
                         found = false;
                     }
                 });
-                if(found) {
+                if (found) {
                     user.push({
                         UserName: ValueUser1.UserName,
                         PathAvatar: ValueUser1.PathAvatar
                     });
                 }
-            }); 
+            });
             User.findOne({
                 UserName: req.session.UserName
             }, (error, UserData1) => {

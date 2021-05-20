@@ -122,6 +122,7 @@ export default class ChatApp extends Component {
         let TimeData = new Date();
         //set data
         const ChatData = {
+            Id: this.state.IdData,
             UserName: this.state.Me.MyName,
             Content: ContentData,
             Time: TimeData.getTime()
@@ -130,8 +131,8 @@ export default class ChatApp extends Component {
         let StateListChatContent = this.state.ListChatContent;
         //Find elemet of ListChatContent by IdData
         let index;
-        for(index in StateListChatContent) {
-            if(StateListChatContent[index].ID === this.state.IdData) {
+        for (index in StateListChatContent) {
+            if (StateListChatContent[index].ID === this.state.IdData) {
                 StateListChatContent[index].Chat.push(ChatData);
                 break;
             }
@@ -140,7 +141,7 @@ export default class ChatApp extends Component {
         this.setState({
             ListChatContent: StateListChatContent
         });
-        socket.emit('client-send-data', ChatData);
+        socket.emit('Client-send-data', ChatData);
     }
 
     componentWillMount() {
@@ -172,6 +173,33 @@ export default class ChatApp extends Component {
             });
     }
 
+    componentWillUpdate(prevProps, prevState, snapshot) {
+        if (this.state.ListChatContent !== prevState.ListChatContent) {
+            console.log('loiii');
+            socket.on('Server-send-data', Data => {
+                //set data
+                const ServerChatData = {
+                    UserName: Data.UserName,
+                    Content: Data.Content,
+                    Time: Data.Time
+                };
+                //get list chat content
+                let ListChatContent = this.state.ListChatContent;
+                let index;
+                for (index in ListChatContent) {
+                    if (ListChatContent[index].ID === Data.Id) {
+                        console.log(ServerChatData);
+                        ListChatContent[index].Chat.push(ServerChatData);
+                        break;
+                    }
+                }
+                this.setState({
+                    ListChatContent: ListChatContent
+                });
+            });
+        }
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.state.Me !== prevState.Me) {
             //when first render componnet then set state: UserChat and Contents
@@ -185,6 +213,13 @@ export default class ChatApp extends Component {
                 Contents: ContentsData,
                 IdData: Id
             });
+            //take list id to join room
+            let ListId = [];
+            this.state.ListChatContent.forEach(element => {
+                ListId.push(element.ID);
+            });
+            //request join room chat
+            socket.emit('Client-join-room', ListId);
         }
     }
 
@@ -208,7 +243,7 @@ export default class ChatApp extends Component {
                         Contents={this.state.Contents}
                     />
                     <Input
-                        HandleContentChat = {this.HandleContentChat}
+                        HandleContentChat={this.HandleContentChat}
                     />
                 </div>
                 <div className="chat-app-container-col-3">
