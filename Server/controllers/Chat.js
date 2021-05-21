@@ -7,13 +7,25 @@ module.exports = (Socket) => {
     let IdData;
     Socket.on('Client-join-room', Data => {
         IdData = Data;
-        console.log(Data);
         Data.forEach( element => {
             Socket.join(element);
         });
     });
     //listening client send message
     Socket.on("Client-send-data", Data => {
+        //store message to database
+        const ID = Data.Id.substr(1);
+        Chat.findById(ID, (err, ChatData) => {
+            ChatData.ContentChat.push({
+                UserName: Data.UserName,
+                Content: Data.Content,
+                Time: Data.Time
+            });
+            console.log(ChatData);
+            Chat.findByIdAndUpdate(ID, ChatData , error => {
+                console.log(error);
+            });
+        });
         Socket.to(Data.Id).emit('Server-send-data', Data);
     });
 }

@@ -19,7 +19,7 @@ app.use(expressSession({
 var server = require("http").Server(app);
 var io = require("socket.io")(server);
 
-
+//socket
 const ChatController = require('./controllers/Chat.js');
 io.on('connection', ChatController);
 
@@ -29,6 +29,7 @@ const StoreUser = require('./controllers/StoreUser.js');
 const Login = require('./controllers/Login.js');
 const SourceDataChat = require('./controllers/SourceDataChat.js');
 
+//requests
 app.use(express.static('public'));
 
 app.post('/Register/Store', StoreUser);
@@ -41,6 +42,7 @@ app.post('/api/login', Login);
 
 app.get('/api/sourceDataChat', SourceDataChat);
 
+//listening in port 4000
 server.listen(4000, () => {
     console.log("OK. App listening on port 4000");
 });
