@@ -47,10 +47,33 @@ module.exports = (req, res) => {
                 }
             });
         }
-        //xap xep ListChatContent theo thoi gian
-
-        //xap xep ListChat theo thoi gian
-        
+        //Sort array ListChatContent by time
+        //dung sap xep noi bot
+        // let i,j;
+        for(i = 0; i < ListChatContent.length; i++) {
+            for(j = i; j < ListChatContent.length; j++) {
+                //create new time
+                const tI = new Date(ListChatContent[i].Chat[ListChatContent[i].Chat.length - 1].Time);
+                const tJ = new Date(ListChatContent[j].Chat[ListChatContent[j].Chat.length - 1].Time);
+                //compare two date
+                if(tI.getTime() < tJ.getTime()){
+                        //if time i < time j => then swap ListChatContent i and ListChatContent j
+                        //and ListChat
+                        //swap ListChatContent
+                        let ListChatContentTemp = ListChatContent[i];
+                        ListChatContent[i] = ListChatContent[j];
+                        ListChatContent[j] = ListChatContentTemp;
+                        //swap ListChat
+                        let ListChatTemp = ListChat[i];
+                        ListChat[i] = ListChat[j];
+                        ListChat[j] = ListChatTemp;
+                    }
+            }
+        }
+        //check
+        console.log(ListChat);
+        console.log("\n---------------------------------\n");
+        console.log(ListChatContent);
         //get all user
         User.find({}, (errorUser, UserData) => {
             //get user chated
