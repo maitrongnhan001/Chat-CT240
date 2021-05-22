@@ -129,18 +129,40 @@ export default class ChatApp extends Component {
         };
         //get ListChatContent
         let StateListChatContent = this.state.ListChatContent;
+        let ListChat = this.state.ListChat;
         //Find elemet of ListChatContent by IdData
         let index;
-        for (index in StateListChatContent) {
+        for (index = 0; index < StateListChatContent.length; index++) {
             if (StateListChatContent[index].ID === this.state.IdData) {
                 StateListChatContent[index].Chat.push(ChatData);
+                //swap element listChatContent
+                let i, temp;
+                temp = StateListChatContent[index];
+                for(i = index; i < StateListChatContent.length - 1; i++) {
+                    StateListChatContent[i] = StateListChatContent[i + 1]; 
+                }
+                //xoa phan tu cuoi
+                StateListChatContent.pop();
+                //chuyen len dau
+                StateListChatContent.unshift(temp);
+                //swap element listChat
+                temp = ListChat[index];
+                for(i = index; i < ListChat.length - 1; i++) {
+                    ListChat[i] = ListChat[i + 1];
+                }
+                //xoa phan tu cuoi
+                ListChat.pop()
+                //chuyen len dau
+                ListChat.unshift(temp);
                 break;
             }
         }
         //set state
         this.setState({
+            ListChat: ListChat,
             ListChatContent: StateListChatContent
         });
+        //send message to server
         socket.emit('Client-send-data', ChatData);
     }
 
@@ -175,7 +197,6 @@ export default class ChatApp extends Component {
 
     componentWillUpdate(prevProps, prevState, snapshot) {
         if (this.state.ListChatContent !== prevState.ListChatContent) {
-            console.log('loiii');
             socket.on('Server-send-data', Data => {
                 //set data
                 const ServerChatData = {
