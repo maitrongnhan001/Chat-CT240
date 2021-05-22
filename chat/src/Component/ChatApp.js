@@ -50,14 +50,8 @@ export default class ChatApp extends Component {
                     ]
                 }
             ],
-            ManageItems: [
-                "Add Group",
-                "Delete Chat",
-            ],
-            LinkItems: [
-                "/",
-                "/"
-            ]
+            ManageItems: [],
+            LinkItems: []
         }
     }
     //check manager information
@@ -74,16 +68,18 @@ export default class ChatApp extends Component {
                 ]
             });
         } else {
-            this.setState({
-                ManageItems: [
-                    "Add Group",
-                    "Delete Chat",
-                ],
-                LinkItems: [
-                    "/",
-                    "/"
-                ]
-            });
+            if (UserChatInformation.indexOf("U") != -1) {
+                this.setState({
+                    ManageItems: [
+                        "Add Group",
+                        "Delete Chat",
+                    ],
+                    LinkItems: [
+                        "/",
+                        "/"
+                    ]
+                });
+            }
         }
     }
     //click from list user
@@ -138,8 +134,8 @@ export default class ChatApp extends Component {
                 //swap element listChatContent
                 let i, temp;
                 temp = StateListChatContent[index];
-                for(i = index; i < StateListChatContent.length - 1; i++) {
-                    StateListChatContent[i] = StateListChatContent[i + 1]; 
+                for (i = index; i < StateListChatContent.length - 1; i++) {
+                    StateListChatContent[i] = StateListChatContent[i + 1];
                 }
                 //xoa phan tu cuoi
                 StateListChatContent.pop();
@@ -147,7 +143,7 @@ export default class ChatApp extends Component {
                 StateListChatContent.unshift(temp);
                 //swap element listChat
                 temp = ListChat[index];
-                for(i = index; i < ListChat.length - 1; i++) {
+                for (i = index; i < ListChat.length - 1; i++) {
                     ListChat[i] = ListChat[i + 1];
                 }
                 //xoa phan tu cuoi
@@ -225,15 +221,17 @@ export default class ChatApp extends Component {
         if (this.state.Me !== prevState.Me) {
             //when first render componnet then set state: UserChat and Contents
             //after switch the first data to component chat
-            let UserChatData, ContentsData, Id;
-            UserChatData = this.state.user[0];
-            ContentsData = this.state.ListChatContent[0].Chat;
-            Id = this.state.ListChatContent[0].ID;
-            this.setState({
-                UserChat: UserChatData,
-                Contents: ContentsData,
-                IdData: Id
-            });
+            try {
+                let UserChatData, ContentsData, Id;
+                UserChatData = this.state.user[0];
+                ContentsData = this.state.ListChatContent[0].Chat;
+                Id = this.state.ListChatContent[0].ID;
+                this.setState({
+                    UserChat: UserChatData,
+                    Contents: ContentsData,
+                    IdData: Id
+                });
+            } catch (e) { }
             //take list id to join room
             let ListId = [];
             this.state.ListChatContent.forEach(element => {

@@ -8,13 +8,11 @@ export default class Manager extends Component {
         return (
             <div className = "manager-information-user">
                 <ul>
-                    <li>
-                        <a href = {this.props.Link[0]}>{this.props.Manage[0]}</a>
-                    </li>
-                    <hr />
-                    <li>
-                        <a href = {this.props.Link[1]}>{this.props.Manage[1]}</a>
-                    </li>
+                    {
+                        this.props.Link.map( (Element, index) => {
+                            return <a href = {this.props.Link[index]}>{this.props.Manage[index]}</a>;
+                        })
+                    }
                     <hr />
                     <li>
                         <a href = "/">Logout</a>

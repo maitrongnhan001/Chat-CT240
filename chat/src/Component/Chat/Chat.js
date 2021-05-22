@@ -15,6 +15,7 @@ export default class Chat extends Component {
     }
 
     componentWillUpdate() {
+        
         this.scrollToBottom();
     }
       
@@ -25,13 +26,17 @@ export default class Chat extends Component {
         return (
             <div className = "chat">
                 {this.props.Contents.map((Content) => {
-                    if(this.props.Me.MyName != Content.UserName && Content.UserName !=""){
+                    if(this.props.Me.MyName != Content.UserName && Content.UserName != ""){
                         let PathAvatar = "";
+                        //take info user
                         this.props.user.forEach((UserInfor) => {
                             if(UserInfor.UserName === Content.UserName){
                                 PathAvatar = UserInfor.PathAvatar;
                             }
                         });
+                        if(PathAvatar === "") {
+                            return null;
+                        }
                         return <UserChat PathAvatar = {PathAvatar}
                             Content = {Content.Content}/>
                     }else{

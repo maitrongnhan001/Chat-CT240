@@ -3,6 +3,7 @@ const path = require('path');
 
 module.exports = (req, res) => {
     let image = req.files.image;
+    //store image of user
     image.mv(path.resolve(__dirname, '../public/images/AvatarUsers', image.name), function (error) {
         User.create({
                 UserName: req.body.Username,

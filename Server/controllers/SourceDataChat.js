@@ -47,7 +47,7 @@ module.exports = (req, res) => {
                 }
             });
         }
-        //Sort array ListChatContent by time
+        //Sort array ListChatContent and ListChat by time
         //dung sap xep noi bot
         // let i,j;
         for(i = 0; i < ListChatContent.length; i++) {
@@ -70,10 +70,6 @@ module.exports = (req, res) => {
                     }
             }
         }
-        //check
-        console.log(ListChat);
-        console.log("\n---------------------------------\n");
-        console.log(ListChatContent);
         //get all user
         User.find({}, (errorUser, UserData) => {
             //get user chated
@@ -90,12 +86,14 @@ module.exports = (req, res) => {
             //get user will chat
             UserData.forEach(ValueUser1 => {
                 let found = true;
+                //find order user not chat and order me
                 ListChat.forEach(ValueUser2 => {
                     if (ValueUser1.UserName == ValueUser2.UserName ||
                         ValueUser1.UserName == req.session.UserName) {
                         found = false;
                     }
                 });
+                //if true then set data to user
                 if (found) {
                     user.push({
                         UserName: ValueUser1.UserName,
@@ -103,6 +101,7 @@ module.exports = (req, res) => {
                     });
                 }
             });
+            //find information of me
             User.findOne({
                 UserName: req.session.UserName
             }, (error, UserData1) => {
@@ -110,17 +109,15 @@ module.exports = (req, res) => {
                     MyName: UserData1.UserName,
                     PathAvatar: UserData1.PathAvatar
                 };
+                //set all data
                 const Data = {
                     Me, user, ListChat, ListChatContent
                 }
+                //return for client
                 res.json({
                     Me, user, ListChat, ListChatContent
                 })
             });
         });
     });
-
-    // res.json({
-    //     Name: 'Tran Thi Diem Em'
-    // });
 }
