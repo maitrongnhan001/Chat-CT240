@@ -47,6 +47,10 @@ module.exports = (req, res) => {
                 }
             });
         }
+        //xap xep ListChatContent theo thoi gian
+
+        //xap xep ListChat theo thoi gian
+        
         //get all user
         User.find({}, (errorUser, UserData) => {
             //get user chated
