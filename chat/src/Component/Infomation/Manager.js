@@ -1,23 +1,28 @@
-import {Component} from "react";
+import { Component } from "react";
 
 export default class Manager extends Component {
     constructor(props) {
         super(props);
     }
-    render () {
+    render() {
         return (
-            <div className = "manager-information-user">
+            <div className="manager-information-user">
                 <ul>
                     {
-                        this.props.Link.map( (Element, index) => {
-                            return <a href = {this.props.Link[index]}>{this.props.Manage[index]}</a>;
+                        this.props.Link.map((Element, index) => {
+                            return (
+                                    <div>
+                                        <li>
+                                            <a href = {this.props.Link[index]}>{this.props.Manage[index]}</a>
+                                        </li>
+                                        <hr/>
+                                    </div>
+                                    )
                         })
                     }
-                    <hr />
                     <li>
-                        <a href = "/">Logout</a>
+                        <a href="/">Logout</a>
                     </li>
-                    <hr />
                 </ul>
             </div>
         );

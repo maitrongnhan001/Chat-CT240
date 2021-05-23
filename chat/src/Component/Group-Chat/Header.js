@@ -4,7 +4,10 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            StatusManage: "hide"
+            StatusManage: "hide",
+            StatusSearch: "input-search",
+            StatusBtnExit: "hide",
+            valueSreach:""
         }
     };
     StatusManage = false;
@@ -21,12 +24,23 @@ export default class Header extends Component {
         //set layout ListGroupChat
         this.props.InputSreachClick();
         //set InputSreach
+        this.setState({
+            StatusSearch: "input-search searching",
+            StatusBtnExit: 'exit-search'
+        })
+    }
 
+    HandleContent = (event) => {
+        this.setState({ valueSreach: event.target.value });
     }
 
     ExitClick = () => {
         //set InputSreach
-        
+        this.setState({
+            StatusSearch: "input-search",
+            StatusBtnExit: 'hide',
+            valueSreach:""
+        })
     }
 
     render() {
@@ -58,17 +72,17 @@ export default class Header extends Component {
                         <div className="col-11">
                             <input
                                 role="combobox" placeholder="         Tìm kiếm trên Messenger"
-                                class="input-search searching"
-                                onClick={
-                                    () => this.InputSreachClick()
-                                }
+                                class={this.state.StatusSearch}
+                                value={this.state.valueSreach}
+                                onChange={this.HandleContent}
+                                onClick={this.InputSreachClick}
                                 type="text" >
                             </input>
                         </div>
                     </div>
                 </div>
-                <div className="exit-search"
-                
+                <div className={this.state.StatusBtnExit} 
+                    onClick={this.ExitClick}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="icon-exit" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
