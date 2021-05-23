@@ -242,11 +242,17 @@ export default class ChatApp extends Component {
         }
     }
 
+    InputSreachClick = () => {
+        console.log("recvie message");
+    }
+
     render() {
         return (
             <div className="App">
                 <div className="chat-app-container-col-1">
-                    <HeaderListChat MyData={this.state.Me.PathAvatar} />
+                    <HeaderListChat MyData={this.state.Me.PathAvatar} 
+                        InputSreachClick={this.InputSreachClick}
+                    />
                     <ListGroupChat ListUser={this.state.user}
                         ClickChatUser={this.ClickChatUser}
                         ListChat={this.state.ListChat}

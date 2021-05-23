@@ -60,7 +60,6 @@ body {
   padding: 0 20px 0 20px;
   transition: 0.5s;
   position: relative;
-  top: 5px;
   z-index: 100;
 }
 
@@ -69,30 +68,7 @@ body {
 }
 
 .searching {
-    width: 95%;
-    left: 15%;
-    background-image: none;
-}
-
-.exit-search {
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
-    position: relative;
-    bottom: 35px;
-    left: 10px;
-    border: 0;
-    transition: all 0.5s;
-}
-
-.exit-search .icon-exit{
-    position: absolute;
-    left: 8px;
-    top: 7px;
-}
-
-.exit-search:hover {
-    background: #BBBBBB;
+    width: 90%;
 }
 /* Manage */
 .show {

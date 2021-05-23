@@ -9,7 +9,7 @@ export default class Input extends Component {
     }
 
     HandleContent = (event) => {
-        this.setState({ContentData: event.target.value});
+        this.setState({ ContentData: event.target.value });
     }
 
     render() {
@@ -21,15 +21,21 @@ export default class Input extends Component {
                             <input className="message-chat"
                                 type="text"
                                 name="ContentChat"
+                                value={this.state.ContentData}
                                 onChange={this.HandleContent}
                                 placeholder="Nhập tin nhắn">
                             </input>
                         </div>
                         <div className="col-1">
-                            <button className = "submit-message"
-                                    onClick = { () => this.props.HandleContentChat(
+                            <button className="submit-message"
+                                onClick={() => {
+                                    this.props.HandleContentChat(
                                         this.state.ContentData
-                                    )}
+                                    );
+                                    this.setState({
+                                        ContentData: ''
+                                    });
+                                }}
                             >
                                 <svg aria-label="Direct"
                                     class="_8-yf5 "
