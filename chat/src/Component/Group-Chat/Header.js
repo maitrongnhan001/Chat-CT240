@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Manage from "./Manage";
+let check = true;
 export default class Header extends Component {
     constructor(props) {
         super(props);
@@ -7,7 +8,7 @@ export default class Header extends Component {
             StatusManage: "hide",
             StatusSearch: "input-search",
             StatusBtnExit: "hide",
-            valueSreach:""
+            valueSearch: ""
         }
     };
     StatusManage = false;
@@ -19,28 +20,38 @@ export default class Header extends Component {
             this.setState({ StatusManage: "hide" });
         }
     }
-
     InputSreachClick = () => {
-        //set layout ListGroupChat
-        this.props.InputSreachClick();
-        //set InputSreach
-        this.setState({
-            StatusSearch: "input-search searching",
-            StatusBtnExit: 'exit-search'
-        })
+        if (check) {
+            //set layout ListGroupChat
+            this.props.InputSreachClick(check);
+            //set InputSreach
+            this.setState({
+                StatusSearch: "input-search searching",
+                StatusBtnExit: 'exit-search'
+            });
+            check = false;
+        }
     }
 
     HandleContent = (event) => {
-        this.setState({ valueSreach: event.target.value });
+        const OldValueSearch = this.state.valueSearch;
+        if(!(event.target.value == "" || 
+        (event.target.value - OldValueSearch) == " ")){
+            this.props.HandleInputSearch(event.target.value.trim());
+        }
+        this.setState({ valueSearch: event.target.value });
     }
 
     ExitClick = () => {
+        //set layout ListGroupChat
+        this.props.InputSreachClick(check);
         //set InputSreach
         this.setState({
             StatusSearch: "input-search",
             StatusBtnExit: 'hide',
-            valueSreach:""
-        })
+            valueSreach: ""
+        });
+        check = true;
     }
 
     render() {
@@ -81,7 +92,7 @@ export default class Header extends Component {
                         </div>
                     </div>
                 </div>
-                <div className={this.state.StatusBtnExit} 
+                <div className={this.state.StatusBtnExit}
                     onClick={this.ExitClick}
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="icon-exit" viewBox="0 0 16 16">

@@ -8,7 +8,7 @@ body {
 
 /* chat app container col 1 */
 .chat-app-container-col-1{
-  width: 340px;
+  width: 430px;
   height: 100%;
   margin: 0;
 }
@@ -206,7 +206,7 @@ body {
   border-left: 1px solid #BBBBBB;
   border-right: 1px solid #BBBBBB;
   margin-left: 10px;
-  width: 55%;
+  width: 50%;
   height: 100%;
 }
 
@@ -282,6 +282,7 @@ body {
 /* input chat */
 .input-chat {
   width: 95%;
+  height: 60px;
   margin: 0 auto;
 }
 

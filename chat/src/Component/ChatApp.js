@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import HeaderListChat from "./Group-Chat/Header.js";
 import ListGroupChat from "./Group-Chat/ListGroupChat";
+import Search from "./Group-Chat/Search.js"
 import HeaderChat from "./Chat/Header.js";
 import Chat from "./Chat/Chat.js";
 import Input from "./Chat/Input.js";
@@ -50,8 +51,19 @@ export default class ChatApp extends Component {
                     ]
                 }
             ],
+            //state manage information
             ManageItems: [],
-            LinkItems: []
+            LinkItems: [],
+            //state hide and show sreach
+            StatusListGroupChat: "ListGroupChat",
+            StatusSearch: "hide",
+            //state result search
+            Result: [
+                {
+                    UserName: String,
+                    PathAvatar: String
+                }
+            ]
         }
     }
     //check manager information
@@ -162,6 +174,59 @@ export default class ChatApp extends Component {
         socket.emit('Client-send-data', ChatData);
     }
 
+    //handle search
+    InputSreachClick = (check) => {
+        if (check) {
+            this.setState({
+                StatusListGroupChat: "hide",
+                StatusSearch: "ListGroupChat",
+            });
+        } else {
+            this.setState({
+                StatusListGroupChat: "ListGroupChat",
+                StatusSearch: "hide",
+            });
+        }
+    }
+
+    //handle input search
+    HandleInputSearch = (InputSearch) => {
+        //array list user
+        let ArrayUser = this.state.user;
+        //array list result search
+        let result = [];
+        //check
+        let count = 0;
+        //convert from string InputSearch to Array value
+        let value = Array.from(InputSearch);
+        //loop each element in array list user
+        ArrayUser.forEach((ElementUser, IndexUser) => {
+            //loop each element in string value
+            value.forEach((ElementKey, IndexKey) => {
+                if (ElementUser.UserName.indexOf(ElementKey) != -1) {
+                    count ++;
+                }
+            });
+            //check elemet value
+            if (count == value.length) {
+                result.push({
+                    UserName: ElementUser.UserName,
+                    PathAvatar: ElementUser.PathAvatar
+                });
+            }
+            count = 0;
+        });
+        //set result to state
+        this.setState({
+            Result: result
+        });
+    }
+
+    //click create room
+    ClickCreateRoom = (ValueUserName) => {
+        socket.emit("Client-add-friend", ValueUserName);
+    }
+    //life component
     componentWillMount() {
         //when first render componnet then set state: UserChat and Contents
         //after switch the first data to component chat
@@ -172,7 +237,8 @@ export default class ChatApp extends Component {
         this.setState({
             UserChat: UserChatData,
             Contents: ContentsData,
-            IdData: Id
+            IdData: Id,
+            Result: []
         });
     }
 
@@ -187,7 +253,6 @@ export default class ChatApp extends Component {
                 });
             })
             .catch(error => {
-                console.log(error);
             });
     }
 
@@ -205,7 +270,6 @@ export default class ChatApp extends Component {
                 let index;
                 for (index in ListChatContent) {
                     if (ListChatContent[index].ID === Data.Id) {
-                        console.log(ServerChatData);
                         ListChatContent[index].Chat.push(ServerChatData);
                         break;
                     }
@@ -242,20 +306,25 @@ export default class ChatApp extends Component {
         }
     }
 
-    InputSreachClick = () => {
-        console.log("recvie message");
-    }
-
     render() {
         return (
             <div className="App">
                 <div className="chat-app-container-col-1">
-                    <HeaderListChat MyData={this.state.Me.PathAvatar} 
+                    <HeaderListChat
+                        MyData={this.state.Me.PathAvatar}
                         InputSreachClick={this.InputSreachClick}
+                        HandleInputSearch={this.HandleInputSearch}
                     />
-                    <ListGroupChat ListUser={this.state.user}
+                    <ListGroupChat
+                        StatusListGroupChat={this.state.StatusListGroupChat}
+                        ListUser={this.state.user}
                         ClickChatUser={this.ClickChatUser}
                         ListChat={this.state.ListChat}
+                    />
+                    <Search
+                        StatusSreach={this.state.StatusSearch}
+                        ListUser={this.state.Result}
+                        ClickCreateRoom={this.ClickCreateRoom}
                     />
                 </div>
                 <div className="chat-app-container-col-2">

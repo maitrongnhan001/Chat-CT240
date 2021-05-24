@@ -21,11 +21,13 @@ module.exports = (Socket) => {
                 Content: Data.Content,
                 Time: Data.Time
             });
-            console.log(ChatData);
             Chat.findByIdAndUpdate(ID, ChatData , error => {
-                console.log(error);
             });
         });
         Socket.to(Data.Id).emit('Server-send-data', Data);
     });
+
+    Socket.on("Client-add-friend", Data => {
+        console.log(Data);
+    }) 
 }

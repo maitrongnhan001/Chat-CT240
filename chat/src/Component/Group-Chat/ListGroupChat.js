@@ -50,7 +50,7 @@ export default class ListGroupChat extends Component {
 
     render() {
         return (
-            <div className="ListGroupChat">
+            <div className={this.props.StatusListGroupChat}>
                 <hr />
                 <div className="chat-user">
                     <div className="container">
