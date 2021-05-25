@@ -360,6 +360,7 @@ export default class ChatApp extends Component {
                     Contents: ContentsData,
                     IdData: Id
                 });
+                this.checkManage(Id);
             } catch (e) { }
             //take list id to join room
             let ListId = [];
