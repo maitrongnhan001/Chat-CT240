@@ -251,9 +251,23 @@ export default class ChatApp extends Component {
         //check ListChatContent of user is exit?
         if (found) {
             socket.emit("Client-add-friend", Data);
-            socket.on("Server-send-add-friend", Data => {
-                //set chat for new user
-                
+            socket.on("Server-send-add-friend-to-me", IdChat => {
+                //set state userChat for new user
+                ListUser.push({
+                    ID: IdChat,
+                    UserName: Data.UserName
+                });
+                //set state ListChatContent for new user
+                let ListChatContent = this.state.ListChatContent;
+                ListChatContent.push({
+                    ID: IdChat,
+                    Chat: []
+                });
+                this.setState({
+                    ListChat: ListUser,
+                    ListChatContent: ListChatContent
+                });
+                this.ClickChatUser(IdChat);
             }); 
         }
     }
@@ -282,6 +296,8 @@ export default class ChatApp extends Component {
                     ListChat: Response.data.ListChat,
                     ListChatContent: Response.data.ListChatContent
                 });
+                //send my information to server
+                socket.emit("Client-send-my-information", Response.data.Me.MyName);
             })
             .catch(error => {
             });
@@ -308,6 +324,24 @@ export default class ChatApp extends Component {
                 this.setState({
                     ListChatContent: ListChatContent
                 });
+            });
+            socket.on('Server-send-add-friend-to-user', Data => {
+                let ListChat = this.state.ListChat;
+                let ListChatContent = this.state.ListChatContent;
+                ListChat.push(Data);
+                ListChatContent.push({
+                    ID: Data.ID,
+                    Chat: []
+                });
+                this.setState({
+                    ListChat: ListChat,
+                    ListChatContent: ListChatContent
+                });
+                //request join room chat
+                //join room
+                let ListID = [];
+                ListID.push(Data.ID);
+                socket.emit('Client-join-room', ListID);
             });
         }
     }

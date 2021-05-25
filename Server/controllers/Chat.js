@@ -1,13 +1,17 @@
 const Chat = require('../models/Chat.js');
 const User = require('../models/User.js');
 const RoomChat = require('../models/RoomChat.js');
-let count = 0;
+
+var ArrayUserOnline = [];
+
 module.exports = (Socket) => {
+    //receive information
+    Socket.on("Client-send-my-information", Data => {
+        Socket.join(Data);
+    });
     //join all room
-    let IdData;
     Socket.on('Client-join-room', Data => {
-        IdData = Data;
-        Data.forEach( element => {
+        Data.forEach(element => {
             Socket.join(element);
         });
     });
@@ -21,22 +25,35 @@ module.exports = (Socket) => {
                 Content: Data.Content,
                 Time: Data.Time
             });
-            Chat.findByIdAndUpdate(ID, ChatData , error => {
+            Chat.findByIdAndUpdate(ID, ChatData, error => {
             });
         });
         Socket.to(Data.Id).emit('Server-send-data', Data);
     });
-
+    //add friend
     Socket.on("Client-add-friend", Data => {
         const ListUser = [
-            {UserName: Data.UserName},
-            {UserName: Data.Me}
+            { UserName: Data.UserName },
+            { UserName: Data.Me }
         ];
         Chat.create({
             ListUser: ListUser,
-            ContentChat: []
+            ContentChat: [
+                {
+                    UserName: "",
+                    Content: "",
+                    Time: new Date()
+                }
+            ]
         }, (error, data) => {
-            Socket.emit("Server-send-add-friend", data._id);
+            const ID = "U" + data._id;
+            Socket.join(ID);
+            Socket.emit("Server-send-add-friend-to-me", ID);
+            Socket.to(Data.UserName).emit("Server-send-add-friend-to-user", {
+                ID: ID,
+                UserName: Data.Me
+            });
         });
-    }); 
+
+    });
 }
