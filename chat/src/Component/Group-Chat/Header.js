@@ -8,7 +8,7 @@ export default class Header extends Component {
             StatusManage: "hide",
             StatusSearch: "input-search",
             StatusBtnExit: "hide",
-            valueSearch: ""
+            valueSearch: "",
         }
     };
     StatusManage = false;
@@ -35,8 +35,8 @@ export default class Header extends Component {
 
     HandleContent = (event) => {
         const OldValueSearch = this.state.valueSearch;
-        if(!(event.target.value == "" || 
-        (event.target.value - OldValueSearch) == " ")){
+        if (!(event.target.value == "" ||
+            (event.target.value - OldValueSearch) == " ")) {
             this.props.HandleInputSearch(event.target.value.trim());
         }
         this.setState({ valueSearch: event.target.value });
@@ -49,9 +49,17 @@ export default class Header extends Component {
         this.setState({
             StatusSearch: "input-search",
             StatusBtnExit: 'hide',
-            valueSreach: ""
+            valueSearch: ""
         });
         check = true;
+    }
+
+    componentWillUpdate(prevProps) {
+        if(prevProps.check !== this.props.check){
+            if(!prevProps.check){
+                this.ExitClick();
+            }
+        }
     }
 
     render() {
@@ -83,8 +91,8 @@ export default class Header extends Component {
                         <div className="col-11">
                             <input
                                 role="combobox" placeholder="         Tìm kiếm trên Messenger"
+                                value={this.state.valueSearch}
                                 class={this.state.StatusSearch}
-                                value={this.state.valueSreach}
                                 onChange={this.HandleContent}
                                 onClick={this.InputSreachClick}
                                 type="text" >

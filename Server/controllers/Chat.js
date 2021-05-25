@@ -28,6 +28,15 @@ module.exports = (Socket) => {
     });
 
     Socket.on("Client-add-friend", Data => {
-        console.log(Data);
-    }) 
+        const ListUser = [
+            {UserName: Data.UserName},
+            {UserName: Data.Me}
+        ];
+        Chat.create({
+            ListUser: ListUser,
+            ContentChat: []
+        }, (error, data) => {
+            Socket.emit("Server-send-add-friend", data._id);
+        });
+    }); 
 }

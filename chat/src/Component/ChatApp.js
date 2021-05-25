@@ -63,7 +63,8 @@ export default class ChatApp extends Component {
                     UserName: String,
                     PathAvatar: String
                 }
-            ]
+            ],
+            checkSearch: true
         }
     }
     //check manager information
@@ -187,6 +188,11 @@ export default class ChatApp extends Component {
                 StatusSearch: "hide",
             });
         }
+        if (check) {
+            this.setState({
+                checkSearch: check
+            });
+        }
     }
 
     //handle input search
@@ -204,7 +210,7 @@ export default class ChatApp extends Component {
             //loop each element in string value
             value.forEach((ElementKey, IndexKey) => {
                 if (ElementUser.UserName.indexOf(ElementKey) != -1) {
-                    count ++;
+                    count++;
                 }
             });
             //check elemet value
@@ -224,7 +230,32 @@ export default class ChatApp extends Component {
 
     //click create room
     ClickCreateRoom = (ValueUserName) => {
-        socket.emit("Client-add-friend", ValueUserName);
+        //clear layout search
+        this.setState({
+            checkSearch: false
+        });
+        //set data
+        const Data = {
+            UserName: ValueUserName,
+            Me: this.state.Me.MyName
+        }
+        //client have data
+        let ListUser = this.state.ListChat;
+        let found = true;
+        ListUser.forEach((element) => {
+            if (element.UserName === Data.UserName) {
+                this.ClickChatUser(element.ID);
+                found = false;
+            }
+        });
+        //check ListChatContent of user is exit?
+        if (found) {
+            socket.emit("Client-add-friend", Data);
+            socket.on("Server-send-add-friend", Data => {
+                //set chat for new user
+                
+            }); 
+        }
     }
     //life component
     componentWillMount() {
@@ -311,6 +342,7 @@ export default class ChatApp extends Component {
             <div className="App">
                 <div className="chat-app-container-col-1">
                     <HeaderListChat
+                        check={this.state.checkSearch}
                         MyData={this.state.Me.PathAvatar}
                         InputSreachClick={this.InputSreachClick}
                         HandleInputSearch={this.HandleInputSearch}
