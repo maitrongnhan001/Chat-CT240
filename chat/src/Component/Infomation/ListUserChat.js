@@ -12,17 +12,27 @@ export default class ListUserChat extends Component {
                     UserName: String,
                     PathAvatar: String
                 }
-            ]
+            ],
+            ListCheckChange: []
         }
     }
 
     //click user chat
-    ClickUserChat = () => {
-        console.log("click");
+    ClickUserChat = (UserName) => {
+        this.props.ListChat.forEach( (element, index) => {
+            if(element.UserName == UserName) {
+                let ListCheckChange = this.state.ListCheckChange;
+                ListCheckChange[index] = true;
+                this.setState({
+                    ListCheckChange: ListCheckChange
+                })
+            }
+        });
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         let ListUserChat_Temp = [];
+        let ListCheckChange = [];
         nextProps.ListChat.forEach((element) => {
             try {
                 if (element.UserName != nextProps.UserChat) {
@@ -43,11 +53,15 @@ export default class ListUserChat extends Component {
                             }
                         });
                     }
+                    ListCheckChange.push(false);
                 }
             } catch (e) { }
         });
         if (ListUserChat_Temp !== prevState.ListUserChat) {
-            return { ListUserChat: ListUserChat_Temp };
+            return { 
+                ListUserChat: ListUserChat_Temp, 
+                ListCheckChange: ListCheckChange
+            };
         }
         return null;
     }
@@ -78,17 +92,15 @@ export default class ListUserChat extends Component {
                 </div>
                 <div className="chat-user">
                     <div className="container">
-                        {this.state.ListUserChat.map((User) => {
-                            return <div className="row"
-                                
-                            >
+                        {this.state.ListUserChat.map((User, index) => {
+                            return <div className="row">
                                 <div className="col-1">
-                                    <input type="checkbox" name = {User.UserName}/>
+                                    <input type="checkbox" value = "checked" name = {User.UserName}/>
                                 </div>
                                 <div className="col-11">
                                     <ChatUser UserName={User.UserName}
                                         PathAvatar={User.PathAvatar}
-                                        ID={User.ID}
+                                        ID=""
                                         ClickChatUser={this.ClickUserChat}
                                     />
                                 </div>
