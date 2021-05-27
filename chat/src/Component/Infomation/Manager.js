@@ -6,18 +6,22 @@ export default class Manager extends Component {
     }
     render() {
         return (
-            <div className="manager-information-user">
+            <div
+                className={this.props.StatusManager}
+            >
                 <ul>
                     {
                         this.props.Link.map((Element, index) => {
                             return (
-                                    <div>
-                                        <li>
-                                            <a href = {this.props.Link[index]}>{this.props.Manage[index]}</a>
-                                        </li>
-                                        <hr/>
-                                    </div>
-                                    )
+                                <div
+                                    onClick={() => this.props.ClickItemManagerInformation(index)}
+                                >
+                                    <li>
+                                        <a>{this.props.Manage[index]}</a>
+                                    </li>
+                                    <hr />
+                                </div>
+                            )
                         })
                     }
                     <li>

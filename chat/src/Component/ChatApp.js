@@ -411,6 +411,8 @@ export default class ChatApp extends Component {
                     <Infomation UserChat={this.state.UserChat}
                         Manage={this.state.ManageItems}
                         Link={this.state.LinkItems}
+                        ListUser={this.state.user}
+                        ListChat={this.state.ListChat}
                     />
                 </div>
             </div>
