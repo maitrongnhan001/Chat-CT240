@@ -16,6 +16,11 @@ export default class ListUserChat extends Component {
         }
     }
 
+    //click user chat
+    ClickUserChat = () => {
+        console.log("click");
+    }
+
     static getDerivedStateFromProps(nextProps, prevState) {
         let ListUserChat_Temp = [];
         nextProps.ListChat.forEach((element) => {
@@ -74,11 +79,20 @@ export default class ListUserChat extends Component {
                 <div className="chat-user">
                     <div className="container">
                         {this.state.ListUserChat.map((User) => {
-                            return <ChatUser UserName={User.UserName}
-                                PathAvatar={User.PathAvatar}
-                                ID={User.ID}
-                                ClickChatUser={this.props.ClickChatUser}
-                            />
+                            return <div className="row"
+                                
+                            >
+                                <div className="col-1">
+                                    <input type="checkbox" name = {User.UserName}/>
+                                </div>
+                                <div className="col-11">
+                                    <ChatUser UserName={User.UserName}
+                                        PathAvatar={User.PathAvatar}
+                                        ID={User.ID}
+                                        ClickChatUser={this.ClickUserChat}
+                                    />
+                                </div>
+                            </div>
                         })}
                     </div>
                 </div>
