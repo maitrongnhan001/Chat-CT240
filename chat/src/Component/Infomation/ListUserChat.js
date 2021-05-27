@@ -1,5 +1,6 @@
 import { Component } from "react";
 import ChatUser from "../Group-Chat/ChatUser.js";
+let count = 0;
 
 export default class ListUserChat extends Component {
     //set prop and state
@@ -19,8 +20,9 @@ export default class ListUserChat extends Component {
 
     //click user chat
     ClickUserChat = (UserName) => {
-        this.props.ListChat.forEach( (element, index) => {
-            if(element.UserName == UserName) {
+        this.props.ListChat.forEach((element, index) => {
+            if (element.UserName == UserName) {
+                console.log(UserName);
                 let ListCheckChange = this.state.ListCheckChange;
                 ListCheckChange[index] = true;
                 this.setState({
@@ -32,7 +34,6 @@ export default class ListUserChat extends Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         let ListUserChat_Temp = [];
-        let ListCheckChange = [];
         nextProps.ListChat.forEach((element) => {
             try {
                 if (element.UserName != nextProps.UserChat) {
@@ -53,17 +54,28 @@ export default class ListUserChat extends Component {
                             }
                         });
                     }
-                    ListCheckChange.push(false);
                 }
             } catch (e) { }
         });
         if (ListUserChat_Temp !== prevState.ListUserChat) {
-            return { 
-                ListUserChat: ListUserChat_Temp, 
-                ListCheckChange: ListCheckChange
+            return {
+                ListUserChat: ListUserChat_Temp,
             };
         }
         return null;
+    }
+
+    componentWillUpdate(prevProps) {
+
+        if (this.props.ListChat.ListChat != prevProps.ListChat) {
+            let ListCheckChange = [];
+            this.props.ListChat.forEach(() => {
+                ListCheckChange.push(false);
+            });
+            this.setState({
+                ListCheckChange: ListCheckChange
+            });
+        }
     }
 
     render() {
@@ -95,14 +107,16 @@ export default class ListUserChat extends Component {
                         {this.state.ListUserChat.map((User, index) => {
                             return <div className="row">
                                 <div className="col-1">
-                                    <input type="checkbox" value = "checked" name = {User.UserName}/>
+                                    <input type="checkbox" name={User.UserName} id={User.UserName} />
                                 </div>
                                 <div className="col-11">
-                                    <ChatUser UserName={User.UserName}
-                                        PathAvatar={User.PathAvatar}
-                                        ID=""
-                                        ClickChatUser={this.ClickUserChat}
-                                    />
+                                    <label for={User.UserName} >
+                                        <ChatUser UserName={User.UserName}
+                                            PathAvatar={User.PathAvatar}
+                                            ID=""
+                                            ClickChatUser={this.ClickUserChat}
+                                        />
+                                    </label>
                                 </div>
                             </div>
                         })}
