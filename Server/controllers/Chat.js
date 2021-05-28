@@ -1,6 +1,7 @@
 const Chat = require('../models/Chat.js');
 const User = require('../models/User.js');
 const RoomChat = require('../models/RoomChat.js');
+const { find } = require('../models/Chat.js');
 
 var ArrayUserOnline = [];
 
@@ -53,6 +54,48 @@ module.exports = (Socket) => {
                 ID: ID,
                 UserName: Data.Me
             });
+        });
+    });
+    //add new group
+    Socket.on("Client-send-add-group", Data => {
+        //create chat to database
+        let ListUser = [];
+        Data.ListUser.forEach((element) => {
+            ListUser.push({
+                UserName: element
+            });
+        });
+        Chat.create({
+            ListUser: ListUser,
+            ContentChat: [
+                {
+                    UserName: "",
+                    Content: "",
+                    Time: new Date()
+                }
+            ]
+        }, (error, DataNewGroupChat) => {
+            const ID = "G" + DataNewGroupChat._id;
+            Socket.join(ID);
+            Socket.emit("Server-send-add-group-to-me", ID);
+            let index;
+            for (index in DataNewGroupChat.ListUser) {
+                if (DataNewGroupChat.ListUser[index].UserName !== ListUser[ListUser.length - 1].UserName) {
+                    //loop to get each element in Data.ListUser, becase can not get from Data.ListUser
+                    let ListUserGroup = [];
+                    Data.ListUser.forEach((element) => {
+                        ListUserGroup.push({
+                            UserName: element
+                        });
+                    });
+                    ListUserGroup.splice(index, 1);
+                    console.log(ListUserGroup);
+                    Socket.to(DataNewGroupChat.ListUser[index].UserName).emit("Server-send-add-group", {
+                        ID,
+                        ListUserGroup
+                    });
+                }
+            }
         });
 
     });

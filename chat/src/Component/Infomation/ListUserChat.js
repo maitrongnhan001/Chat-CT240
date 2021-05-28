@@ -14,24 +14,42 @@ export default class ListUserChat extends Component {
                     PathAvatar: String
                 }
             ],
-            ListCheckChange: []
+            ListUserAddGroup: []
         }
     }
 
     //click user chat
-    ClickUserChat = (UserName) => {
-        this.props.ListChat.forEach((element, index) => {
-            if (element.UserName == UserName) {
-                console.log(UserName);
-                let ListCheckChange = this.state.ListCheckChange;
-                ListCheckChange[index] = true;
-                this.setState({
-                    ListCheckChange: ListCheckChange
-                })
-            }
+    ClickUserChat = (UserName) => {}
+
+    //onChange
+    OnChangeCheckbox = (event) => {
+        let ListUserAddGroup = this.state.ListUserAddGroup;
+        if(event.target.checked) {
+            ListUserAddGroup[event.target.name] = event.target.value;
+        }else{
+            ListUserAddGroup[event.target.name] = null; 
+        }
+        this.setState({
+            ListUserAddGroup: ListUserAddGroup
         });
     }
 
+    //click button add group
+    ClickAddGroup = () => {
+        //clear element null
+        let ListUserAddGroup = [];
+        this.state.ListUserAddGroup.forEach((element, index) => {
+            if(element !== null) {
+                ListUserAddGroup.push(element)
+            }
+        });
+        //check length is empty
+        if(ListUserAddGroup.length > 0) {
+            this.props.ClickAddGroup(ListUserAddGroup);
+        }
+    }
+
+    //when change props
     static getDerivedStateFromProps(nextProps, prevState) {
         let ListUserChat_Temp = [];
         nextProps.ListChat.forEach((element) => {
@@ -65,19 +83,6 @@ export default class ListUserChat extends Component {
         return null;
     }
 
-    componentWillUpdate(prevProps) {
-
-        if (this.props.ListChat.ListChat != prevProps.ListChat) {
-            let ListCheckChange = [];
-            this.props.ListChat.forEach(() => {
-                ListCheckChange.push(false);
-            });
-            this.setState({
-                ListCheckChange: ListCheckChange
-            });
-        }
-    }
-
     render() {
         return (
             <div className={this.props.StatusListChatUser}>
@@ -94,10 +99,14 @@ export default class ListUserChat extends Component {
                                 </div>
                             </div>
                             <div className="col-5">
-                                <h3>Add group</h3>
+                                <h3>Add user</h3>
                             </div>
                             <div className="col-4">
-                                <button type="button" className="btn btn-success">Add Group</button>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-success"
+                                    onClick={this.ClickAddGroup}
+                                >Add Group</button>
                             </div>
                         </div>
                     </div>
@@ -107,7 +116,13 @@ export default class ListUserChat extends Component {
                         {this.state.ListUserChat.map((User, index) => {
                             return <div className="row">
                                 <div className="col-1">
-                                    <input type="checkbox" name={User.UserName} id={User.UserName} />
+                                    <input 
+                                        type="checkbox" 
+                                        name={index}
+                                        value={User.UserName} 
+                                        id={User.UserName} 
+                                        onChange={this.OnChangeCheckbox}
+                                    />
                                 </div>
                                 <div className="col-11">
                                     <label for={User.UserName} >

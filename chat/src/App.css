@@ -113,7 +113,7 @@ body {
   border-left-color: transparent;
   position: relative;
   z-index: 250;
-  left: 270px;
+  left: 340px;
   bottom: 50px;
 }
 
@@ -127,7 +127,7 @@ body {
   position: relative;
   background:#fff;
   z-index: 200;
-  left: 240px;
+  left: 300px;
   bottom: 50px;
 }
 

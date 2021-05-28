@@ -11,6 +11,7 @@ module.exports = (req, res) => {
     //find all chat
     Chat.find({}, (errorChat, ChatData) => {
         //find user chat
+        //dao nguoc
         ChatData.reverse();
         for (IndexData in ChatData) {
             let HandleID;
@@ -18,10 +19,16 @@ module.exports = (req, res) => {
             ChatData[IndexData].ListUser.forEach(element => {
                 if (element.UserName == req.session.UserName) {
                     //Get list chat content
-                    if (ChatData[IndexData].ListUser.lenght > 2) {
+                    if (ChatData[IndexData].ListUser.length > 2) {
                         HandleID = 'G' + ChatData[IndexData]._id;
                         //check user name
                         HandleUserName = HandleID;
+                        //set data
+                        ListChatContent.push({
+                            ID: HandleID,
+                            Chat: ChatData[IndexData].ContentChat,
+                            PathAvatar: "./img/Account/Group.png"
+                        });
                     } else {
                         HandleID = 'U' + ChatData[IndexData]._id;
                         //check user name
@@ -30,44 +37,55 @@ module.exports = (req, res) => {
                                 HandleUserName = ValueUser.UserName;
                             }
                         });
+                        //set data
+                        ListChatContent.push({
+                            ID: HandleID,
+                            Chat: ChatData[IndexData].ContentChat
+                        });
                     }
-                    ListChatContent.push({
-                        ID: HandleID,
-                        Chat: ChatData[IndexData].ContentChat
-                    });
                 }
             });
-            //get list chat
-            ChatData[IndexData].ListUser.forEach(ValueUser => {
-                if (ValueUser.UserName != req.session.UserName) {
-                    ListChat.push({
-                        ID: HandleID,
-                        UserName: HandleUserName
-                    });
+            //set ListChat
+            let i;
+            for (i in ChatData[IndexData].ListUser) {
+                if (ChatData[IndexData].ListUser[i].UserName != req.session.UserName) {
+                    if (ChatData[IndexData].ListUser.length > 2) {
+                        ListChat.push({
+                            ID: HandleID,
+                            UserName: HandleUserName,
+                            PathAvatar: "./img/Account/Group.png"
+                        });
+                        break;
+                    } else {
+                        ListChat.push({
+                            ID: HandleID,
+                            UserName: HandleUserName
+                        });
+                    }
                 }
-            });
+            }
         }
         //Sort array ListChatContent and ListChat by time
         //dung sap xep noi bot
         // let i,j;
-        for(i = 0; i < ListChatContent.length; i++) {
-            for(j = i; j < ListChatContent.length; j++) {
+        for (i = 0; i < ListChatContent.length; i++) {
+            for (j = i; j < ListChatContent.length; j++) {
                 //create new time
                 const tI = new Date(ListChatContent[i].Chat[ListChatContent[i].Chat.length - 1].Time);
                 const tJ = new Date(ListChatContent[j].Chat[ListChatContent[j].Chat.length - 1].Time);
                 //compare two date
-                if(tI.getTime() < tJ.getTime()){
-                        //if time i < time j => then swap ListChatContent i and ListChatContent j
-                        //and ListChat
-                        //swap ListChatContent
-                        let ListChatContentTemp = ListChatContent[i];
-                        ListChatContent[i] = ListChatContent[j];
-                        ListChatContent[j] = ListChatContentTemp;
-                        //swap ListChat
-                        let ListChatTemp = ListChat[i];
-                        ListChat[i] = ListChat[j];
-                        ListChat[j] = ListChatTemp;
-                    }
+                if (tI.getTime() < tJ.getTime()) {
+                    //if time i < time j => then swap ListChatContent i and ListChatContent j
+                    //and ListChat
+                    //swap ListChatContent
+                    let ListChatContentTemp = ListChatContent[i];
+                    ListChatContent[i] = ListChatContent[j];
+                    ListChatContent[j] = ListChatContentTemp;
+                    //swap ListChat
+                    let ListChatTemp = ListChat[i];
+                    ListChat[i] = ListChat[j];
+                    ListChat[j] = ListChatTemp;
+                }
             }
         }
         //get all user

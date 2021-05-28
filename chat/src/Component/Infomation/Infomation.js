@@ -28,6 +28,23 @@ export default class infomation extends Component {
                 break;
         }
     }
+    //click button add group
+    ClickAddGroup = (ListUserAddGroup) => {
+        ListUserAddGroup.push(this.props.UserChat.UserName);
+        let ID;
+        this.props.ListChat.forEach((Element) => {
+            if(Element.UserName === this.props.UserChat.UserName){
+                ID = Element.ID;
+            }
+        })
+        let DataUserAddGroup = {
+            ID: ID,
+            ListUser: ListUserAddGroup
+        }
+        this.props.ClickAddGroup(DataUserAddGroup);
+        this.ExitAddGroup();
+    }
+    //click exit
     ExitAddGroup = () => {
         this.setState({
             StatusManager: "manager-information-user",
@@ -49,6 +66,7 @@ export default class infomation extends Component {
                     StatusListChatUser={this.state.StatusListChatUser}
                     ListUser={this.props.ListUser}
                     ListChat={this.props.ListChat}
+                    ClickAddGroup={this.ClickAddGroup}
                 />
             </div>
         );

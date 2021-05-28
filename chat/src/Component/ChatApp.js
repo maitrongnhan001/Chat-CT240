@@ -268,9 +268,16 @@ export default class ChatApp extends Component {
                     ListChatContent: ListChatContent
                 });
                 this.ClickChatUser(IdChat);
-            }); 
+            });
         }
     }
+    //click add group
+    ClickAddGroup = (DataUserAddGroup) => {
+        //add me to ListUserAddGroup
+        DataUserAddGroup.ListUser.push(this.state.Me.MyName);
+        socket.emit("Client-send-add-group", DataUserAddGroup);
+    }
+
     //life component
     componentWillMount() {
         //when first render componnet then set state: UserChat and Contents
@@ -331,6 +338,52 @@ export default class ChatApp extends Component {
                 ListChat.push(Data);
                 ListChatContent.push({
                     ID: Data.ID,
+                    Chat: []
+                });
+                this.setState({
+                    ListChat: ListChat,
+                    ListChatContent: ListChatContent
+                });
+                //request join room chat
+                //join room
+                let ListID = [];
+                ListID.push(Data.ID);
+                socket.emit('Client-join-room', ListID);
+            });
+            socket.on("Server-send-add-group-to-me", Data => {
+                let ListChat = this.state.ListChat;
+                let ListChatContent = this.state.ListChatContent;
+                ListChat.push({
+                    ID: Data,
+                    UserName: Data,
+                    PathAvatar: "./img/Account/Group.png"
+                });
+                ListChatContent.push({
+                    ID: Data,
+                    PathAvatar: "./img/Account/Group.png",
+                    Chat: []
+                });
+                this.setState({
+                    ListChat: ListChat,
+                    ListChatContent: ListChatContent
+                });
+                //request join room chat
+                //join room
+                let ListID = [];
+                ListID.push(Data.ID);
+                socket.emit('Client-join-room', ListID);
+            })
+            socket.on("Server-send-add-group", Data => {
+                let ListChat = this.state.ListChat;
+                let ListChatContent = this.state.ListChatContent;
+                ListChat.push({
+                    ID: Data.ID,
+                    UserName: Data.ID,
+                    PathAvatar: "./img/Account/Group.png"
+                });
+                ListChatContent.push({
+                    ID: Data.ID,
+                    PathAvatar: "./img/Account/Group.png",
                     Chat: []
                 });
                 this.setState({
@@ -408,11 +461,13 @@ export default class ChatApp extends Component {
                     />
                 </div>
                 <div className="chat-app-container-col-3">
-                    <Infomation UserChat={this.state.UserChat}
+                    <Infomation
+                        UserChat={this.state.UserChat}
                         Manage={this.state.ManageItems}
                         Link={this.state.LinkItems}
                         ListUser={this.state.user}
                         ListChat={this.state.ListChat}
+                        ClickAddGroup={this.ClickAddGroup}
                     />
                 </div>
             </div>
