@@ -20,6 +20,18 @@ export default class UserChat extends Component {
         }
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        let ClassMessage;
+        if(nextProps.Content.length <= 30){
+            ClassMessage = "inline";
+        }else{
+            ClassMessage = "block";
+        }
+        if(ClassMessage !== prevState.classMessage) {
+            return {classMessage: ClassMessage}
+        }
+    }
+
     render () {
         return (
             <div className = "user-chat message">

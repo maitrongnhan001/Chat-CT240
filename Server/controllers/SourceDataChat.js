@@ -47,6 +47,7 @@ module.exports = (req, res) => {
             });
             //set ListChat
             let i;
+            //if it is group, then create UserName for it
             for (i in ChatData[IndexData].ListUser) {
                 if (ChatData[IndexData].ListUser[i].UserName != req.session.UserName) {
                     if (ChatData[IndexData].ListUser.length > 2) {
@@ -63,6 +64,13 @@ module.exports = (req, res) => {
                         });
                     }
                 }
+            }
+        }
+        //because list have elements empty then need delete it
+        for(let index = 0; index < ListChat.length; index++) {
+            if(ListChat[index].ID === undefined) {
+                ListChat.splice(index, 1);
+                index --;
             }
         }
         //Sort array ListChatContent and ListChat by time

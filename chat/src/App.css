@@ -119,8 +119,8 @@ body {
 
 .menu-manage{
   width: 250px;
-  height: 250px;
-  box-shadow: 5px 5px 10px 10px #ccc;
+  height: 290px;
+  box-shadow: 3px 3px 8px 5px #ccc;
   margin: 0;
   padding: 0;
   border-radius: 20px;

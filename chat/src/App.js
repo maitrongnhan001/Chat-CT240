@@ -8,9 +8,10 @@ import {
 import './App.css';
 import Login from "./Component/Form/Login.js";
 import Register from "./Component/Form/Register";
-import Delete from "./Component/Form/Delete";
-import UserManagement from "./Component/Form/UserManagement";
 import ChatApp from "./Component/ChatApp.js";
+import ChangeUserName from "./Component/Form/ChangeUserName.js";
+import ChangePassword from "./Component/Form/ChangePassword.js";
+import ChangeAvatar from "./Component/Form/ChangeAvatar.js"
 
 export default class App extends Component {
     constructor(props) {
@@ -33,11 +34,14 @@ export default class App extends Component {
                         <Route path='/chat'>
                             <ChatApp MyUserName = {this.state.MyUserName}/>
                         </Route>
-                        <Route path='/UserManagement'>
-                            <UserManagement />
+                        <Route path='/ChangeUserName'>
+                            <ChangeUserName />
                         </Route>
-                        <Route path='/Delete'>
-                            <Delete />
+                        <Route path='/ChangePassword'>
+                            <ChangePassword />
+                        </Route>
+                        <Route path='/ChangeAvatar'>
+                            <ChangeAvatar />
                         </Route>
                         <Route path='/RegisterError'>
                             <Register MessageError = {'User is exist'}/>

@@ -2,35 +2,23 @@ import { Component } from 'react';
 
 import '../../StyleForm.css'
 
-export default class UserManagement extends Component {
+export default class Delete extends Component {
     render() {
         return (
             <div className="center-container">
                 {/*header*/}
                 <div className="header-w3l">
-                    <h1>Change Information Of User Form</h1>
+                    <h1>Change User Name Form</h1>
                 </div>
                 {/*//header*/}
                 <div className="main-content-agile">
                     <div className="sub-main-w3">
                         <div className="wthree-pro">
-                            <h2>User Management</h2>
+                            <h2>Change User Name</h2>
                         </div>
-                        <form action="#" method="post">
+                        <form action="http://localhost:4000/ChangeUserName" method="post">
                             <div className="pom-agile">
-                                <input placeholder="User Name" name="Name" className="user" type="text" />
-                                <span className="icon1"><i className="fa fa-user" aria-hidden="true" /></span>
-                            </div>
-                            <div className="pom-agile">
-                                <input placeholder="Password" name="Password" className="pass" type="password" />
-                                <span className="icon2"><i className="fa fa-unlock" aria-hidden="true" /></span>
-                            </div>
-                            <div className="pom-agile">
-                                <input placeholder="Enter Again Password" name="Password" className="pass" type="password" />
-                                <span className="icon2"><i className="fa fa-unlock" aria-hidden="true" /></span>
-                            </div>
-                            <div className="pom-agile">
-                                <input placeholder="Choose Aavata to change" name="Name" className="user" type="file" />
+                                <input placeholder="Name user" name="NewUserName" className="user" type="text" required />
                                 <span className="icon1"><i className="fa fa-user" aria-hidden="true" /></span>
                             </div>
                             <div className="sub-w3l">
@@ -41,6 +29,7 @@ export default class UserManagement extends Component {
                         </form>
                     </div>
                 </div>
+                {/*//main*/}
                 {/*footer*/}
                 <div className="footer">
                     <p>© 2017 Online Login Form. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>

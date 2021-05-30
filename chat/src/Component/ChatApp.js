@@ -146,23 +146,30 @@ export default class ChatApp extends Component {
                 StateListChatContent[index].Chat.push(ChatData);
                 //swap element listChatContent
                 let i, temp;
-                temp = StateListChatContent[index];
-                for (i = index; i < StateListChatContent.length - 1; i++) {
-                    StateListChatContent[i] = StateListChatContent[i + 1];
-                }
-                //xoa phan tu cuoi
-                StateListChatContent.pop();
-                //chuyen len dau
-                StateListChatContent.unshift(temp);
-                //swap element listChat
-                temp = ListChat[index];
-                for (i = index; i < ListChat.length - 1; i++) {
-                    ListChat[i] = ListChat[i + 1];
-                }
-                //xoa phan tu cuoi
-                ListChat.pop()
-                //chuyen len dau
-                ListChat.unshift(temp);
+                temp = StateListChatContent[0];
+                StateListChatContent[0] = StateListChatContent[index];
+                StateListChatContent[index] = temp;
+
+                temp = ListChat[0];
+                ListChat[0] = ListChat[index];
+                ListChat[index] = temp;
+                console.log(StateListChatContent);
+                // for (i = index; i < StateListChatContent.length - 1; i++) {
+                //     StateListChatContent[i] = StateListChatContent[i + 1];
+                // }
+                // //xoa phan tu cuoi
+                // StateListChatContent.pop();
+                // //chuyen len dau
+                // StateListChatContent.unshift(temp);
+                // //swap element listChat
+                // temp = ListChat[index];
+                // for (i = index; i < ListChat.length - 1; i++) {
+                //     ListChat[i] = ListChat[i + 1];
+                // }
+                // //xoa phan tu cuoi
+                // ListChat.pop()
+                // //chuyen len dau
+                // ListChat.unshift(temp);
                 break;
             }
         }

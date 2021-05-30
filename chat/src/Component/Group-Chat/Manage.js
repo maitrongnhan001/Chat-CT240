@@ -11,11 +11,13 @@ export default class Manage extends Component {
                 <span className = "arrow-down"></span>
                 <div className = "menu-manage">
                     <ul>
-                        <li><a href = "/">Group Management</a></li>
+                        <li><a href = "/">Change user name</a></li>
                         <hr/>
-                        <li><a href = "/">Friend Management</a></li>
+                        <li><a href = "/">Enter Email</a></li>
                         <hr/>
-                        <li><a href = "/">User Information</a></li>
+                        <li><a href = "/">Change password</a></li>
+                        <hr/>
+                        <li><a href = "/">Change Avatar</a></li>
                         <hr/>
                         <li><a href = "http://localhost:4000">Logout</a></li>
                     </ul>

@@ -55,13 +55,7 @@ export default class ListUserChat extends Component {
         nextProps.ListChat.forEach((element) => {
             try {
                 if (element.UserName != nextProps.UserChat) {
-                    if (element.ID.indexOf("G") != -1) {
-                        ListUserChat_Temp.push({
-                            ID: element.ID,
-                            UserName: element.UserName,
-                            PathAvatar: element.PathAvatar
-                        });
-                    } else {
+                    if (element.ID.indexOf("U") != -1) {
                         nextProps.ListUser.forEach((user) => {
                             if (user.UserName === element.UserName) {
                                 ListUserChat_Temp.push({
