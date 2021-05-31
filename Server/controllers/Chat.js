@@ -100,5 +100,33 @@ module.exports = (Socket) => {
 
     });
     //delete a chat
-    
+    Socket.on("Client-send-delete-chat",  IdData => {
+        const ID = IdData.slice(1);
+        Chat.findByIdAndRemove(ID , (error, Data) => {
+            if(!error) {
+                Socket.to(IdData).emit("Server-send-delete-chat", IdData);
+            }
+        });
+    });
+    //out a group
+    Socket.on("Client-send-out-group", Data => {
+        const ID = Data.ID.slice(1);
+        const UserName = Data.UserName;
+        Chat.findById(ID, (err, ChatData) => {
+            let index, ChangeChatData = ChatData;
+            for (index in ChangeChatData.ListUser) {
+                if( ChangeChatData.ListUser[index].UserName == UserName) {
+                    ChangeChatData.ListUser.splice(index, 1);
+                    break;
+                }
+            }
+            Chat.findByIdAndUpdate(ID, ChangeChatData, (error) => {
+                if(!error) {
+                    Socket.to(Data.ID).emit("Server-send-out-group", {
+                        Data
+                    });
+                }
+            })
+        });
+    });
 }

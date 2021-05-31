@@ -268,23 +268,32 @@ export default class ChatApp extends Component {
         DataUserAddGroup.ListUser.push(this.state.Me.MyName);
         socket.emit("Client-send-add-group", DataUserAddGroup);
     }
-    //Click delete chat
-    ClickDeleteChat = () => {
+    //Click delete chat and out group
+    ClickDeleteChat = (check) => {
         let ListChat = this.state.ListChat;
-            let ListChatContent = this.state.ListChatContent;
-            for (let index in ListChat) {
-                if (ListChat[index].ID === this.state.IdData) {
-                    ListChat.splice(index, 1);
-                    ListChatContent.splice(index, 1);
-                    break;
-                }
+        let ListChatContent = this.state.ListChatContent;
+        for (let index in ListChat) {
+            if (ListChat[index].ID === this.state.IdData) {
+                ListChat.splice(index, 1);
+                ListChatContent.splice(index, 1);
+                break;
             }
+        }
+        if(check === 1) {
+            //Click delete chat
             socket.emit("Client-send-delete-chat", this.state.IdData);
-            this.setState({
-                ListChat: ListChat,
-                ListChatContent: ListChatContent
+        }else{
+            //Click out group
+            socket.emit("Client-send-out-group", {
+                ID: this.state.IdData,
+                UserName: this.state.Me.MyName
             });
-            this.ClickChatUser(ListChat[0].ID);
+        }
+        this.setState({
+            ListChat: ListChat,
+            ListChatContent: ListChatContent
+        });
+        this.ClickChatUser(ListChat[0].ID);
     }
     //life component
     componentWillMount() {
@@ -404,6 +413,27 @@ export default class ChatApp extends Component {
                 ListID.push(Data.ID);
                 socket.emit('Client-join-room', ListID);
             });
+            //listent event delete chat
+            socket.on("Server-send-delete-chat", IdData => {
+                let ListChat = this.state.ListChat;
+                let ListChatContent = this.state.ListChatContent;
+                for (let index in ListChat) {
+                    if (ListChat[index].ID === IdData) {
+                        ListChat.splice(index, 1);
+                        ListChatContent.splice(index, 1);
+                        break;
+                    }
+                }
+                this.setState({
+                    ListChat: ListChat,
+                    ListChatContent: ListChatContent
+                });
+                this.ClickChatUser(ListChat[0].ID);
+            });
+            //listent event out group
+            socket.on("Server-send-out-group", Data => {
+                
+            })
         }
     }
 

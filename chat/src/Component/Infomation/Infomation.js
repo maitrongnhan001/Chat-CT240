@@ -1,10 +1,10 @@
-import {Component} from "react";
+import { Component } from "react";
 import Manager from "./Manager.js";
 import Header from "./Header.js";
 import ListUserChat from "./ListUserChat.js";
 
 export default class infomation extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = ({
             StatusManager: "manager-information-user",
@@ -14,18 +14,24 @@ export default class infomation extends Component {
     //handle manager information
     ClickItemManagerInformation = (Item) => {
         switch (Item) {
-            case 0 :
+            case 0:
                 this.setState({
                     StatusManager: "hide",
                     StatusListChatUser: "ListChatUser"
                 });
                 break;
-            case 1 :
-                if (window.confirm("Do you want delete this chat?")) {
-                    this.props.ClickDeleteChat();
+            case 1:
+                if (this.props.Manage[Item] !== "Out Group") {
+                    if (window.confirm("Do you want delete this chat?")) {
+                        this.props.ClickDeleteChat(1);
+                    }
+                } else {
+                    if (window.confirm("Do you want out this group?")) {
+                        this.props.ClickDeleteChat(0);
+                    }
                 }
                 break;
-            case 2 :
+            case 2:
                 console.log("logout");
                 break;
         }
@@ -35,7 +41,7 @@ export default class infomation extends Component {
         ListUserAddGroup.push(this.props.UserChat.UserName);
         let ID;
         this.props.ListChat.forEach((Element) => {
-            if(Element.UserName === this.props.UserChat.UserName){
+            if (Element.UserName === this.props.UserChat.UserName) {
                 ID = Element.ID;
             }
         })
@@ -53,16 +59,16 @@ export default class infomation extends Component {
             StatusListChatUser: "hide"
         });
     }
-    render () {
+    render() {
         return (
-            <div className = "information">
-                <Header UserChat = {this.props.UserChat}/>
-                <Manager Manage = {this.props.Manage}
-                        StatusManager = {this.state.StatusManager}
-                        ClickItemManagerInformation = {this.ClickItemManagerInformation}
-                        Link = {this.props.Link}
+            <div className="information">
+                <Header UserChat={this.props.UserChat} />
+                <Manager Manage={this.props.Manage}
+                    StatusManager={this.state.StatusManager}
+                    ClickItemManagerInformation={this.ClickItemManagerInformation}
+                    Link={this.props.Link}
                 />
-                <ListUserChat 
+                <ListUserChat
                     ExitAddGroup={this.ExitAddGroup}
                     UserChat={this.props.UserChat.UserName}
                     StatusListChatUser={this.state.StatusListChatUser}
