@@ -99,4 +99,6 @@ module.exports = (Socket) => {
         });
 
     });
+    //delete a chat
+    
 }

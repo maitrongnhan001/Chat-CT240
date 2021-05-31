@@ -21,7 +21,9 @@ export default class infomation extends Component {
                 });
                 break;
             case 1 :
-                console.log("delete chat");
+                if (window.confirm("Do you want delete this chat?")) {
+                    this.props.ClickDeleteChat();
+                }
                 break;
             case 2 :
                 console.log("logout");

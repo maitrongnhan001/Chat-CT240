@@ -154,22 +154,6 @@ export default class ChatApp extends Component {
                 ListChat[0] = ListChat[index];
                 ListChat[index] = temp;
                 console.log(StateListChatContent);
-                // for (i = index; i < StateListChatContent.length - 1; i++) {
-                //     StateListChatContent[i] = StateListChatContent[i + 1];
-                // }
-                // //xoa phan tu cuoi
-                // StateListChatContent.pop();
-                // //chuyen len dau
-                // StateListChatContent.unshift(temp);
-                // //swap element listChat
-                // temp = ListChat[index];
-                // for (i = index; i < ListChat.length - 1; i++) {
-                //     ListChat[i] = ListChat[i + 1];
-                // }
-                // //xoa phan tu cuoi
-                // ListChat.pop()
-                // //chuyen len dau
-                // ListChat.unshift(temp);
                 break;
             }
         }
@@ -284,7 +268,24 @@ export default class ChatApp extends Component {
         DataUserAddGroup.ListUser.push(this.state.Me.MyName);
         socket.emit("Client-send-add-group", DataUserAddGroup);
     }
-
+    //Click delete chat
+    ClickDeleteChat = () => {
+        let ListChat = this.state.ListChat;
+            let ListChatContent = this.state.ListChatContent;
+            for (let index in ListChat) {
+                if (ListChat[index].ID === this.state.IdData) {
+                    ListChat.splice(index, 1);
+                    ListChatContent.splice(index, 1);
+                    break;
+                }
+            }
+            socket.emit("Client-send-delete-chat", this.state.IdData);
+            this.setState({
+                ListChat: ListChat,
+                ListChatContent: ListChatContent
+            });
+            this.ClickChatUser(ListChat[0].ID);
+    }
     //life component
     componentWillMount() {
         //when first render componnet then set state: UserChat and Contents
@@ -475,6 +476,7 @@ export default class ChatApp extends Component {
                         ListUser={this.state.user}
                         ListChat={this.state.ListChat}
                         ClickAddGroup={this.ClickAddGroup}
+                        ClickDeleteChat={this.ClickDeleteChat}
                     />
                 </div>
             </div>
