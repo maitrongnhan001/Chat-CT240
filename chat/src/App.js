@@ -17,7 +17,10 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            MyUserName: 'null'
+            MyUserName: 'null',
+            statusChangePassword: "hide",
+            statusChangeAvatar: "hide",
+            statusMain: ""
         };
     }
 
@@ -27,41 +30,61 @@ export default class App extends Component {
         });
     }
 
+    ChangePassword = (check) => {
+        if (check) {
+            this.setState({
+                statusChangePassword: "center-container-P",
+                statusMain: "hide"
+            });
+        }
+    }
+
+    ChangeAvatar = (check) => {
+        if (check) {
+            this.setState({
+                statusChangeAvatar: "center-container-A",
+                statusMain: "hide"
+            });
+        }
+    }
+
+
     render() {
         return (
-                <Router>
+            <Router>
+                <div className={this.state.statusMain}>
                     <Switch>
                         <Route path='/chat'>
-                            <ChatApp MyUserName = {this.state.MyUserName}/>
-                        </Route>
-                        <Route path='/ChangeUserName'>
-                            <ChangeUserName />
-                        </Route>
-                        <Route path='/ChangePassword'>
-                            <ChangePassword />
-                        </Route>
-                        <Route path='/ChangeAvatar'>
-                            <ChangeAvatar />
+                            <ChatApp MyUserName={this.state.MyUserName}
+                                GetUserName={this.GetUserName}
+                                ChangePassword={this.ChangePassword}
+                                ChangeAvatar={this.ChangeAvatar}
+                            />
                         </Route>
                         <Route path='/RegisterError'>
-                            <Register MessageError = {'User is exist'}/>
+                            <Register MessageError={'User is exist'} />
                         </Route>
                         <Route path='/Register'>
-                            <Register MessageError = {''}/>
+                            <Register MessageError={''} />
                         </Route>
                         <Route path='/LoginError'>
-                            <Login 
-                                GetUserNameOnChange = {this.GetUserName}
-                                MessageError = {'User name or password is invalid'} />
+                            <Login
+                                GetUserNameOnChange={this.GetUserName}
+                                MessageError={'User name or password is invalid'} />
                         </Route>
                         <Route path='/'>
                             <Login
-                                GetUserNameOnChange = {this.GetUserName}
-                                MessageError = {''}
+                                GetUserNameOnChange={this.GetUserName}
+                                MessageError={''}
                             />
                         </Route>
                     </Switch>
-                </Router>
+                </div>
+                <ChangePassword
+                    statusChangePassword={this.state.statusChangePassword} />
+                <ChangeAvatar
+                    statusChangeAvatar={this.state.statusChangeAvatar} />
+            </Router>
         );
     }
 }

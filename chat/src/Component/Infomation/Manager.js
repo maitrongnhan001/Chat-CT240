@@ -25,7 +25,7 @@ export default class Manager extends Component {
                         })
                     }
                     <li>
-                        <a href="/">Logout</a>
+                        <a href="http://localhost:4000/logout">Logout</a>
                     </li>
                 </ul>
             </div>

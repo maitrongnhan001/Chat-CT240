@@ -8,6 +8,7 @@ import HeaderChat from "./Chat/Header.js";
 import Chat from "./Chat/Chat.js";
 import Input from "./Chat/Input.js";
 import Infomation from "./Infomation/Infomation.js";
+import ChangePassword from "./Form/ChangePassword.js"
 import io from "socket.io-client";
 const ENDPOINT = 'http://localhost:4000';
 
@@ -458,6 +459,8 @@ export default class ChatApp extends Component {
             this.state.ListChatContent.forEach(element => {
                 ListId.push(element.ID);
             });
+            //set MyUserName in component App
+            this.props.GetUserName(this.state.Me.MyName);
             //request join room chat
             socket.emit('Client-join-room', ListId);
         }
@@ -472,6 +475,8 @@ export default class ChatApp extends Component {
                         MyData={this.state.Me.PathAvatar}
                         InputSreachClick={this.InputSreachClick}
                         HandleInputSearch={this.HandleInputSearch}
+                        ChangePassword={this.props.ChangePassword}
+                        ChangeAvatar={this.props.ChangeAvatar}
                     />
                     <ListGroupChat
                         StatusListGroupChat={this.state.StatusListGroupChat}

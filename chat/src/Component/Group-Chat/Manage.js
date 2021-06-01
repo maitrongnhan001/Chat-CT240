@@ -11,13 +11,17 @@ export default class Manage extends Component {
                 <span className = "arrow-down"></span>
                 <div className = "menu-manage">
                     <ul>
-                        <li><a href = "/">Change user name</a></li>
+                        <li
+
+                        ><a>ListGroup</a></li>
                         <hr/>
-                        <li><a href = "/">Enter Email</a></li>
+                        <li
+                            onClick={() => this.props.ChangePassword(true)}
+                        ><a>Change password</a></li>
                         <hr/>
-                        <li><a href = "/">Change password</a></li>
-                        <hr/>
-                        <li><a href = "/">Change Avatar</a></li>
+                        <li
+                            onClick={() => this.props.ChangeAvatar(true)}
+                        ><a>Change Avatar</a></li>
                         <hr/>
                         <li><a href = "http://localhost:4000">Logout</a></li>
                     </ul>

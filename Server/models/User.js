@@ -10,6 +10,15 @@ const UserSchema = new Schema({
     PathAvatar: String
 });
 
+
+UserSchema.pre('updateOne', function(next) {
+    const user = this;
+    bcrypt.hash(user.Password, 10, (error, hash) => {
+        user.Password = hash;
+        next();
+    });
+});
+
 UserSchema.pre('save', function(next) {
     const user = this;
     bcrypt.hash(user.Password, 10, (error, hash) => {
@@ -17,5 +26,6 @@ UserSchema.pre('save', function(next) {
         next();
     });
 });
+
 const UserData = mongoose.model('UserData', UserSchema);
 module.exports = UserData;

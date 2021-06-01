@@ -5,7 +5,7 @@ import '../../StyleForm.css'
 export default class Delete extends Component {
     render() {
         return (
-            <div className="center-container">
+            <div className={this.props.statusChangeAvatar}>
                 {/*header*/}
                 <div className="header-w3l">
                     <h1>Change Avatar Form</h1>
@@ -16,7 +16,7 @@ export default class Delete extends Component {
                         <div className="wthree-pro">
                             <h2>Change Avatar</h2>
                         </div>
-                        <form action="#" method="post">
+                        <form action="http://localhost:4000/change/avatar" method="post" enctype="multipart/form-data">
                             <div className="pom-agile">
                                 <input placeholder="Choose Aavata to change" name="image" className="user" type="file" required />
                                 <span className="icon1"><i id="messageAvatar" className="fa fa-user" aria-hidden="true" /></span>

@@ -3,6 +3,9 @@ const Chat = require('../models/Chat.js');
 const RoomChat = require('../models/RoomChat.js')
 
 module.exports = (req, res) => {
+    if (!req.session.UserName) {
+        return res.json(null);
+    }
     //find all chat
     let Me = {};
     let user = [];
