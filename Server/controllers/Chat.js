@@ -65,36 +65,80 @@ module.exports = (Socket) => {
                 UserName: element
             });
         });
-        Chat.create({
-            ListUser: ListUser,
-            ContentChat: [
-                {
-                    UserName: "",
-                    Content: "",
-                    Time: new Date()
-                }
-            ]
-        }, (error, DataNewGroupChat) => {
-            const ID = "G" + DataNewGroupChat._id;
-            Socket.join(ID);
-            Socket.emit("Server-send-add-group-to-me", ID);
-            let index;
-            for (index in DataNewGroupChat.ListUser) {
-                if (DataNewGroupChat.ListUser[index].UserName !== ListUser[ListUser.length - 1].UserName) {
-                    //loop to get each element in Data.ListUser, becase can not get from Data.ListUser
-                    let ListUserGroup = [];
-                    Data.ListUser.forEach((element) => {
-                        ListUserGroup.push({
-                            UserName: element
+        const ID = ListUser[ListUser.length - 2].UserName.slice(1);
+        //check group is exist
+        Chat.findById(ID, (error, ChatData) => {
+            if (ChatData) {
+                let NewUser = [];
+                let NewListUser = ChatData.ListUser;
+                for (let index = 0; index < ListUser.length - 2; index++) {
+                    let check = true;
+                    ChatData.ListUser.forEach(element => {
+                        if (element.UserName === ListUser[index].UserName) {
+                            check = false;
+                        }
+                    });
+                    if (check) {
+                        NewUser.push({
+                            UserName: ListUser[index].UserName
                         });
-                    });
-                    ListUserGroup.splice(index, 1);
-                    console.log(ListUserGroup);
-                    Socket.to(DataNewGroupChat.ListUser[index].UserName).emit("Server-send-add-group", {
-                        ID,
-                        ListUserGroup
-                    });
+                        NewListUser.push({
+                            UserName: ListUser[index].UserName
+                        });
+                    }
                 }
+                Chat.findByIdAndUpdate(ID, {
+                    ListUser: NewListUser
+                }, (error, DataNewGroupChat) => {
+                    if (!error) {
+                        const ID = "G" + DataNewGroupChat._id;
+                        NewUser.forEach(element => {
+                            //loop to get each element in Data.ListUser, becase can not get from Data.ListUser
+                            let ListUserGroup = [];
+                            Data.ListUser.forEach((element) => {
+                                ListUserGroup.push({
+                                    UserName: element
+                                });
+                            });
+                            Socket.to(element.UserName).emit("Server-send-add-group", {
+                                ID,
+                                ListUserGroup
+                            });
+                        });
+                    }
+                });
+            } else {
+                Chat.create({
+                    ListUser: ListUser,
+                    ContentChat: [
+                        {
+                            UserName: "",
+                            Content: "",
+                            Time: new Date()
+                        }
+                    ]
+                }, (error, DataNewGroupChat) => {
+                    const ID = "G" + DataNewGroupChat._id;
+                    Socket.join(ID);
+                    Socket.emit("Server-send-add-group-to-me", ID);
+                    let index;
+                    for (index in DataNewGroupChat.ListUser) {
+                        if (DataNewGroupChat.ListUser[index].UserName !== ListUser[ListUser.length - 1].UserName) {
+                            //loop to get each element in Data.ListUser, becase can not get from Data.ListUser
+                            let ListUserGroup = [];
+                            Data.ListUser.forEach((element) => {
+                                ListUserGroup.push({
+                                    UserName: element
+                                });
+                            });
+                            ListUserGroup.splice(index, 1);
+                            Socket.to(DataNewGroupChat.ListUser[index].UserName).emit("Server-send-add-group", {
+                                ID,
+                                ListUserGroup
+                            });
+                        }
+                    }
+                });
             }
         });
 
@@ -136,7 +180,7 @@ module.exports = (Socket) => {
             UserName: Data.Me
         }, (error, FriendData) => {
             let ListFriend = [];
-            FriendData.ListFriend.forEach( element => {
+            FriendData.ListFriend.forEach(element => {
                 ListFriend.push(element);
             });
             if (!Data.Friend) {
@@ -156,9 +200,9 @@ module.exports = (Socket) => {
             }, {
                 ListFriend: ListFriend
             }, (error) => {
-                if(!error) {
+                if (!error) {
                     found = true;
-                }else{
+                } else {
                     found = false;
                 }
             });
@@ -167,7 +211,7 @@ module.exports = (Socket) => {
             UserName: Data.UserName
         }, (error, FriendData) => {
             let ListFriend = [];
-            FriendData.ListFriend.forEach( element => {
+            FriendData.ListFriend.forEach(element => {
                 ListFriend.push(element);
             });
             if (!Data.Friend) {
@@ -187,7 +231,7 @@ module.exports = (Socket) => {
             }, {
                 ListFriend: ListFriend
             }, (error) => {
-                if(!error && found) {
+                if (!error && found) {
                     Socket.to(Data.ID).emit('Server-send-friend', {
                         Friend: !Data.Friend,
                         UserName: Data.Me

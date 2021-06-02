@@ -14,7 +14,9 @@ export default class ListUserChat extends Component {
                     PathAvatar: String
                 }
             ],
-            ListUserAddGroup: []
+            ListUserAddGroup: [],
+            buttonElement: "",
+            title: ""
         }
     }
 
@@ -73,9 +75,15 @@ export default class ListUserChat extends Component {
                     }
                 } catch (e) { }
             });
+            const buttonElement = (<button
+                type="button"
+                className="btn btn-success"
+            >Add Group</button>);
             if (ListUserChat_Temp !== prevState.ListUserChat) {
                 return {
                     ListUserChat: ListUserChat_Temp,
+                    buttonElement: buttonElement,
+                    title: "Add user"
                 };
             }
             return null;
@@ -97,6 +105,8 @@ export default class ListUserChat extends Component {
             if (ListUserChat_Temp !== prevState.ListUserChat) {
                 return {
                     ListUserChat: ListUserChat_Temp,
+                    buttonElement: "",
+                    title: "Member"
                 };
             }
             return null;
@@ -122,11 +132,13 @@ export default class ListUserChat extends Component {
                                 <h3>Add user</h3>
                             </div>
                             <div className="col-4">
-                                <button
-                                    type="button"
-                                    className="btn btn-success"
-                                    onClick={this.ClickAddGroup}
-                                >Add Group</button>
+                                <span>
+                                    <div onClick={() => this.ClickAddGroup()}>
+                                        {
+                                            this.state.buttonElement
+                                        }
+                                    </div>
+                                </span>
                             </div>
                         </div>
                     </div>

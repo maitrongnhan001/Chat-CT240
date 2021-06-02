@@ -21,7 +21,8 @@ export default class infomation extends Component {
             case 0:
                 this.setState({
                     StatusManager: "hide",
-                    StatusListChatUser: "ListChatUser"
+                    StatusListChatUser: "ListChatUser",
+                    StatusListUser: true
                 });
                 break;
             case 1:
