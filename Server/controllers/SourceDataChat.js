@@ -1,6 +1,6 @@
 const User = require('../models/User.js');
 const Chat = require('../models/Chat.js');
-const RoomChat = require('../models/RoomChat.js')
+const Friend = require('../models/Friend.js')
 
 module.exports = (req, res) => {
     if (!req.session.UserName) {
@@ -11,6 +11,7 @@ module.exports = (req, res) => {
     let user = [];
     let ListChat = [];
     let ListChatContent = [];
+    let ListFriend;
     //find all chat
     Chat.find({}, (errorChat, ChatData) => {
         //find user chat
@@ -70,10 +71,10 @@ module.exports = (req, res) => {
             }
         }
         //because list have elements empty then need delete it
-        for(let index = 0; index < ListChat.length; index++) {
-            if(ListChat[index].ID === undefined) {
+        for (let index = 0; index < ListChat.length; index++) {
+            if (ListChat[index].ID === undefined) {
                 ListChat.splice(index, 1);
-                index --;
+                index--;
             }
         }
         //Sort array ListChatContent and ListChat by time
@@ -138,14 +139,16 @@ module.exports = (req, res) => {
                     MyName: UserData1.UserName,
                     PathAvatar: UserData1.PathAvatar
                 };
-                //set all data
-                const Data = {
-                    Me, user, ListChat, ListChatContent
-                }
-                //return for client
-                res.json({
-                    Me, user, ListChat, ListChatContent
-                })
+                //find list friend
+                Friend.findOne({
+                    UserName: req.session.UserName
+                }, (error, FriendData) => {
+                    ListFriend = FriendData.ListFriend;
+                    //return for client
+                    res.json({
+                        Me, user, ListChat, ListChatContent, ListFriend
+                    })
+                });
             });
         });
     });

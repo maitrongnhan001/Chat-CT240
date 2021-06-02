@@ -8,7 +8,6 @@ import HeaderChat from "./Chat/Header.js";
 import Chat from "./Chat/Chat.js";
 import Input from "./Chat/Input.js";
 import Infomation from "./Infomation/Infomation.js";
-import ChangePassword from "./Form/ChangePassword.js"
 import io from "socket.io-client";
 const ENDPOINT = 'http://localhost:4000';
 
@@ -52,9 +51,9 @@ export default class ChatApp extends Component {
                     ]
                 }
             ],
+            ListFriend: [],
             //state manage information
             ManageItems: [],
-            LinkItems: [],
             //state hide and show sreach
             StatusListGroupChat: "ListGroupChat",
             StatusSearch: "hide",
@@ -75,10 +74,7 @@ export default class ChatApp extends Component {
                 ManageItems: [
                     "Add User",
                     "Out Group",
-                ],
-                LinkItems: [
-                    "/",
-                    "/"
+                    "Member"
                 ]
             });
         } else {
@@ -87,10 +83,6 @@ export default class ChatApp extends Component {
                     ManageItems: [
                         "Add Group",
                         "Delete Chat",
-                    ],
-                    LinkItems: [
-                        "/",
-                        "/"
                     ]
                 });
             }
@@ -146,15 +138,13 @@ export default class ChatApp extends Component {
             if (StateListChatContent[index].ID === this.state.IdData) {
                 StateListChatContent[index].Chat.push(ChatData);
                 //swap element listChatContent
-                let i, temp;
-                temp = StateListChatContent[0];
-                StateListChatContent[0] = StateListChatContent[index];
-                StateListChatContent[index] = temp;
+                let temp = StateListChatContent[index];
+                StateListChatContent.splice(index, 1);
+                StateListChatContent.unshift(temp);
 
-                temp = ListChat[0];
-                ListChat[0] = ListChat[index];
-                ListChat[index] = temp;
-                console.log(StateListChatContent);
+                temp = ListChat[index];
+                ListChat.splice(index, 1);
+                ListChat.unshift(temp);
                 break;
             }
         }
@@ -226,6 +216,46 @@ export default class ChatApp extends Component {
         this.setState({
             checkSearch: false
         });
+        this.InputSreachClick(this.state.checkSearch);
+        //set data
+        const Data = {
+            UserName: ValueUserName,
+            Me: this.state.Me.MyName
+        }
+        //client have data
+        let ListUser = this.state.ListChat;
+        let found = true;
+        ListUser.forEach((element) => {
+            if (element.UserName === Data.UserName) {
+                this.ClickChatUser(element.ID);
+                found = false;
+            }
+        });
+        //check ListChatContent of user is exit?
+        if (found) {
+            socket.emit("Client-add-friend", Data);
+            socket.on("Server-send-add-friend-to-me", IdChat => {
+                //set state userChat for new user
+                ListUser.push({
+                    ID: IdChat,
+                    UserName: Data.UserName
+                });
+                //set state ListChatContent for new user
+                let ListChatContent = this.state.ListChatContent;
+                ListChatContent.push({
+                    ID: IdChat,
+                    Chat: []
+                });
+                this.setState({
+                    ListChat: ListUser,
+                    ListChatContent: ListChatContent
+                });
+                this.ClickChatUser(IdChat);
+            });
+        }
+    }
+     //click create room for list user group
+     ClickCreateRoomInGroup = (ValueUserName) => {
         //set data
         const Data = {
             UserName: ValueUserName,
@@ -280,10 +310,10 @@ export default class ChatApp extends Component {
                 break;
             }
         }
-        if(check === 1) {
+        if (check === 1) {
             //Click delete chat
             socket.emit("Client-send-delete-chat", this.state.IdData);
-        }else{
+        } else {
             //Click out group
             socket.emit("Client-send-out-group", {
                 ID: this.state.IdData,
@@ -295,6 +325,41 @@ export default class ChatApp extends Component {
             ListChatContent: ListChatContent
         });
         this.ClickChatUser(ListChat[0].ID);
+    }
+    //add friend
+    AddFriend = (UserName) => {
+        let ListFriend = this.state.ListFriend;
+        const Data = {
+            ID: this.state.IdData,
+            Me: this.state.Me.MyName,
+            Friend: false,
+            UserName: UserName
+        }
+        socket.emit("Client-send-friend", Data);
+        ListFriend.push({ UserName: UserName });
+        this.setState({
+            ListFriend: ListFriend
+        });
+    }
+    //delete friend
+    DeleteFriend = (UserName) => {
+        let ListFriend = this.state.ListFriend;
+        for (let index in ListFriend) {
+            if (ListFriend[index].UserName === UserName) {
+                ListFriend.splice(index, 1);
+                break;
+            }
+        }
+        const Data = {
+            ID: this.state.IdData,
+            Me: this.state.Me.MyName,
+            Friend: true,
+            UserName: UserName
+        }
+        socket.emit("Client-send-friend", Data);
+        this.setState({
+            ListFriend: ListFriend
+        });
     }
     //life component
     componentWillMount() {
@@ -319,7 +384,8 @@ export default class ChatApp extends Component {
                     Me: Response.data.Me,
                     user: Response.data.user,
                     ListChat: Response.data.ListChat,
-                    ListChatContent: Response.data.ListChatContent
+                    ListChatContent: Response.data.ListChatContent,
+                    ListFriend: Response.data.ListFriend
                 });
                 //send my information to server
                 socket.emit("Client-send-my-information", Response.data.Me.MyName);
@@ -339,10 +405,19 @@ export default class ChatApp extends Component {
                 };
                 //get list chat content
                 let ListChatContent = this.state.ListChatContent;
+                let ListChat = this.state.ListChat;
                 let index;
                 for (index in ListChatContent) {
                     if (ListChatContent[index].ID === Data.Id) {
                         ListChatContent[index].Chat.push(ServerChatData);
+                        //swap element listChatContent
+                        let temp = ListChatContent[index];
+                        ListChatContent.splice(index, 1);
+                        ListChatContent.unshift(temp);
+
+                        temp = ListChat[index];
+                        ListChat.splice(index, 1);
+                        ListChat.unshift(temp);
                         break;
                     }
                 }
@@ -433,8 +508,31 @@ export default class ChatApp extends Component {
             });
             //listent event out group
             socket.on("Server-send-out-group", Data => {
-                
-            })
+
+            });
+            //listend add and delete friend
+            socket.on("Server-send-friend", Data => {
+                const UserName = Data.UserName;
+                console.log(Data);
+                if (Data.Friend) {
+                    let ListFriend = this.state.ListFriend;
+                    ListFriend.push({ UserName: UserName });
+                    this.setState({
+                        ListFriend: ListFriend
+                    });
+                } else {
+                    let ListFriend = this.state.ListFriend;
+                    for (let index in ListFriend) {
+                        if (ListFriend[index].UserName === UserName) {
+                            ListFriend.splice(index, 1);
+                            break;
+                        }
+                    }
+                    this.setState({
+                        ListFriend: ListFriend
+                    });
+                }
+            });
         }
     }
 
@@ -505,9 +603,13 @@ export default class ChatApp extends Component {
                 </div>
                 <div className="chat-app-container-col-3">
                     <Infomation
+                        AddFriend={this.AddFriend}
+                        DeleteFriend={this.DeleteFriend}
+                        ListFriend={this.state.ListFriend}
                         UserChat={this.state.UserChat}
+                        ID={this.state.IdData}
                         Manage={this.state.ManageItems}
-                        Link={this.state.LinkItems}
+                        ClickCreateRoom={this.ClickCreateRoomInGroup}
                         ListUser={this.state.user}
                         ListChat={this.state.ListChat}
                         ClickAddGroup={this.ClickAddGroup}

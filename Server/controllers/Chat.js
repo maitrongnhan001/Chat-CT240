@@ -1,6 +1,6 @@
 const Chat = require('../models/Chat.js');
 const User = require('../models/User.js');
-const RoomChat = require('../models/RoomChat.js');
+const Friend = require('../models/Friend.js');
 const { find } = require('../models/Chat.js');
 
 var ArrayUserOnline = [];
@@ -100,10 +100,10 @@ module.exports = (Socket) => {
 
     });
     //delete a chat
-    Socket.on("Client-send-delete-chat",  IdData => {
+    Socket.on("Client-send-delete-chat", IdData => {
         const ID = IdData.slice(1);
-        Chat.findByIdAndRemove(ID , (error, Data) => {
-            if(!error) {
+        Chat.findByIdAndRemove(ID, (error, Data) => {
+            if (!error) {
                 Socket.to(IdData).emit("Server-send-delete-chat", IdData);
             }
         });
@@ -115,18 +115,85 @@ module.exports = (Socket) => {
         Chat.findById(ID, (err, ChatData) => {
             let index, ChangeChatData = ChatData;
             for (index in ChangeChatData.ListUser) {
-                if( ChangeChatData.ListUser[index].UserName == UserName) {
+                if (ChangeChatData.ListUser[index].UserName == UserName) {
                     ChangeChatData.ListUser.splice(index, 1);
                     break;
                 }
             }
             Chat.findByIdAndUpdate(ID, ChangeChatData, (error) => {
-                if(!error) {
+                if (!error) {
                     Socket.to(Data.ID).emit("Server-send-out-group", {
                         Data
                     });
                 }
             })
+        });
+    });
+    //add friend
+    Socket.on("Client-send-friend", Data => {
+        let found = false;
+        Friend.findOne({
+            UserName: Data.Me
+        }, (error, FriendData) => {
+            let ListFriend = [];
+            FriendData.ListFriend.forEach( element => {
+                ListFriend.push(element);
+            });
+            if (!Data.Friend) {
+                ListFriend.push({
+                    UserName: Data.UserName
+                });
+            } else {
+                for (let index in ListFriend) {
+                    if (ListFriend[index].UserName === Data.UserName) {
+                        ListFriend.splice(index, 1);
+                        break;
+                    }
+                }
+            }
+            Friend.findOneAndUpdate({
+                UserName: Data.Me
+            }, {
+                ListFriend: ListFriend
+            }, (error) => {
+                if(!error) {
+                    found = true;
+                }else{
+                    found = false;
+                }
+            });
+        });
+        Friend.findOne({
+            UserName: Data.UserName
+        }, (error, FriendData) => {
+            let ListFriend = [];
+            FriendData.ListFriend.forEach( element => {
+                ListFriend.push(element);
+            });
+            if (!Data.Friend) {
+                ListFriend.push({
+                    UserName: Data.Me
+                });
+            } else {
+                for (let index in ListFriend) {
+                    if (ListFriend[index].UserName === Data.Me) {
+                        ListFriend.splice(index, 1);
+                        break;
+                    }
+                }
+            }
+            Friend.findOneAndUpdate({
+                UserName: Data.UserName
+            }, {
+                ListFriend: ListFriend
+            }, (error) => {
+                if(!error && found) {
+                    Socket.to(Data.ID).emit('Server-send-friend', {
+                        Friend: !Data.Friend,
+                        UserName: Data.Me
+                    })
+                }
+            });
         });
     });
 }

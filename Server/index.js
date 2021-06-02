@@ -33,6 +33,7 @@ const checkPassword = require('./controllers/checkPassword.js');
 const ChangePassword = require('./controllers/ChangePassword.js');
 const ChangeAvatar = require('./controllers/ChangeAvatar.js');
 const logout = require('./controllers/logout.js');
+const APIGetListUser = require('./controllers/APIGetListUser');
 
 //requests
 app.use(express.static('public'));
@@ -49,11 +50,14 @@ app.get('/api/sourceDataChat', SourceDataChat);
 
 app.post('/api/checkPassword', checkPassword);
 
+app.post('/api/getListUser', APIGetListUser);
+
 app.post('/Change/Password', ChangePassword);
 
 app.post('/change/avatar', ChangeAvatar);
 
 app.get('/logout', logout);
+
 
 //listening in port 4000
 server.listen(4000, () => {

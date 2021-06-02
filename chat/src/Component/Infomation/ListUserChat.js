@@ -19,15 +19,15 @@ export default class ListUserChat extends Component {
     }
 
     //click user chat
-    ClickUserChat = (UserName) => {}
+    ClickUserChat = (UserName) => { }
 
     //onChange
     OnChangeCheckbox = (event) => {
         let ListUserAddGroup = this.state.ListUserAddGroup;
-        if(event.target.checked) {
+        if (event.target.checked) {
             ListUserAddGroup[event.target.name] = event.target.value;
-        }else{
-            ListUserAddGroup[event.target.name] = null; 
+        } else {
+            ListUserAddGroup[event.target.name] = null;
         }
         this.setState({
             ListUserAddGroup: ListUserAddGroup
@@ -39,42 +39,68 @@ export default class ListUserChat extends Component {
         //clear element null
         let ListUserAddGroup = [];
         this.state.ListUserAddGroup.forEach((element, index) => {
-            if(element !== null) {
+            if (element !== null) {
                 ListUserAddGroup.push(element)
             }
         });
         //check length is empty
-        if(ListUserAddGroup.length > 0) {
+        if (ListUserAddGroup.length > 0) {
             this.props.ClickAddGroup(ListUserAddGroup);
         }
     }
-
+    //ClickChatUser
+    ClickChatUser = (UserName) => {
+        this.props.ClickCreateRoom(UserName);
+    }
     //when change props
     static getDerivedStateFromProps(nextProps, prevState) {
-        let ListUserChat_Temp = [];
-        nextProps.ListChat.forEach((element) => {
-            try {
-                if (element.UserName != nextProps.UserChat) {
-                    if (element.ID.indexOf("U") != -1) {
-                        nextProps.ListUser.forEach((user) => {
-                            if (user.UserName === element.UserName) {
-                                ListUserChat_Temp.push({
-                                    ID: element.ID,
-                                    UserName: element.UserName,
-                                    PathAvatar: user.PathAvatar
-                                });
-                            }
-                        });
+        if (nextProps.StatusListUser) {
+            let ListUserChat_Temp = [];
+            nextProps.ListChat.forEach((element) => {
+                try {
+                    if (element.UserName != nextProps.UserChat) {
+                        if (element.ID.indexOf("U") != -1) {
+                            nextProps.ListUser.forEach((user) => {
+                                if (user.UserName === element.UserName) {
+                                    ListUserChat_Temp.push({
+                                        ID: element.ID,
+                                        UserName: element.UserName,
+                                        PathAvatar: user.PathAvatar
+                                    });
+                                }
+                            });
+                        }
                     }
-                }
-            } catch (e) { }
-        });
-        if (ListUserChat_Temp !== prevState.ListUserChat) {
-            return {
-                ListUserChat: ListUserChat_Temp,
-            };
+                } catch (e) { }
+            });
+            if (ListUserChat_Temp !== prevState.ListUserChat) {
+                return {
+                    ListUserChat: ListUserChat_Temp,
+                };
+            }
+            return null;
+        } else {
+            let ListUserChat_Temp = [];
+            nextProps.ListUserGroup.forEach(element => {
+                try {
+                    nextProps.ListUser.forEach(user => {
+                        if (element.UserName === user.UserName) {
+                            ListUserChat_Temp.push({
+                                ID: "",
+                                UserName: element.UserName,
+                                PathAvatar: user.PathAvatar
+                            });
+                        }
+                    });
+                } catch (e) { }
+            });
+            if (ListUserChat_Temp !== prevState.ListUserChat) {
+                return {
+                    ListUserChat: ListUserChat_Temp,
+                };
+            }
+            return null;
         }
-        return null;
     }
 
     render() {
@@ -96,8 +122,8 @@ export default class ListUserChat extends Component {
                                 <h3>Add user</h3>
                             </div>
                             <div className="col-4">
-                                <button 
-                                    type="button" 
+                                <button
+                                    type="button"
                                     className="btn btn-success"
                                     onClick={this.ClickAddGroup}
                                 >Add Group</button>
@@ -108,26 +134,38 @@ export default class ListUserChat extends Component {
                 <div className="chat-user">
                     <div className="container">
                         {this.state.ListUserChat.map((User, index) => {
-                            return <div className="row">
-                                <div className="col-1">
-                                    <input 
-                                        type="checkbox" 
-                                        name={index}
-                                        value={User.UserName} 
-                                        id={User.UserName} 
-                                        onChange={this.OnChangeCheckbox}
-                                    />
+                            if (this.props.StatusListUser) {
+                                return <div className="row">
+                                    <div className="col-1">
+                                        <input
+                                            type="checkbox"
+                                            name={index}
+                                            value={User.UserName}
+                                            id={User.UserName}
+                                            onChange={this.OnChangeCheckbox}
+                                        />
+                                    </div>
+                                    <div className="col-11">
+                                        <label for={User.UserName} >
+                                            <ChatUser UserName={User.UserName}
+                                                PathAvatar={User.PathAvatar}
+                                                ID=""
+                                                ClickChatUser={this.ClickUserChat}
+                                            />
+                                        </label>
+                                    </div>
                                 </div>
-                                <div className="col-11">
-                                    <label for={User.UserName} >
+                            } else {
+                                return <div className="row">
+                                    <div className="col-11">
                                         <ChatUser UserName={User.UserName}
                                             PathAvatar={User.PathAvatar}
                                             ID=""
-                                            ClickChatUser={this.ClickUserChat}
+                                            ClickChatUser={this.ClickChatUser}
                                         />
-                                    </label>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                         })}
                     </div>
                 </div>

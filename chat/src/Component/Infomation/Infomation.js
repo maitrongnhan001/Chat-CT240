@@ -1,4 +1,5 @@
 import { Component } from "react";
+import axios from 'axios';
 import Manager from "./Manager.js";
 import Header from "./Header.js";
 import ListUserChat from "./ListUserChat.js";
@@ -8,7 +9,10 @@ export default class infomation extends Component {
         super(props)
         this.state = ({
             StatusManager: "manager-information-user",
-            StatusListChatUser: "hide"
+            StatusListChatUser: "hide",
+            StatusFriend: "",
+            ListUser: [],
+            StatusListUser: true
         });
     }
     //handle manager information
@@ -32,7 +36,26 @@ export default class infomation extends Component {
                 }
                 break;
             case 2:
-                console.log("logout");
+                //case add group
+                if (this.props.Manage[Item] !== "Member") {
+                    this.clickFriend();
+                } else {
+                    //case click user
+                    axios.post('/api/getListUser', {
+                        ID: this.props.ID
+                    })
+                        .then(Response => {
+                            this.setState({
+                                ListUser: Response.data.ListUser,
+                                StatusListUser: false
+                            })
+                        })
+                        .catch(error => { });
+                    this.setState({
+                        StatusManager: "hide",
+                        StatusListChatUser: "ListChatUser"
+                    });
+                }
                 break;
         }
     }
@@ -52,6 +75,11 @@ export default class infomation extends Component {
         this.props.ClickAddGroup(DataUserAddGroup);
         this.ExitAddGroup();
     }
+    //click chat user
+    ClickChatUser = (UserName) => {
+        this.props.ClickCreateRoom(UserName);
+        this.ExitAddGroup();
+    }
     //click exit
     ExitAddGroup = () => {
         this.setState({
@@ -59,11 +87,51 @@ export default class infomation extends Component {
             StatusListChatUser: "hide"
         });
     }
+    //click friend
+    clickFriend = () => {
+        if (this.state.StatusFriend === "Add Friend") {
+            //add friend
+            this.props.AddFriend(this.props.UserChat.UserName);
+        } else {
+            //delete friend
+            this.props.DeleteFriend(this.props.UserChat.UserName);
+        }
+    }
+    //when change props
+    static getDerivedStateFromProps(nextProps, prevState) {
+        let StatusFriend = "";
+        if (nextProps.UserChat.UserName[0] === "G") {
+            if (StatusFriend !== prevState.StatusFriend) {
+                return {
+                    StatusFriend: "",
+                    StatusListUser: true
+                };
+            } else {
+                return null;
+            }
+        }
+        StatusFriend = "Add Friend";
+        nextProps.ListFriend.forEach((element) => {
+            if (element.UserName === nextProps.UserChat.UserName) {
+                StatusFriend = "Delete Friend";
+            }
+        });
+        if (StatusFriend !== prevState.StatusFriend) {
+            return {
+                StatusFriend: StatusFriend,
+                StatusListUser: true
+            };
+        }
+        return null;
+    }
     render() {
         return (
             <div className="information">
-                <Header UserChat={this.props.UserChat} />
+                <Header UserChat={this.props.UserChat}
+                    StatusFriend={this.state.StatusFriend}
+                />
                 <Manager Manage={this.props.Manage}
+                    StatusFriend={this.state.StatusFriend}
                     StatusManager={this.state.StatusManager}
                     ClickItemManagerInformation={this.ClickItemManagerInformation}
                     Link={this.props.Link}
@@ -73,6 +141,9 @@ export default class infomation extends Component {
                     UserChat={this.props.UserChat.UserName}
                     StatusListChatUser={this.state.StatusListChatUser}
                     ListUser={this.props.ListUser}
+                    ListUserGroup={this.state.ListUser}
+                    StatusListUser={this.state.StatusListUser}
+                    ClickCreateRoom={this.ClickChatUser}
                     ListChat={this.props.ListChat}
                     ClickAddGroup={this.ClickAddGroup}
                 />
