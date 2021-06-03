@@ -3,6 +3,9 @@ import { Component } from "react";
 export default class ChatUser extends Component {
     constructor(props){
         super(props);
+        this.state = {
+            StatusSeen: ""
+        }
     }
 
     //click to user chat
@@ -14,6 +17,21 @@ export default class ChatUser extends Component {
         }
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.StatusSeen) {
+            for (let index in nextProps.StatusSeen){  
+                if(nextProps.StatusSeen[index] === nextProps.ID) {
+                    return {
+                        StatusSeen: "bold"
+                    }
+                }
+            };
+        }
+        return {
+            StatusSeen: ""
+        }
+    }
+
     render() {
         return (
             <div className="row" onClick = {this.ClickChatUser}>
@@ -21,7 +39,7 @@ export default class ChatUser extends Component {
                     <img className="avartar-in-list-group" src={this.props.PathAvatar} />
                 </div>
                 <div className="col-9">
-                    <p>{this.props.UserName}</p>
+                    <p className={this.state.StatusSeen}>{this.props.UserName}</p>
                 </div>
             </div>
         );

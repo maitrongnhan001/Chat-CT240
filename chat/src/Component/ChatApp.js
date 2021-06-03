@@ -8,7 +8,7 @@ import HeaderChat from "./Chat/Header.js";
 import Chat from "./Chat/Chat.js";
 import Input from "./Chat/Input.js";
 import Infomation from "./Infomation/Infomation.js";
-import io from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 const ENDPOINT = 'http://localhost:4000';
 
 const socket = io.connect(ENDPOINT, {
@@ -51,6 +51,8 @@ export default class ChatApp extends Component {
                     ]
                 }
             ],
+            IdData: "12345",
+            StatusSeen: [],
             ListFriend: [],
             //state manage information
             ManageItems: [],
@@ -64,7 +66,8 @@ export default class ChatApp extends Component {
                     PathAvatar: String
                 }
             ],
-            checkSearch: true
+            checkSearch: true,
+            CheckShowGroup: false
         }
     }
     //check manager information
@@ -94,6 +97,16 @@ export default class ChatApp extends Component {
         var chatContent = [];
         //user chat (1 user)
         var user = {};
+        let StatusSeen = this.state.StatusSeen;
+        for(let index in StatusSeen) {
+            if(StatusSeen[index] === UserChatInformation) {
+                StatusSeen.splice(index, 1);
+            }
+        }
+        socket.emit("Client-send-seen", {
+            UserName: this.state.Me.MyName,
+            ID: UserChatInformation
+        });
         //find the chat content
         this.state.ListChatContent.forEach((UserChat) => {
             if (UserChat.ID === UserChatInformation) {
@@ -114,7 +127,9 @@ export default class ChatApp extends Component {
         this.setState({
             UserChat: user,
             Contents: chatContent,
-            IdData: UserChatInformation
+            IdData: UserChatInformation,
+            CheckShowGroup: false,
+            StatusSeen: StatusSeen
         });
         this.checkManage(UserChatInformation);
     }
@@ -132,28 +147,30 @@ export default class ChatApp extends Component {
         //get ListChatContent
         let StateListChatContent = this.state.ListChatContent;
         let ListChat = this.state.ListChat;
-        //Find elemet of ListChatContent by IdData
-        let index;
-        for (index = 0; index < StateListChatContent.length; index++) {
-            if (StateListChatContent[index].ID === this.state.IdData) {
-                StateListChatContent[index].Chat.push(ChatData);
-                //swap element listChatContent
-                let temp = StateListChatContent[index];
-                StateListChatContent.splice(index, 1);
-                StateListChatContent.unshift(temp);
+        if (!ContentData.File) {
+            //Find elemet of ListChatContent by IdData
+            let index;
+            for (index = 0; index < StateListChatContent.length; index++) {
+                if (StateListChatContent[index].ID === this.state.IdData) {
+                    StateListChatContent[index].Chat.push(ChatData);
+                    //swap element listChatContent
+                    let temp = StateListChatContent[index];
+                    StateListChatContent.splice(index, 1);
+                    StateListChatContent.unshift(temp);
 
-                temp = ListChat[index];
-                ListChat.splice(index, 1);
-                ListChat.unshift(temp);
-                break;
+                    temp = ListChat[index];
+                    ListChat.splice(index, 1);
+                    ListChat.unshift(temp);
+                    break;
+                }
             }
+            //set state
+            this.setState({
+                ListChat: ListChat,
+                ListChatContent: StateListChatContent
+            });
+            //send message to server
         }
-        //set state
-        this.setState({
-            ListChat: ListChat,
-            ListChatContent: StateListChatContent
-        });
-        //send message to server
         socket.emit('Client-send-data', ChatData);
     }
 
@@ -254,8 +271,8 @@ export default class ChatApp extends Component {
             });
         }
     }
-     //click create room for list user group
-     ClickCreateRoomInGroup = (ValueUserName) => {
+    //click create room for list user group
+    ClickCreateRoomInGroup = (ValueUserName) => {
         //set data
         const Data = {
             UserName: ValueUserName,
@@ -361,6 +378,14 @@ export default class ChatApp extends Component {
             ListFriend: ListFriend
         });
     }
+    //click show list group
+    ClickShowListGroup = () => {
+        if (!this.state.CheckShowGroup) {
+            this.setState({
+                CheckShowGroup: true
+            });
+        }
+    }
     //life component
     componentWillMount() {
         //when first render componnet then set state: UserChat and Contents
@@ -385,7 +410,8 @@ export default class ChatApp extends Component {
                     user: Response.data.user,
                     ListChat: Response.data.ListChat,
                     ListChatContent: Response.data.ListChatContent,
-                    ListFriend: Response.data.ListFriend
+                    ListFriend: Response.data.ListFriend,
+                    StatusSeen: Response.data.ListStatusSeen
                 });
                 //send my information to server
                 socket.emit("Client-send-my-information", Response.data.Me.MyName);
@@ -397,33 +423,69 @@ export default class ChatApp extends Component {
     componentWillUpdate(prevProps, prevState, snapshot) {
         if (this.state.ListChatContent !== prevState.ListChatContent) {
             socket.on('Server-send-data', Data => {
-                //set data
-                const ServerChatData = {
-                    UserName: Data.UserName,
-                    Content: Data.Content,
-                    Time: Data.Time
-                };
-                //get list chat content
-                let ListChatContent = this.state.ListChatContent;
-                let ListChat = this.state.ListChat;
-                let index;
-                for (index in ListChatContent) {
-                    if (ListChatContent[index].ID === Data.Id) {
-                        ListChatContent[index].Chat.push(ServerChatData);
-                        //swap element listChatContent
-                        let temp = ListChatContent[index];
-                        ListChatContent.splice(index, 1);
-                        ListChatContent.unshift(temp);
+                if (Data.PathImage) {
+                    const ServerChatData = {
+                        UserName: Data.UserName,
+                        PathImage: Data.PathImage,
+                        Time: Data.Time
+                    };
+                    console.log(Data.Id);
+                    //get list chat content
+                    let StatusSeen = this.state.StatusSeen;
+                    let ListChatContent = this.state.ListChatContent;
+                    let ListChat = this.state.ListChat;
+                    let index;
+                    for (index in ListChatContent) {
+                        if (ListChatContent[index].ID === Data.Id) {
+                            ListChatContent[index].Chat.push(ServerChatData);
+                            //swap element listChatContent
+                            let temp = ListChatContent[index];
+                            ListChatContent.splice(index, 1);
+                            ListChatContent.unshift(temp);
 
-                        temp = ListChat[index];
-                        ListChat.splice(index, 1);
-                        ListChat.unshift(temp);
-                        break;
+                            temp = ListChat[index];
+                            ListChat.splice(index, 1);
+                            ListChat.unshift(temp);
+                            break;
+                        }
                     }
+                    StatusSeen.push(Data.StatusSeen);
+                    this.setState({
+                        ListChatContent: ListChatContent,
+                        StatusSeen: StatusSeen
+                    });
+                } else {
+                    //set data
+                    const ServerChatData = {
+                        UserName: Data.UserName,
+                        Content: Data.Content,
+                        Time: Data.Time
+                    };
+                    //get list chat content
+                    let StatusSeen = this.state.StatusSeen;
+                    let ListChatContent = this.state.ListChatContent;
+                    let ListChat = this.state.ListChat;
+                    let index;
+                    for (index in ListChatContent) {
+                        if (ListChatContent[index].ID === Data.Id) {
+                            ListChatContent[index].Chat.push(ServerChatData);
+                            //swap element listChatContent
+                            let temp = ListChatContent[index];
+                            ListChatContent.splice(index, 1);
+                            ListChatContent.unshift(temp);
+
+                            temp = ListChat[index];
+                            ListChat.splice(index, 1);
+                            ListChat.unshift(temp);
+                            break;
+                        }
+                    }
+                    StatusSeen.push(Data.StatusSeen);
+                    this.setState({
+                        ListChatContent: ListChatContent,
+                        StatusSeen: StatusSeen
+                    });
                 }
-                this.setState({
-                    ListChatContent: ListChatContent
-                });
             });
             socket.on('Server-send-add-friend-to-user', Data => {
                 let ListChat = this.state.ListChat;
@@ -545,9 +607,14 @@ export default class ChatApp extends Component {
                 UserChatData = this.state.user[0];
                 ContentsData = this.state.ListChatContent[0].Chat;
                 Id = this.state.ListChatContent[0].ID;
+                // this.setState({
+                //     UserChat: UserChatData,
+                //     Contents: ContentsData,
+                //     IdData: Id
+                // });
                 this.setState({
                     UserChat: UserChatData,
-                    Contents: ContentsData,
+                    Contents: [],
                     IdData: Id
                 });
                 this.checkManage(Id);
@@ -569,6 +636,7 @@ export default class ChatApp extends Component {
             <div className="App">
                 <div className="chat-app-container-col-1">
                     <HeaderListChat
+                        ClickShowListGroup={this.ClickShowListGroup}
                         check={this.state.checkSearch}
                         MyData={this.state.Me.PathAvatar}
                         InputSreachClick={this.InputSreachClick}
@@ -577,9 +645,12 @@ export default class ChatApp extends Component {
                         ChangeAvatar={this.props.ChangeAvatar}
                     />
                     <ListGroupChat
+                        StatusSeen={this.state.StatusSeen}
+                        CheckShowGroup={this.state.CheckShowGroup}
                         StatusListGroupChat={this.state.StatusListGroupChat}
                         ListUser={this.state.user}
                         ClickChatUser={this.ClickChatUser}
+                        ID={this.state.IdData}
                         ListChat={this.state.ListChat}
                     />
                     <Search

@@ -1,7 +1,9 @@
 const Chat = require('../models/Chat.js');
-const User = require('../models/User.js');
 const Friend = require('../models/Friend.js');
-const { find } = require('../models/Chat.js');
+const ChatImage = require('../models/ChatImage');
+const StatusSeen = require('../models/StatusSeen.js');
+const path = require('path');
+const fs = require('fs');
 
 var ArrayUserOnline = [];
 
@@ -18,18 +20,81 @@ module.exports = (Socket) => {
     });
     //listening client send message
     Socket.on("Client-send-data", Data => {
-        //store message to database
-        const ID = Data.Id.substr(1);
-        Chat.findById(ID, (err, ChatData) => {
-            ChatData.ContentChat.push({
+        //check message is image
+        if (!Data.Content.File) {
+            //store message to database
+            const ID = Data.Id.substr(1);
+            Chat.findById(ID, (err, ChatData) => {
+                ChatData.ContentChat.push({
+                    UserName: Data.UserName,
+                    Content: Data.Content,
+                    Time: Data.Time
+                });
+                Chat.findByIdAndUpdate(ID, ChatData, error => { });
+                //find list user not seen
+                ChatData.ListUser.forEach((element, index) => {
+                    if (element.UserName !== Data.UserName) {
+                        //set status seen
+                        StatusSeen.create({
+                            ID: Data.Id,
+                            UserName: element.UserName
+                        }, (error) => { });
+                    }
+                });
+            });
+            //send to user
+            Socket.to(Data.Id).emit('Server-send-data', {
+                Id: Data.Id,
                 UserName: Data.UserName,
                 Content: Data.Content,
-                Time: Data.Time
+                Time: Data.Time,
+                StatusSeen: Data.Id
             });
-            Chat.findByIdAndUpdate(ID, ChatData, error => {
+        } else {
+            const ID = Data.Id.substr(1);
+            let image = Data.Content.File;
+            //store image of chat
+            fs.writeFile(path.resolve(__dirname, '../public/images/ChatImage/', Data.Content.ContentData), image, (err) => {
+                if (!err) {
+                    ChatImage.create({
+                        ID: ID,
+                        UserName: Data.UserName,
+                        PathImage: '/images/ChatImage/' + Data.Content.ContentData,
+                        Time: Data.Time
+                    }, (error, ChatData) => {
+                        if (!error) {
+                            const data = {
+                                Id: Data.Id,
+                                UserName: ChatData.UserName,
+                                PathImage: ChatData.PathImage,
+                                Time: ChatData.Time
+                            }
+                            Socket.emit('Server-send-data', data);
+                            Chat.findById(ID, (error, ChatData) => {
+                                ChatData.ListUser.forEach((element, index) => {
+                                    if (element.UserName !== Data.UserName) {
+                                        //set status seen
+                                        StatusSeen.create({
+                                            ID: ID,
+                                            UserName: element.UserName
+                                        }, (error) => { });
+                                    }
+                                });
+                            });
+                            //send to user
+                            Socket.to(Data.Id).emit('Server-send-data', {
+                                Id: Data.Id,
+                                UserName: ChatData.UserName,
+                                PathImage: ChatData.PathImage,
+                                Time: ChatData.Time,
+                                StatusSeen: Data.Id
+                            });
+                        }
+                    });
+                }
             });
-        });
-        Socket.to(Data.Id).emit('Server-send-data', Data);
+        }
+
     });
     //add friend
     Socket.on("Client-add-friend", Data => {
@@ -239,5 +304,12 @@ module.exports = (Socket) => {
                 }
             });
         });
+    });
+    //seen
+    Socket.on("Client-send-seen", Data => {
+        StatusSeen.findOneAndRemove({
+            ID: Data.ID,
+            UserName: Data.UserName
+        }, (error) => {});
     });
 }

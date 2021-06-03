@@ -12,7 +12,7 @@ export default class Manage extends Component {
                 <div className = "menu-manage">
                     <ul>
                         <li
-
+                            onClick={() => this.props.ClickShowListGroup()}
                         ><a>ListGroup</a></li>
                         <hr/>
                         <li
