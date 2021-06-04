@@ -55,7 +55,7 @@ export default class ListUserChat extends Component {
             this.props.ClickAddGroup(ListUserAddGroup);
         }
         this.setState({
-
+            ListUserAddGroup: []
         });
     }
     //ClickChatUser

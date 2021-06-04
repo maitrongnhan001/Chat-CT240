@@ -251,25 +251,25 @@ export default class ChatApp extends Component {
         //check ListChatContent of user is exit?
         if (found) {
             socket.emit("Client-add-friend", Data);
-            socket.on("Server-send-add-friend-to-me", IdChat => {
-                console.log(ValueUserName);
-                //set state userChat for new user
-                ListUser.push({
-                    ID: IdChat,
-                    UserName: Data.UserName
-                });
-                //set state ListChatContent for new user
-                let ListChatContent = this.state.ListChatContent;
-                ListChatContent.push({
-                    ID: IdChat,
-                    Chat: []
-                });
-                this.setState({
-                    ListChat: ListUser,
-                    ListChatContent: ListChatContent
-                });
-                this.ClickChatUser(IdChat);
-            });
+            // socket.on("Server-send-add-friend-to-me", IdChat => {
+            //     //set state userChat for new user
+            //     ListUser.push({
+            //         ID: IdChat,
+            //         UserName: Data.UserName
+            //     });
+            //     //set state ListChatContent for new user
+            //     let ListChatContent = this.state.ListChatContent;
+            //     ListChatContent.push({
+            //         ID: IdChat,
+            //         Chat: []
+            //     });
+            //     this.setState({
+            //         ListChat: ListUser,
+            //         ListChatContent: ListChatContent
+            //     });
+            //     this.ClickChatUser(IdChat);
+            //     return;
+            // });
         }
     }
     //click create room for list user group
@@ -430,7 +430,6 @@ export default class ChatApp extends Component {
                         PathImage: Data.PathImage,
                         Time: Data.Time
                     };
-                    console.log(Data.Id);
                     //get list chat content
                     let StatusSeen = this.state.StatusSeen;
                     let ListChatContent = this.state.ListChatContent;
@@ -488,6 +487,27 @@ export default class ChatApp extends Component {
                     });
                 }
             });
+
+            socket.on("Server-send-add-friend-to-me", Data => {
+                let ListUser = this.state.ListChat;
+                let ListChatContent = this.state.ListChatContent;
+                //set state userChat for new user
+                ListUser.push({
+                    ID: Data.ID,
+                    UserName: Data.UserName
+                });
+                //set state ListChatContent for new user
+                ListChatContent.push({
+                    ID: Data.ID,
+                    Chat: []
+                });
+                this.setState({
+                    ListChat: ListUser,
+                    ListChatContent: ListChatContent
+                });
+                this.ClickChatUser(Data.ID);
+            });
+
             socket.on('Server-send-add-friend-to-user', Data => {
                 let ListChat = this.state.ListChat;
                 let ListChatContent = this.state.ListChatContent;
@@ -576,7 +596,6 @@ export default class ChatApp extends Component {
             //listend add and delete friend
             socket.on("Server-send-friend", Data => {
                 const UserName = Data.UserName;
-                console.log(Data);
                 if (Data.Friend) {
                     let ListFriend = this.state.ListFriend;
                     ListFriend.push({ UserName: UserName });

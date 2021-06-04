@@ -113,8 +113,11 @@ module.exports = (Socket) => {
             ]
         }, (error, data) => {
             const ID = "U" + data._id;
+            Socket.emit("Server-send-add-friend-to-me", {
+                ID: ID,
+                UserName: Data.UserName
+            });
             Socket.join(ID);
-            Socket.emit("Server-send-add-friend-to-me", ID);
             Socket.to(Data.UserName).emit("Server-send-add-friend-to-user", {
                 ID: ID,
                 UserName: Data.Me

@@ -336,7 +336,6 @@ module.exports = (req, res) => {
                         }, (error, FriendData) => {
                             if (FriendData) {
                                 ListFriend = FriendData.ListFriend;
-                                console.log(FriendData)
                             }
                             //find data statusSeen
                             StatusSeen.find({
