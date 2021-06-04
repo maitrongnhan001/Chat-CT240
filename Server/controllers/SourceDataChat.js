@@ -14,7 +14,7 @@ module.exports = (req, res) => {
     let ListChat = [];
     let ListChatContent = [];
     let ListStatusSeen = [];
-    let ListFriend;
+    let ListFriend = [];
     //find all chat
     Chat.find({}, (errorChat, ChatData) => {
         //find user chat
@@ -152,7 +152,9 @@ module.exports = (req, res) => {
                         Friend.findOne({
                             UserName: req.session.UserName
                         }, (error, FriendData) => {
-                            ListFriend = FriendData.ListFriend;
+                            if (FriendData) {
+                                ListFriend = FriendData.ListFriend;
+                            }
                             //find data statusSeen
                             StatusSeen.find({
                                 UserName: req.session.UserName
@@ -332,7 +334,10 @@ module.exports = (req, res) => {
                         Friend.findOne({
                             UserName: req.session.UserName
                         }, (error, FriendData) => {
-                            ListFriend = FriendData.ListFriend;
+                            if (FriendData) {
+                                ListFriend = FriendData.ListFriend;
+                                console.log(FriendData)
+                            }
                             //find data statusSeen
                             StatusSeen.find({
                                 UserName: req.session.UserName

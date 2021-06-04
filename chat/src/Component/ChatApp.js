@@ -233,7 +233,7 @@ export default class ChatApp extends Component {
         this.setState({
             checkSearch: false
         });
-        this.InputSreachClick(this.state.checkSearch);
+        //this.InputSreachClick(this.state.checkSearch);
         //set data
         const Data = {
             UserName: ValueUserName,
@@ -252,6 +252,7 @@ export default class ChatApp extends Component {
         if (found) {
             socket.emit("Client-add-friend", Data);
             socket.on("Server-send-add-friend-to-me", IdChat => {
+                console.log(ValueUserName);
                 //set state userChat for new user
                 ListUser.push({
                     ID: IdChat,

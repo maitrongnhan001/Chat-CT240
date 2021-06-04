@@ -1,4 +1,5 @@
 const User = require('../models/User.js');
+const Friend = require('../models/Friend.js');
 const path = require('path');
 
 module.exports = (req, res) => {
@@ -14,6 +15,10 @@ module.exports = (req, res) => {
                 if(err) {
                     return res.redirect('http://localhost:3000/RegisterError')
                 }
+                Friend.create({
+                    UserName: req.body.Username,
+                    ListFriend: []
+                }, (error) => {});
                 res.redirect('http://localhost:3000');
             });
         });
