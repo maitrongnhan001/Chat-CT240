@@ -589,7 +589,9 @@ export default class ChatApp extends Component {
                     ListChat: ListChat,
                     ListChatContent: ListChatContent
                 });
-                this.ClickChatUser(ListChat[0].ID);
+                try {
+                    this.ClickChatUser(ListChat[0].ID);
+                }catch (e) {}
             });
             //listent event out group
             socket.on("Server-send-out-group", Data => {
