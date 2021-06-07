@@ -9,9 +9,9 @@ import './App.css';
 import Login from "./Component/Form/Login.js";
 import Register from "./Component/Form/Register";
 import ChatApp from "./Component/ChatApp.js";
-import ChangeUserName from "./Component/Form/ChangeUserName.js";
 import ChangePassword from "./Component/Form/ChangePassword.js";
-import ChangeAvatar from "./Component/Form/ChangeAvatar.js"
+import ChangeAvatar from "./Component/Form/ChangeAvatar.js";
+import FirstPage from "./Component/Manage/FirstPage.js";
 
 export default class App extends Component {
     constructor(props) {
@@ -20,7 +20,9 @@ export default class App extends Component {
             MyUserName: 'null',
             statusChangePassword: "hide",
             statusChangeAvatar: "hide",
-            statusMain: ""
+            statusMain: "",
+            statusFirstPage: "hide",
+            listChat: []
         };
     }
 
@@ -48,6 +50,21 @@ export default class App extends Component {
         }
     }
 
+    CheckData = (ListChat, ListUser) => {
+        if (ListChat.length > 1) {
+            this.setState({
+                statusMain: "",
+                statusFirstPage: "hide"
+            });
+        } else {
+            this.setState({
+                statusMain: "hide",
+                statusFirstPage: "",
+                ListUser: ListUser
+            });
+        }
+        console.log(ListChat, ListUser);
+    }
 
     render() {
         return (
@@ -59,6 +76,7 @@ export default class App extends Component {
                                 GetUserName={this.GetUserName}
                                 ChangePassword={this.ChangePassword}
                                 ChangeAvatar={this.ChangeAvatar}
+                                CheckData={this.CheckData}
                             />
                         </Route>
                         <Route path='/RegisterError'>
@@ -84,6 +102,10 @@ export default class App extends Component {
                     statusChangePassword={this.state.statusChangePassword} />
                 <ChangeAvatar
                     statusChangeAvatar={this.state.statusChangeAvatar} />
+                <FirstPage 
+                    statusFirstPage={this.state.statusFirstPage}
+                    ListUser={this.state.ListUser}
+                />
             </Router>
         );
     }

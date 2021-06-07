@@ -15,13 +15,13 @@ export default class Search extends Component {
                 <hr />
                 <div className="chat-user">
                     <div className="container">
-                        {this.props.ListUser.map((User) => {
+                        {/* {this.props.ListUser.map((User) => {
                             return <ChatUser UserName={User.UserName}
                                 PathAvatar={User.PathAvatar}
                                 ID=""
                                 ClickChatUser={this.props.ClickCreateRoom}
                             />
-                        })}
+                        })} */}
                     </div>
                 </div>
             </div>
