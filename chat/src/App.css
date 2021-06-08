@@ -191,6 +191,14 @@ body {
 .ListGroupChat .chat-user .row:hover{
   background: #ccc;
 }
+/* format for list user */
+.first-page .ListGroupChat {
+    position: relative;
+    z-index: 100px;
+    width: 100%;
+    height: auto;
+    overflow-y: scroll;
+  }
 
 .ListGroupChat .chat-user .avartar-in-list-group{
   width: 60px;

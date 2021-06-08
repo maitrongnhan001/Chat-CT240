@@ -57,13 +57,13 @@ export default class App extends Component {
                 statusFirstPage: "hide"
             });
         } else {
-            this.setState({
-                statusMain: "hide",
-                statusFirstPage: "",
-                ListUser: ListUser
-            });
         }
-        console.log(ListChat, ListUser);
+        console.log("ListChat");
+        this.setState({
+            statusMain: "hide",
+            statusFirstPage: "center-container first-page",
+            ListUser: ListUser
+        });
     }
 
     render() {

@@ -416,11 +416,9 @@ export default class ChatApp extends Component {
                     ListFriend: Response.data.ListFriend,
                     StatusSeen: Response.data.ListStatusSeen
                 });
-                //Check amout user chat
-                this.props.checkData(
-                    Response.data.ListChat,
-                    Response.data.user
-                );
+                //check data
+                this.props.CheckData(Response.data.ListChat, 
+                    Response.data.user);
                 //send my information to server
                 socket.emit("Client-send-my-information", Response.data.Me.MyName);
             })
