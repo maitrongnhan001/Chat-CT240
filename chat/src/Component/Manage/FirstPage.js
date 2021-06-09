@@ -1,7 +1,9 @@
 import { Component } from "react";
 
+
 import '../../StyleForm.css'
 import Search from "../Group-Chat/Search.js";
+import socket from "../Socket.IO/Socket.js";
 
 import axios from 'axios';
 export default class FirstPage extends Component {
@@ -41,6 +43,16 @@ export default class FirstPage extends Component {
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    ClickCreateRoom = (ValueUserName) => {
+        //set data
+        const Data = {
+            UserName: ValueUserName,
+            Me: this.props.MyUserName
+        }
+        //check ListChatContent of user is exit?
+        socket.emit("Client-add-friend", Data);
     }
     //"center-container first-page"
     render() {

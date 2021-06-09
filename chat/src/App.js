@@ -12,6 +12,7 @@ import ChatApp from "./Component/ChatApp.js";
 import ChangePassword from "./Component/Form/ChangePassword.js";
 import ChangeAvatar from "./Component/Form/ChangeAvatar.js";
 import FirstPage from "./Component/Manage/FirstPage.js";
+import socket from "./Component/Socket.IO/Socket.js";
 
 export default class App extends Component {
     constructor(props) {
@@ -63,9 +64,7 @@ export default class App extends Component {
                 statusFirstPage: "center-container first-page",
             });
         }
-        console.log("ListChat");
     }
-
     render() {
         return (
             <Router>
@@ -105,6 +104,8 @@ export default class App extends Component {
                 <FirstPage
                     statusFirstPage={this.state.statusFirstPage}
                     ListUser={this.state.ListUser}
+                    ClickCreateRoom={this.ClickCreateRoom}
+                    MyUserName={this.state.MyUserName}
                 />
             </Router>
         );
