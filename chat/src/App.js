@@ -22,7 +22,7 @@ export default class App extends Component {
             statusChangeAvatar: "hide",
             statusMain: "",
             statusFirstPage: "hide",
-            listChat: []
+            ListUser: []
         };
     }
 
@@ -54,16 +54,16 @@ export default class App extends Component {
         if (ListChat.length > 1) {
             this.setState({
                 statusMain: "",
-                statusFirstPage: "hide"
+                statusFirstPage: "hide",
+                ListUser: ListUser
             });
         } else {
+            this.setState({
+                statusMain: "hide",
+                statusFirstPage: "center-container first-page",
+            });
         }
         console.log("ListChat");
-        this.setState({
-            statusMain: "hide",
-            statusFirstPage: "center-container first-page",
-            ListUser: ListUser
-        });
     }
 
     render() {
@@ -102,7 +102,7 @@ export default class App extends Component {
                     statusChangePassword={this.state.statusChangePassword} />
                 <ChangeAvatar
                     statusChangeAvatar={this.state.statusChangeAvatar} />
-                <FirstPage 
+                <FirstPage
                     statusFirstPage={this.state.statusFirstPage}
                     ListUser={this.state.ListUser}
                 />

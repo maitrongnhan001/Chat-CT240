@@ -194,9 +194,11 @@ body {
 /* format for list user */
 .first-page .ListGroupChat {
     position: relative;
+    bottom: 100px;
     z-index: 100px;
-    width: 100%;
-    height: auto;
+    width: 40%;
+    margin: 0 auto;
+    height: 400px;
     overflow-y: scroll;
   }
 

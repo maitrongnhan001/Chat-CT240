@@ -56,14 +56,14 @@ export default class FirstPage extends Component {
                         <div className="wthree-pro">
                             <h2>Login Quick</h2>
                         </div>
-                        <div className="List-UserChat">
+                    </div>
+                    <div className="List-UserChat">
                             <Search
                                 StatusSreach="ListGroupChat"
                                 ListUser={this.props.ListUser}
                                 ClickCreateRoom={this.ClickCreateRoom}
                             />
                         </div>
-                    </div>
                     </div>
                     {/*//main*/}
                     {/*footer*/}
