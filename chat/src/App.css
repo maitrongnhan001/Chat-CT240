@@ -162,6 +162,7 @@ body {
 
 .menu-manage ul li:hover{
   background: #BBBBBB;
+  color: #111;
 }
 
 /* list group chat */
@@ -190,6 +191,7 @@ body {
 
 .ListGroupChat .chat-user .row:hover{
   background: #ccc;
+  color: #111;
 }
 /* format for list user */
 .first-page .ListGroupChat {
@@ -200,6 +202,7 @@ body {
     margin: 0 auto;
     height: 400px;
     overflow-y: scroll;
+    color: #BBBBBB;
   }
 
 .ListGroupChat .chat-user .avartar-in-list-group{

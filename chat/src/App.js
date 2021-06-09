@@ -52,16 +52,16 @@ export default class App extends Component {
     }
 
     CheckData = (ListChat, ListUser) => {
-        if (ListChat.length > 1) {
+        if (ListChat.length > 0) {
             this.setState({
                 statusMain: "",
-                statusFirstPage: "hide",
-                ListUser: ListUser
+                statusFirstPage: "hide"
             });
         } else {
             this.setState({
                 statusMain: "hide",
                 statusFirstPage: "center-container first-page",
+                ListUser: ListUser
             });
         }
     }

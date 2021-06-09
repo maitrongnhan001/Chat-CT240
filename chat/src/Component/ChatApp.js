@@ -448,7 +448,6 @@ export default class ChatApp extends Component {
                             let temp = ListChatContent[index];
                             ListChatContent.splice(index, 1);
                             ListChatContent.unshift(temp);
-
                             temp = ListChat[index];
                             ListChat.splice(index, 1);
                             ListChat.unshift(temp);
@@ -507,6 +506,10 @@ export default class ChatApp extends Component {
                     ID: Data.ID,
                     Chat: []
                 });
+                //if new client, then set layout
+                this.props.CheckData (ListUser, 
+                    this.state.user);
+                //set data
                 this.setState({
                     ListChat: ListUser,
                     ListChatContent: ListChatContent
@@ -522,6 +525,10 @@ export default class ChatApp extends Component {
                     ID: Data.ID,
                     Chat: []
                 });
+                //if new client, then set layout
+                this.props.CheckData (ListChat, 
+                    this.state.user);
+                //set data
                 this.setState({
                     ListChat: ListChat,
                     ListChatContent: ListChatContent

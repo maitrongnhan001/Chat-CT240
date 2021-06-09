@@ -57,7 +57,7 @@ export default class FirstPage extends Component {
     //"center-container first-page"
     render() {
         return (
-            <div className="center-container first-page">
+            <div className={this.props.statusFirstPage}>
                 {/*header*/}
                 <div className="header-w3l">
                     <h1>Online Login Form</h1>
