@@ -8,15 +8,6 @@ import HeaderChat from "./Chat/Header.js";
 import Chat from "./Chat/Chat.js";
 import Input from "./Chat/Input.js";
 import Infomation from "./Infomation/Infomation.js";
-//import io, { Socket } from "socket.io-client";
-// const ENDPOINT = 'http://localhost:4000';
-
-// const socket = io.connect(ENDPOINT, {
-//     "force new connection": true,
-//     "reconnectionAttempts": "Infinity",
-//     "timeout": 10000,
-//     "transports": ["websocket"]
-// });
 import socket from "./Socket.IO/Socket.js";
 
 export default class ChatApp extends Component {
@@ -252,25 +243,6 @@ export default class ChatApp extends Component {
         //check ListChatContent of user is exit?
         if (found) {
             socket.emit("Client-add-friend", Data);
-            // socket.on("Server-send-add-friend-to-me", IdChat => {
-            //     //set state userChat for new user
-            //     ListUser.push({
-            //         ID: IdChat,
-            //         UserName: Data.UserName
-            //     });
-            //     //set state ListChatContent for new user
-            //     let ListChatContent = this.state.ListChatContent;
-            //     ListChatContent.push({
-            //         ID: IdChat,
-            //         Chat: []
-            //     });
-            //     this.setState({
-            //         ListChat: ListUser,
-            //         ListChatContent: ListChatContent
-            //     });
-            //     this.ClickChatUser(IdChat);
-            //     return;
-            // });
         }
     }
     //click create room for list user group

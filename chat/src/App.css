@@ -218,6 +218,18 @@ body {
   font-size: 20px;
   margin-top: 25px;
 }
+/* icon online */
+.ListGroupChat .chat-user .online {
+    background: #5AD539;
+    width: 20px;
+    height: 20px;
+    border-radius: 35px;
+    border: 2px solid #fff;
+    position: relative;
+    z-index: 100;
+    left: 55px;
+    bottom: 30px;
+}
 /* chat-app-container-col-2 */
 .chat-app-container-col-2 {
   border-left: 1px solid #BBBBBB;
