@@ -9,6 +9,7 @@ import Chat from "./Chat/Chat.js";
 import Input from "./Chat/Input.js";
 import Infomation from "./Infomation/Infomation.js";
 import socket from "./Socket.IO/Socket.js";
+import { Socket } from "net";
 
 export default class ChatApp extends Component {
     constructor(props) {
