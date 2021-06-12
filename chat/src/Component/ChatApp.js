@@ -22,7 +22,8 @@ export default class ChatApp extends Component {
             user: [
                 {
                     UserName: String,
-                    PathAvatar: String
+                    PathAvatar: String,
+                    statusOnline: false
                 },
             ],
             ListChat: [
@@ -602,6 +603,10 @@ export default class ChatApp extends Component {
                         ListFriend: ListFriend
                     });
                 }
+            });
+            //set status online
+            socket.on("Server-send-status", Data => {
+
             });
         }
     }
