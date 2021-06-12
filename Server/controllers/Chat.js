@@ -2,15 +2,15 @@ const Chat = require('../models/Chat.js');
 const Friend = require('../models/Friend.js');
 const ChatImage = require('../models/ChatImage');
 const StatusSeen = require('../models/StatusSeen.js');
+const StatusOnline = require('../models/StatusOnline.js');
 const path = require('path');
 const fs = require('fs');
-
-var ArrayUserOnline = [];
 
 module.exports = (Socket) => {
     //receive information
     Socket.on("Client-send-my-information", Data => {
         Socket.join(Data);
+        Socket.id = Data;
     });
     //join all room
     Socket.on('Client-join-room', Data => {
@@ -313,6 +313,14 @@ module.exports = (Socket) => {
         StatusSeen.findOneAndRemove({
             ID: Data.ID,
             UserName: Data.UserName
-        }, (error) => {});
+        }, (error) => { });
     });
+   Socket.on('disconnect', () => {
+       const UserName = Socket.id;
+       StatusOnline.findOneAndRemove({
+           UserName: UserName
+       }, (error) => {
+           
+       });
+   })
 }

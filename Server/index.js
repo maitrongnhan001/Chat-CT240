@@ -33,6 +33,7 @@ const checkPassword = require('./controllers/checkPassword.js');
 const ChangePassword = require('./controllers/ChangePassword.js');
 const ChangeAvatar = require('./controllers/ChangeAvatar.js');
 const logout = require('./controllers/logout.js');
+const GetOnline = require('./controllers/GetOnline');
 const APIGetListUser = require('./controllers/APIGetListUser');
 
 //requests
@@ -47,6 +48,8 @@ app.get('/chat', ChatController);
 app.post('/api/login', Login);
 
 app.get('/api/sourceDataChat', SourceDataChat);
+
+app.post('/api/statusOnline', GetOnline);
 
 app.post('/api/checkPassword', checkPassword);
 

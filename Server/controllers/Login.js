@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User.js');
+const StatusOnline = require('../models/StatusOnline.js');
 
 module.exports = (req, res) => {
     const {UserName, Password} = req.body;
@@ -13,6 +14,8 @@ module.exports = (req, res) => {
                 if(same) {
                     //successfully
                     req.session.UserName = UserData.UserName;
+                    //user is online, set status
+                    StatusOnline.create({UserName: UserData.UserName});
                     //respone is api
                     res.redirect('http://localhost:3000/chat');
                 }else{
