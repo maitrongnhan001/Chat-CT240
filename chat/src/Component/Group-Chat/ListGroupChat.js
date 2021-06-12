@@ -1,5 +1,5 @@
 import { Component } from "react";
-import ChatUser from "./ChatUser";
+import ChatUser from "./User";
 
 export default class ListGroupChat extends Component {
     //set prop and state

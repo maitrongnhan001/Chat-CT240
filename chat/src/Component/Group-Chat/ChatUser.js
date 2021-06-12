@@ -1,5 +1,4 @@
 import { Component } from "react";
-import axios from 'axios'
 
 export default class ChatUser extends Component {
     constructor(props) {
@@ -35,37 +34,6 @@ export default class ChatUser extends Component {
         }
     }
 
-    componentDidMount() {
-        const Data = this.props.UserName;
-            axios.post('/api/statusOnline', { UserName: Data })
-                .then(Response => {
-                    if (Response.data !== "") {
-                        this.setState({
-                            statusOnline: "online"
-                        });
-                    } else {
-                        this.setState({
-                            statusOnline: ""
-                        })
-                    }
-                })
-                .catch(Error => { });
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        // if (this.state.statusOnline === prevState.statusOnline) {
-        //     if (this.state === "") {
-        //         this.setState({
-        //             statusOnline: "online"
-        //         });
-        //     } else {
-        //         this.setState({
-        //             statusOnline: ""
-        //         })
-        //     }
-        // }
-    }
-
     render() {
         return (
             <div className="row" onClick={this.ClickChatUser}>
@@ -75,7 +43,6 @@ export default class ChatUser extends Component {
                 <div className="col-9">
                     <p className={this.state.StatusSeen}>{this.props.UserName}</p>
                 </div>
-                <div class={this.state.statusOnline}></div>
             </div>
         );
     }

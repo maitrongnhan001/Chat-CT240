@@ -11,6 +11,7 @@ module.exports = (Socket) => {
     Socket.on("Client-send-my-information", Data => {
         Socket.join(Data);
         Socket.id = Data;
+        Socket.broadcast.emit("Server-send-online", Data);
     });
     //join all room
     Socket.on('Client-join-room', Data => {
@@ -320,7 +321,7 @@ module.exports = (Socket) => {
        StatusOnline.findOneAndRemove({
            UserName: UserName
        }, (error) => {
-           
+           Socket.broadcast.emit("Server-send-not-online", UserName);
        });
    })
 }
