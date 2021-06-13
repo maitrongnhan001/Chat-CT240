@@ -14,9 +14,9 @@ export default class User extends Component {
     //click to user chat
     ClickChatUser = () => {
         if (this.props.ID !== "") {
-            this.props.ClickChatUser(this.props.ID);
+            this.props.ClickChatUser(this.props.ID, this.state.statusOnline);
         } else {
-            this.props.ClickChatUser(this.props.UserName);
+            this.props.ClickChatUser(this.props.UserName, this.state.statusOnline);
         }
     }
 
@@ -55,7 +55,6 @@ export default class User extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         socket.on("Server-send-online", Data => {
-            console.log(Data);
             const UserName = Data;
             if(this.props.UserName === UserName) {
                 this.setState({

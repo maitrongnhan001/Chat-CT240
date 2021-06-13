@@ -256,6 +256,18 @@ body {
   margin-top: 20px;
 }
 
+.header-chat .online {
+    background: #5AD539;
+    width: 20px;
+    height: 20px;
+    border-radius: 35px;
+    border: 2px solid #fff;
+    position: relative;
+    z-index: 100;
+   right: 15px;
+   top: 55px;
+}
+
 /* Chat */
 .chat {
   width: 100%;

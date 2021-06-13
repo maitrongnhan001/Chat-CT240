@@ -61,7 +61,8 @@ export default class ChatApp extends Component {
                 }
             ],
             checkSearch: true,
-            CheckShowGroup: false
+            CheckShowGroup: false,
+            statusOnline: ""
         }
     }
     //check manager information
@@ -86,7 +87,7 @@ export default class ChatApp extends Component {
         }
     }
     //click from list user
-    ClickChatUser = (UserChatInformation) => {
+    ClickChatUser = (UserChatInformation, statusOnline) => {
         //content chat
         var chatContent = [];
         //user chat (1 user)
@@ -123,7 +124,8 @@ export default class ChatApp extends Component {
             Contents: chatContent,
             IdData: UserChatInformation,
             CheckShowGroup: false,
-            StatusSeen: StatusSeen
+            StatusSeen: StatusSeen,
+            statusOnline: statusOnline
         });
         this.checkManage(UserChatInformation);
     }
@@ -670,6 +672,7 @@ export default class ChatApp extends Component {
                 <div className="chat-app-container-col-2">
                     <HeaderChat
                         UserChat={this.state.UserChat}
+                        statusOnline={this.state.statusOnline}
                     />
                     <Chat Me={this.state.Me}
                         user={this.state.user}
