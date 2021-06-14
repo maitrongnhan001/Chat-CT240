@@ -76,6 +76,7 @@ export default class ListGroupChat extends Component {
                             return <ChatUser UserName={User.UserName}
                                 PathAvatar={User.PathAvatar}
                                 ID={User.ID}
+                                IdData={this.props.ID}
                                 ClickChatUser={this.props.ClickChatUser}
                                 StatusSeen={this.props.StatusSeen}
                             />
