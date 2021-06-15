@@ -35,7 +35,7 @@ export default class User extends Component {
             StatusSeen: ""
         }
     }
-
+    //update status online when change props
     componentDidMount() {
         const Data = this.props.UserName;
         axios.post('/api/statusOnline', { UserName: Data })
@@ -53,7 +53,7 @@ export default class User extends Component {
             })
             .catch(Error => { });
     }
-
+    //when orther user disconnect
     componentDidUpdate(prevProps, prevState, snapshot) {
         socket.on("Server-send-online", Data => {
             const UserName = Data;

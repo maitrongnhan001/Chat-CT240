@@ -17,7 +17,7 @@ export default class ListGroupChat extends Component {
 
     }
 
-
+    //update list chat and list user
     static getDerivedStateFromProps(nextProps, prevState) {
         if (nextProps.CheckShowGroup) {
             let ListUserChat_Temp = [];

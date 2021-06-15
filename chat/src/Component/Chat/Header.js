@@ -10,9 +10,9 @@ export default class Header extends Component {
         }
     }
 
+    //update status online when change props
     static getDerivedStateFromProps(nextProps, prevState) {
         if(nextProps.statusOnline !== prevState.statusOnline) {
-            console.log('loii');
             if(prevState.statusUpdateOnline) {
                 return {
                     statusOnline: nextProps.statusOnline,
@@ -25,17 +25,15 @@ export default class Header extends Component {
             }
         }
     }
-
+    //when orther user disconnect
     componentDidUpdate(prevProps, prevState, snapshot) {
         socket.on("Server-send-online", Data => {
-            console.log("online");
             this.setState({
                 statusOnline: "online",
                 statusUpdateOnline: false
             });
         });
         socket.on("Server-send-not-online", Data => {
-            console.log("not online");
             this.setState({
                 statusOnline: "",
                 statusUpdateOnline: false
