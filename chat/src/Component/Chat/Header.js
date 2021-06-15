@@ -1,39 +1,45 @@
 import { Component } from "react";
-import axios from "axios";
 import socket from "../Socket.IO/Socket.js";
 
 export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            statusOnline: ""
+            statusOnline: "",
+            statusUpdateOnline: true,
         }
     }
 
     static getDerivedStateFromProps(nextProps, prevState) {
         if(nextProps.statusOnline !== prevState.statusOnline) {
-            return {
-                statusOnline: nextProps.statusOnline
+            console.log('loii');
+            if(prevState.statusUpdateOnline) {
+                return {
+                    statusOnline: nextProps.statusOnline,
+                    statusUpdateOnline: true
+                }
+            }else{
+                return {
+                    statusUpdateOnline: true
+                }
             }
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         socket.on("Server-send-online", Data => {
-            const UserName = Data;
-            if (this.props.UserChat.UserName === UserName) {
-                this.setState({
-                    statusOnline: "online"
-                });
-            }
+            console.log("online");
+            this.setState({
+                statusOnline: "online",
+                statusUpdateOnline: false
+            });
         });
         socket.on("Server-send-not-online", Data => {
-            const UserName = Data;
-            if (this.props.UserChat.UserName === UserName) {
-                this.setState({
-                    statusOnline: ""
-                });
-            }
+            console.log("not online");
+            this.setState({
+                statusOnline: "",
+                statusUpdateOnline: false
+            });
         });
     }
 

@@ -44,7 +44,6 @@ export default class User extends Component {
                     this.setState({
                         statusOnline: "online"
                     });
-                    console.log(this.props.IdData);
                     this.ClickChatUser(this.props.IdData, "online");
                 } else {
                     this.setState({
