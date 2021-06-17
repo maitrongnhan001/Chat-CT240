@@ -1,5 +1,6 @@
 import { Component } from "react";
 import Manage from "./Manage";
+import "./CSS/Header.scss";
 let check = true;
 export default class Header extends Component {
     constructor(props) {

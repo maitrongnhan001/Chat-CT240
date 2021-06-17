@@ -1,4 +1,5 @@
 import { Component } from "react";
+import "./CSS/Manager.scss";
 
 export default class Manager extends Component {
     constructor(props) {

@@ -1,6 +1,7 @@
 import { Component } from "react";
 import MyChat from "./MyChat";
 import UserChat from "./UserChat";
+import "./CSS/Chat.scss";
 
 export default class Chat extends Component {
     constructor(props) {

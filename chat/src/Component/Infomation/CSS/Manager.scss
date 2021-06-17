@@ -1,0 +1,34 @@
+.information .manager-information-user {
+    width: 99%;
+    margin: 0 auto;
+  }
+  
+  .information .manager-information-user hr {
+    margin: 0;
+  }
+  
+  .information .manager-information-user ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .information .manager-information-user ul li {
+    width: 100%;
+    height: 70px;
+    list-style: none;
+    text-align: center;
+    border-radius: 10px;
+  }
+  
+  .information .manager-information-user ul li:hover {
+    background-color: #BBBBBB;
+  }
+  
+  .information .manager-information-user ul li a {
+    position: relative;
+    top: 20px;
+    text-decoration: none;
+    color: #111;
+    font-size: 20px;
+  }

@@ -1,5 +1,6 @@
 import { Component } from "react";
 import ChatUser from "../Group-Chat/ChatUser.js";
+import "./CSS/ListUserChat.scss";
 let count = 0;
 
 export default class ListUserChat extends Component {

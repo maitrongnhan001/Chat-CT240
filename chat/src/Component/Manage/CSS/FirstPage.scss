@@ -6,37 +6,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 --*/
 .center-container {
-    background: url(./background/1.jpg)no-repeat center top; 
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    text-align: center;
-	font-family: 'Open Sans', sans-serif;
-    height: 900px;
-    margin: 0 auto;
-}
-
-.center-container-P {
-    background: url(./background/1.jpg)no-repeat center top; 
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    -ms-background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
-    text-align: center;
-	font-family: 'Open Sans', sans-serif;
-    height: 900px;
-    margin: 0 auto;
-}
-
-.center-container-A{
-    background: url(./background/1.jpg)no-repeat center top; 
+    background: url(../../../background/1.jpg)no-repeat center top; 
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -396,3 +366,15 @@ span.icon2 {
 .red {
     color: red;
 }
+
+/* format for list user */
+.first-page .ListGroupChat {
+    position: relative;
+    bottom: 100px;
+    z-index: 100px;
+    width: 40%;
+    margin: 0 auto;
+    height: 400px;
+    overflow-y: scroll;
+    color: #BBBBBB;
+  }

@@ -1,0 +1,48 @@
+/* input chat */
+.input-chat {
+    width: 95%;
+    height: 60px;
+    margin: 0 auto;
+  }
+  
+  .input-chat .col-1 label {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      transition: 0.5s;
+      position: relative;
+      top: 9px;
+  }
+  
+  .input-chat .col-1 label svg {
+      position: relative;
+      left: 3px;
+      top: 3px;
+  }
+  
+  .input-chat .col-1 label:hover{
+      background: #BBBBBB;
+  }
+  
+  .input-chat .col-1 input{
+      display: none;
+  }
+  
+  .input-chat .message-chat {
+    width: 100%;
+    height: 40px;
+    border-radius: 15px;
+    position: absolute;
+    top: 10px;
+    border: 0;
+    background: #ccc;
+    padding: 0 20px 0 20px;
+  }
+  
+  .input-chat .submit-message {
+    background: none;
+    border: 0;
+    position: absolute;
+    top: 12px;
+    margin-left: 5px;
+  }

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-import '../../StyleForm.css'
+import "./CSS/StyleForm.scss"
 
 export default class Register extends Component {
     render() {

@@ -1,0 +1,82 @@
+/* Component Group-Chat */
+.Header-Group-chat {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    position: relative;
+    z-index: 100;
+  }
+  
+  .Header-Group-chat .infor-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
+  
+  .Header-Group-chat .Manage {
+    width: 35px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: #EEEEEE;
+    transition: 0.5s;
+    position: relative;
+    top: 5px;
+  }
+  
+  .Header-Group-chat .Manage svg{
+    margin-left: 2.5px;
+    margin-top: 2px;
+  }
+  
+  .Header-Group-chat .Manage:hover {
+    background-color: #BBBBBB;
+  }
+  
+  .input-search{
+    background-image: url(../../../icons/search.png);
+    background-repeat: no-repeat;
+    background-size: 35px;
+    background-position-y: 2.5px;
+    background-position-x: 2.5px;
+    width: 110%;
+    height: 40px;
+    border-radius: 20px;
+    border: 0;
+    background-color: #EEEEEE;
+    padding: 0 20px 0 20px;
+    transition: 0.5s;
+    position: relative;
+    top: 5px;
+    z-index: 100;
+  }
+  
+  .input-search:hover {
+    background-image: none;
+  }
+  
+  .searching {
+      width: 95%;
+      left: 15%;
+      background-image: none;
+  }
+  
+  .exit-search {
+      width: 40px;
+      height: 40px;
+      border-radius: 40px;
+      position: relative;
+      bottom: 35px;
+      left: 10px;
+      border: 0;
+      transition: all 0.5s;
+  }
+  
+  .exit-search .icon-exit{
+      position: absolute;
+      left: 8px;
+      top: 7px;
+  }
+  
+  .exit-search:hover {
+      background: #BBBBBB;
+  }

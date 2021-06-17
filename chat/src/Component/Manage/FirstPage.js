@@ -1,7 +1,7 @@
 import { Component } from "react";
 
 
-import '../../StyleForm.css'
+import "./CSS/FirstPage.scss"
 import Search from "../Group-Chat/Search.js";
 import socket from "../Socket.IO/Socket.js";
 

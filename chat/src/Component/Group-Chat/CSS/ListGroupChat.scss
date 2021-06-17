@@ -1,0 +1,53 @@
+.ListGroupChat {
+    position: relative;
+    z-index: 100px;
+    width: 100%;
+    height: 730px;
+    overflow-y: scroll;
+  }
+  
+  .ListGroupChat .chat-user {
+    width: 95%;
+    padding: 0;
+    margin: 0 auto;
+  }
+  
+  .ListGroupChat .chat-user .bold{
+      font-weight: bold;
+  }
+  
+  .ListGroupChat .chat-user .row {
+    border-radius: 10px;
+    height: 80px;
+  }
+  
+  .ListGroupChat .chat-user .row:hover{
+    background: #ccc;
+    color: #111;
+  }
+
+  /* icon online */
+.ListGroupChat .chat-user .online {
+    background: #5AD539;
+    width: 20px;
+    height: 20px;
+    border-radius: 35px;
+    border: 2px solid #fff;
+    position: relative;
+    z-index: 100;
+    left: 55px;
+    bottom: 30px;
+}
+.ListGroupChat .chat-user .avartar-in-list-group{
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+    padding: 0;
+    margin: 10px auto;
+  }
+  
+  .ListGroupChat .chat-user p{
+    text-align: left;
+    font-size: 20px;
+    margin-top: 25px;
+  }
