@@ -12,7 +12,6 @@ import ChatApp from "./Component/ChatApp.js";
 import ChangePassword from "./Component/Form/ChangePassword.js";
 import ChangeAvatar from "./Component/Form/ChangeAvatar.js";
 import FirstPage from "./Component/Manage/FirstPage.js";
-import socket from "./Component/Socket.IO/Socket.js";
 
 export default class App extends Component {
     constructor(props) {

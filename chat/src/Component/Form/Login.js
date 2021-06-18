@@ -83,6 +83,7 @@ export default class Login extends Component {
                                     <h6 className="left"><a href="http://localhost:3000/Register">Register</a></h6>
                                     <h6 className="right"><a href="#">Forgot Password?</a></h6>
                                 </div>
+                                <br />
                                 <div className="right-w3l">
                                     <input 
                                         type="submit"
