@@ -162,6 +162,26 @@ span.icon2 {
 }
 /*--//footer--*/
 
+.ErrorMessage {
+    color: red;
+    padding: 10px;
+}
+
+.red {
+    color: red;
+}
+
+/* format for list user */
+.first-page .ListGroupChat {
+    position: relative;
+    bottom: 100px;
+    z-index: 100px;
+    width: 600px;
+    margin: 0 auto;
+    height: 400px;
+    overflow-y: scroll;
+    color: #BBBBBB;
+  }
 /*--responsive--*/
 
 @media(max-width: 1680px){
@@ -240,6 +260,9 @@ span.icon2 {
 	.center-container .footer {
 		padding-bottom: 2em;
 	}
+    .first-page .ListGroupChat {
+        width: 400px;
+      }
 }
 @media(max-width: 640px){
 
@@ -357,24 +380,3 @@ span.icon2 {
 	}
 }
 /*--responsive--*/
-
-.ErrorMessage {
-    color: red;
-    padding: 10px;
-}
-
-.red {
-    color: red;
-}
-
-/* format for list user */
-.first-page .ListGroupChat {
-    position: relative;
-    bottom: 100px;
-    z-index: 100px;
-    width: 40%;
-    margin: 0 auto;
-    height: 400px;
-    overflow-y: scroll;
-    color: #BBBBBB;
-  }

@@ -44,7 +44,6 @@
     border: 0;
     background-color: #EEEEEE;
     padding: 0 20px 0 20px;
-    transition: 0.5s;
     position: relative;
     top: 5px;
     z-index: 100;
@@ -55,8 +54,8 @@
   }
   
   .searching {
-      width: 95%;
-      left: 15%;
+      width: 100%;
+      left: 4%;
       background-image: none;
   }
   
@@ -65,10 +64,10 @@
       height: 40px;
       border-radius: 40px;
       position: relative;
-      bottom: 35px;
-      left: 10px;
+      top: 5px;
       border: 0;
       transition: all 0.5s;
+      z-index: 200;
   }
   
   .exit-search .icon-exit{
@@ -80,3 +79,81 @@
   .exit-search:hover {
       background: #BBBBBB;
   }
+
+  /*--responsive--*/
+
+@media(max-width: 1680px){
+
+}
+@media(max-width: 1600px){
+
+}
+@media(min-width: 1440px){
+
+}
+@media(max-width: 1366px){
+
+}
+@media(max-width: 1280px){
+
+}
+@media(max-width: 1080px){
+	.Header-Group-chat {
+        height: auto;
+    }
+	#row-1-Header-Group-Chat {
+        display: none;
+    }
+}
+@media(max-width: 1050px){
+
+}
+@media(max-width: 1024px){
+	
+}
+@media(max-width: 991px){
+
+}
+@media(max-width: 900px){
+	
+}
+@media(max-width: 800px){
+	
+}
+@media(max-width: 768px){
+	
+}
+@media(max-width: 736px){
+	
+}
+@media(max-width: 667px){
+	
+}
+@media(max-width: 640px){
+
+}
+@media(max-width: 600px){
+
+}
+@media(max-width: 568px){
+	
+}
+@media(max-width: 480px){
+	
+}
+@media(max-width: 440px){
+	
+}
+@media(max-width: 414px){
+	
+}
+@media(max-width: 384px){
+	
+}
+@media(max-width: 375px){
+
+}
+@media(max-width: 320px){
+	
+}
+/*--responsive--*/
