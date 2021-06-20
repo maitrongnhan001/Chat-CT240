@@ -53,11 +53,16 @@ body {
 @media(max-width: 1600px){
 
 }
-@media(min-width: 1440px){
+@media(max-width: 1440px){
 
 }
 @media(max-width: 1366px){
-
+.chat-app-container-col-2 {
+        width: 1000px;
+    }
+    .chat-app-container-col-3 {
+        display: none;
+    }
 }
 @media(max-width: 1280px){
 
