@@ -15,7 +15,10 @@
     border-radius: 50px;
     padding: 0;
   }
-  
+  .user-chat .custom-col-1 {
+    width: 50px;
+    display: flex;
+  }
   .user-chat .chat-content {
     max-width: 420px;
     word-wrap: break-word;
@@ -60,4 +63,111 @@
   .block {
     display: block;
   }
+
+      /*--responsive--*/
+
+      @media(max-width: 1680px){
+    
+    }
+    @media(max-width: 1600px){
+    
+    }
+    @media(min-width: 1440px){
+    
+    }
+    @media(max-width: 1366px){
+    
+    }
+    @media(max-width: 1280px){
+
+    }
+    @media(max-width: 1080px){
+    
+    }
+    @media(max-width: 1050px){
+    
+    }
+    @media(max-width: 1024px){
+        
+    }
+    @media(max-width: 991px){
+    
+    }
+    @media(max-width: 900px){
+        .user-chat .right .message-img {
+            width: 300px;
+            position: relative;
+            right: 25px;
+        }
+        
+        .user-chat .chat-content .message-img {
+            width: 300px;
+            position: relative;
+        }
+        .user-chat .col-11 {
+            flex: 0 0 89.666667%;
+            max-width: 91.666667%;
+          }
+    }
+    @media(max-width: 800px){
+        
+    }
+    @media(max-width: 768px){
+        
+    }
+    @media(max-width: 736px){
+        .user-chat .col-11 {
+            flex: 0 0 88.666667%;
+            max-width: 91.666667%;
+          }
+    }
+    @media(max-width: 667px){
+        .user-chat .col-11 {
+            flex: 0 0 86.666667%;
+            max-width: 91.666667%;
+          }
+    }
+    @media(max-width: 640px){
+    
+    }
+    @media(max-width: 600px){
+        .user-chat .right .message-img {
+            width: 200px;
+            position: relative;
+        }
+        
+        .user-chat .chat-content .message-img {
+            width: 200px;
+            position: relative;
+        }
+        .user-chat .col-11 {
+            flex: 0 0 84.666667%;
+            max-width: 91.666667%;
+          }
+    }
+    @media(max-width: 568px){
+        .user-chat .col-11 {
+            flex: 0 0 82.666667%;
+            max-width: 91.666667%;
+          }
+    }
+    @media(max-width: 480px){
+        
+    }
+    @media(max-width: 440px){
+        
+    }
+    @media(max-width: 414px){
+        
+    }
+    @media(max-width: 384px){
+        
+    }
+    @media(max-width: 375px){
+    
+    }
+    @media(max-width: 320px){
+        
+    }
+    /*--responsive--*/
   

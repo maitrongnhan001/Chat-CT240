@@ -3,11 +3,16 @@
     height: 80px;
     box-shadow: 0 2px 5px #BBBBBB;
   }
+
+  .header-chat .custom-col-1 {
+    width: 80px;
+}
   
   .header-chat .avatar {
     width: 60px;
     height: 60px;
     margin-top: 10px;
+    margin-left: 20px;
     border-radius: 60px;
   }
   
@@ -23,6 +28,81 @@
       border: 2px solid #fff;
       position: relative;
       z-index: 100;
-     right: 15px;
-     top: 55px;
+        right: 15px;
+        top: 55px;
   }
+
+    /*--responsive--*/
+
+@media(max-width: 1680px){
+    
+}
+@media(max-width: 1600px){
+
+}
+@media(min-width: 1440px){
+
+}
+@media(max-width: 1366px){
+
+}
+@media(max-width: 1280px){
+
+}
+@media(max-width: 1080px){
+
+}
+@media(max-width: 1050px){
+
+}
+@media(max-width: 1024px){
+	
+}
+@media(max-width: 991px){
+
+}
+@media(max-width: 900px){
+	
+}
+@media(max-width: 800px){
+	
+}
+@media(max-width: 768px){
+	
+}
+@media(max-width: 736px){
+	
+}
+@media(max-width: 667px){
+	
+}
+@media(max-width: 640px){
+
+}
+@media(max-width: 600px){
+    .header-chat p{
+        display: none;
+      }
+}
+@media(max-width: 568px){
+	
+}
+@media(max-width: 480px){
+	
+}
+@media(max-width: 440px){
+	
+}
+@media(max-width: 414px){
+	
+}
+@media(max-width: 384px){
+	
+}
+@media(max-width: 375px){
+
+}
+@media(max-width: 320px){
+	
+}
+/*--responsive--*/
