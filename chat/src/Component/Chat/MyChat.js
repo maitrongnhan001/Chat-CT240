@@ -66,7 +66,7 @@ export default class MyChat extends Component {
                                 </span>
                             </div>
                         </div>
-                        <div className="col-1">
+                        <div className="custom-col-1">
                             <img className="avatar right" src={this.props.PathAvatar}></img>
                         </div>
                     </div>

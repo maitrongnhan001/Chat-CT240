@@ -57,7 +57,7 @@ export default class UserChat extends Component {
             <div className="user-chat message">
                 <div className="container">
                     <div className="row">
-                        <div className="col-1">
+                        <div className="custom-col-1">
                             <img className="avatar" src={this.props.PathAvatar}></img>
                         </div>
                         <div className="col-11">

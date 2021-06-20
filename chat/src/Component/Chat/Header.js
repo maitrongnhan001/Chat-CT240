@@ -47,7 +47,7 @@ export default class Header extends Component {
             <div className="header-chat">
                 <div className="container">
                     <div className="row">
-                        <div className="col-1">
+                        <div className="custom-col-1">
                             <img className="avatar" src={this.props.UserChat.PathAvatar}></img>
                         </div>
                         <div class={this.state.statusOnline}></div>
