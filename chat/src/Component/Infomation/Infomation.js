@@ -3,7 +3,7 @@ import axios from 'axios';
 import Manager from "./Manager.js";
 import Header from "./Header.js";
 import ListUserChat from "./ListUserChat.js";
-import  "./CSS/ResponsiveInformation.scss";
+//simport  "./CSS/ResponsiveInformation.scss";
 
 export default class infomation extends Component {
     constructor(props) {

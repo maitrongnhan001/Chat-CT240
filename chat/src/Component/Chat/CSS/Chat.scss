@@ -1,7 +1,7 @@
 /* Chat */
 .chat {
     width: 100%;
-    height: 720px;
+    height: 83vh;
     overflow-y: scroll;
   }
   /* user chat */
@@ -168,6 +168,27 @@
     }
     @media(max-width: 320px){
         
+    }
+
+    @media(max-height: 748px) {
+      .chat {
+        height: 80vh;
+      }
+    }
+    @media(max-height: 693px) {
+      .chat {
+        height: 78vh;
+      }
+    }
+    @media(max-height: 667px) {
+      .chat {
+        height: 77vh;
+      }
+    }
+    @media(max-height: 441px) {
+      .chat {
+        height: 75vh;
+      }
     }
     /*--responsive--*/
   
