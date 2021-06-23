@@ -1,11 +1,36 @@
 /* input chat */
-.input-chat {
-    width: 95%;
+/*responsive bottom*/
+.ip {
+  position: fixed;
+  display: flex;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+.ip .r-col-1 {
+  width: 430px;
+  margin: 0;
+}
+
+.ip .r-col-2 {
+  margin-left: 10px;
+  width: 50%;
+}
+
+.ip .r-col-3 {
+  margin-left: 10px;
+  width: 400px;
+}
+/*responsive bottom*/
+
+.ip .r-col-2 .input-chat {
+    width: 99%;
     height: 60px;
     margin: 0 auto;
+    background-color: #fff;
   }
   
-  .input-chat .col-1 label {
+  .ip .r-col-2 .input-chat .col-1 label {
       width: 40px;
       height: 40px;
       border-radius: 40px;
@@ -14,21 +39,21 @@
       top: 9px;
   }
   
-  .input-chat .col-1 label svg {
+  .ip .r-col-2 .input-chat .col-1 label svg {
       position: relative;
       left: 3px;
       top: 3px;
   }
   
-  .input-chat .col-1 label:hover{
+  .ip .r-col-2 .input-chat .col-1 label:hover{
       background: #BBBBBB;
   }
   
-  .input-chat .col-1 input{
+  .ip .r-col-2 .input-chat .col-1 input{
       display: none;
   }
   
-  .input-chat .message-chat {
+  .ip .r-col-2 .input-chat .message-chat {
     width: 100%;
     height: 40px;
     border-radius: 15px;
@@ -39,10 +64,10 @@
     padding: 0 20px 0 20px;
   }
   
-  .input-chat .submit-message {
+  .ip .r-col-2 .input-chat .submit-message {
     background: none;
     border: 0;
     position: absolute;
     top: 12px;
-    margin-left: 5px;
+    margin-left: 0px;
   }
