@@ -128,7 +128,7 @@ export default class ListUserChat extends Component {
                 <div className="header-manager">
                     <div className="container">
                         <div className="row">
-                            <div className="col-3">
+                            <div className="col-2">
                                 <div className="exit-search"
                                     onClick={() => this.ClickExit()}
                                 >
@@ -140,7 +140,7 @@ export default class ListUserChat extends Component {
                             <div className="col-5">
                                 <h3>Add user</h3>
                             </div>
-                            <div className="col-4">
+                            <div className="col-5">
                                 <span>
                                     <div onClick={() => this.ClickAddGroup()}>
                                         {
@@ -157,7 +157,7 @@ export default class ListUserChat extends Component {
                         {this.state.ListUserChat.map((User, index) => {
                             if (this.props.StatusListUser) {
                                 return <div className="row">
-                                    <div className="col-1">
+                                    <div className="col-2">
                                         <input
                                             type="checkbox"
                                             name={index}
@@ -167,7 +167,7 @@ export default class ListUserChat extends Component {
                                             checked={this.state.ListUserAddGroup[index]}
                                         />
                                     </div>
-                                    <div className="col-11">
+                                    <div className="col-9">
                                         <label for={User.UserName} >
                                             <ChatUser UserName={User.UserName}
                                                 PathAvatar={User.PathAvatar}
@@ -179,7 +179,7 @@ export default class ListUserChat extends Component {
                                 </div>
                             } else {
                                 return <div className="row">
-                                    <div className="col-11">
+                                    <div className="col-9">
                                         <ChatUser UserName={User.UserName}
                                             PathAvatar={User.PathAvatar}
                                             ID=""
