@@ -10,7 +10,7 @@ body {
 /* chat app container col 1 */
 .chat-app-container-col-1{
   width: 430px;
-  height: 100%;
+  height: 100vh;
   margin: 0;
 }
 /* Manage */
@@ -27,7 +27,7 @@ body {
   border-right: 1px solid #BBBBBB;
   margin-left: 10px;
   width: 50%;
-  height: 100%;
+  height: 100vh;
 }
 
 
@@ -36,11 +36,13 @@ body {
 .chat-app-container-col-3 {
   margin-left: 10px;
   width: 400px;
-  height: 100%;
+  height: 100vh;
 }
 
 .information{
   width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
   padding: 0;
   margin: 0;
 }
