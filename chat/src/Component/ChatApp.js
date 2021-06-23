@@ -679,9 +679,6 @@ export default class ChatApp extends Component {
                         UserChat={this.state.UserChat}
                         Contents={this.state.Contents}
                     />
-                    <Input
-                        HandleContentChat={this.HandleContentChat}
-                    />
                 </div>
                 <div className="chat-app-container-col-3">
                     <Infomation
@@ -698,6 +695,9 @@ export default class ChatApp extends Component {
                         ClickDeleteChat={this.ClickDeleteChat}
                     />
                 </div>
+                <Input
+                        HandleContentChat={this.HandleContentChat}
+                />
             </div>
         );
     }
