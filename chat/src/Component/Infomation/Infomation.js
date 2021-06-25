@@ -9,9 +9,9 @@ export default class infomation extends Component {
     constructor(props) {
         super(props)
         this.state = ({
+            ID: "",
             StatusManager: "manager-information-user",
             StatusListChatUser: "hide",
-            StatusFriend: "",
             ListUser: [],
             StatusListUser: true
         });
@@ -28,7 +28,7 @@ export default class infomation extends Component {
                 });
                 break;
             case 1:
-                if (this.props.Manage[Item] !== "Out Group") {
+                if (FirstElementID === 'U') {
                     if (window.confirm("Do you want delete this chat?")) {
                         this.props.ClickDeleteChat(1);
                     }
@@ -39,27 +39,24 @@ export default class infomation extends Component {
                 }
                 break;
             case 2:
-                //case add group
-                if (this.props.Manage[Item] !== "Member") {
-                    this.clickFriend();
-                } else {
-                    //case click user
-                    axios.post('/api/getListUser', {
-                        ID: this.props.ID
-                    })
-                        .then(Response => {
-                            this.setState({
-                                ListUser: Response.data.ListUser,
-                                StatusListUser: false
-                            })
-                        })
-                        .catch(error => { });
-                    this.setState({
-                        StatusManager: "hide",
-                        StatusListChatUser: "ListChatUser"
-                    });
-                }
+                console.log("Media");
                 break;
+            case 3:
+                //case click member
+                axios.post('/api/getListUser', {
+                    ID: this.props.ID
+                })
+                    .then(Response => {
+                        this.setState({
+                            ListUser: Response.data.ListUser,
+                            StatusListUser: false
+                        })
+                    })
+                    .catch(error => { });
+                this.setState({
+                    StatusManager: "hide",
+                    StatusListChatUser: "ListChatUser"
+                });
         }
     }
     //click button add group
@@ -90,38 +87,21 @@ export default class infomation extends Component {
             StatusListChatUser: "hide"
         });
     }
-    //click friend
-    clickFriend = () => {
-        if (this.state.StatusFriend === "Add Friend") {
-            //add friend
-            this.props.AddFriend(this.props.UserChat.UserName);
-        } else {
-            //delete friend
-            this.props.DeleteFriend(this.props.UserChat.UserName);
-        }
-    }
     //when change props
     static getDerivedStateFromProps(nextProps, prevState) {
-        let StatusFriend = "";
         if (nextProps.UserChat.UserName[0] === "G") {
-            if (StatusFriend !== prevState.StatusFriend) {
+            if (nextProps.ID !== prevState.ID) {
                 return {
-                    StatusFriend: "",
+                    ID: nextProps.ID,
                     StatusListUser: true
                 };
             } else {
                 return null;
             }
         }
-        StatusFriend = "Add Friend";
-        nextProps.ListFriend.forEach((element) => {
-            if (element.UserName === nextProps.UserChat.UserName) {
-                StatusFriend = "Delete Friend";
-            }
-        });
-        if (StatusFriend !== prevState.StatusFriend) {
+        if (nextProps.ID !== prevState.ID) {
             return {
-                StatusFriend: StatusFriend,
+                ID: nextProps.ID,
                 StatusListUser: true
             };
         }
@@ -131,11 +111,9 @@ export default class infomation extends Component {
         return (
             <div className="information">
                 <Header UserChat={this.props.UserChat}
-                    StatusFriend={this.state.StatusFriend}
                 />
-                <Manager Manage={this.props.Manage}
+                <Manager
                     ID={this.props.ID}
-                    StatusFriend={this.state.StatusFriend}
                     StatusManager={this.state.StatusManager}
                     ClickItemManagerInformation={this.ClickItemManagerInformation}
                 />

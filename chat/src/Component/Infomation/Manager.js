@@ -21,12 +21,9 @@ export default class Manager extends Component {
             Manager = [
                 "Add User",
                 "Out Group",
-                "Member",
                 "Media",
+                "Member",
             ]
-        }
-        if (nextProps.StatusFriend !== "") {
-            Manager.push(nextProps.StatusFriend);
         }
         if (Manager !== prevState.Manage) {
             return { Manager: Manager }

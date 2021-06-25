@@ -52,8 +52,6 @@ export default class ChatApp extends Component {
             IdData: "12345",
             StatusSeen: [],
             ListFriend: [],
-            //state manage information
-            ManageItems: [],
             //state hide and show sreach
             StatusListGroupChat: "ListGroupChat",
             StatusSearch: "hide",
@@ -67,27 +65,6 @@ export default class ChatApp extends Component {
             checkSearch: true,
             CheckShowGroup: false,
             statusOnline: ""
-        }
-    }
-    //check manager information
-    checkManage = (UserChatInformation) => {
-        if (UserChatInformation.indexOf("G") != -1) {
-            this.setState({
-                ManageItems: [
-                    "Add User",
-                    "Out Group",
-                    "Member"
-                ]
-            });
-        } else {
-            if (UserChatInformation.indexOf("U") != -1) {
-                this.setState({
-                    ManageItems: [
-                        "Add Group",
-                        "Delete Chat",
-                    ]
-                });
-            }
         }
     }
     //click from list user
@@ -131,7 +108,6 @@ export default class ChatApp extends Component {
             StatusSeen: StatusSeen,
             statusOnline: statusOnline
         });
-        this.checkManage(UserChatInformation);
     }
 
     //send message
@@ -327,41 +303,6 @@ export default class ChatApp extends Component {
             this.ClickChatUser(ListChat[0].ID);
         }catch (e) {}
     }
-    //add friend
-    AddFriend = (UserName) => {
-        let ListFriend = this.state.ListFriend;
-        const Data = {
-            ID: this.state.IdData,
-            Me: this.state.Me.MyName,
-            Friend: false,
-            UserName: UserName
-        }
-        socket.emit("Client-send-friend", Data);
-        ListFriend.push({ UserName: UserName });
-        this.setState({
-            ListFriend: ListFriend
-        });
-    }
-    //delete friend
-    DeleteFriend = (UserName) => {
-        let ListFriend = this.state.ListFriend;
-        for (let index in ListFriend) {
-            if (ListFriend[index].UserName === UserName) {
-                ListFriend.splice(index, 1);
-                break;
-            }
-        }
-        const Data = {
-            ID: this.state.IdData,
-            Me: this.state.Me.MyName,
-            Friend: true,
-            UserName: UserName
-        }
-        socket.emit("Client-send-friend", Data);
-        this.setState({
-            ListFriend: ListFriend
-        });
-    }
     //click show list group
     ClickShowListGroup = () => {
         if (!this.state.CheckShowGroup) {
@@ -394,7 +335,6 @@ export default class ChatApp extends Component {
                     user: Response.data.user,
                     ListChat: Response.data.ListChat,
                     ListChatContent: Response.data.ListChatContent,
-                    ListFriend: Response.data.ListFriend,
                     StatusSeen: Response.data.ListStatusSeen
                 });
                 //check data
@@ -588,32 +528,6 @@ export default class ChatApp extends Component {
             socket.on("Server-send-out-group", Data => {
 
             });
-            //listend add and delete friend
-            socket.on("Server-send-friend", Data => {
-                const UserName = Data.UserName;
-                if (Data.Friend) {
-                    let ListFriend = this.state.ListFriend;
-                    ListFriend.push({ UserName: UserName });
-                    this.setState({
-                        ListFriend: ListFriend
-                    });
-                } else {
-                    let ListFriend = this.state.ListFriend;
-                    for (let index in ListFriend) {
-                        if (ListFriend[index].UserName === UserName) {
-                            ListFriend.splice(index, 1);
-                            break;
-                        }
-                    }
-                    this.setState({
-                        ListFriend: ListFriend
-                    });
-                }
-            });
-            //set status online
-            socket.on("Server-send-status", Data => {
-
-            });
         }
     }
 
@@ -631,7 +545,6 @@ export default class ChatApp extends Component {
                     Contents: [],
                     IdData: Id
                 });
-                this.checkManage(Id);
             } catch (e) { }
             //take list id to join room
             let ListId = [];
@@ -688,7 +601,6 @@ export default class ChatApp extends Component {
                     <Infomation
                         AddFriend={this.AddFriend}
                         DeleteFriend={this.DeleteFriend}
-                        ListFriend={this.state.ListFriend}
                         UserChat={this.state.UserChat}
                         ID={this.state.IdData}
                         Manage={this.state.ManageItems}

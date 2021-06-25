@@ -7,37 +7,11 @@ export default class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            StatusFriend: "",
             statusOnline: "",
             statusUpdateOnline: true
         }
     }
-    //update status friend for information
-    static getDerivedStateFromProps(nextProps, prevState) {
-        if (nextProps.StatusFriend === "Add Friend") {
-            return {
-                StatusFriend: "stranger"
-            }
-        }
-        switch (nextProps.StatusFriend) {
-            case "Add Friend":
-                return {
-                    StatusFriend: "Stranger"
-                }
-                break;
-            case "Delete Friend":
-                return {
-                    StatusFriend: "Friend"
-                }
-                break;
-            case "":
-                return {
-                    StatusFriend: ""
-                }
-                break;
-        }
-        return null;
-    }
+    
     //update status online
     componentDidUpdate(prevProps, prevState, snapshot) {
         //when have the new props
@@ -81,7 +55,6 @@ export default class Header extends Component {
                     <div class={this.state.statusOnline}></div>
                 </div>
                 <p>{this.props.UserChat.UserName}</p>
-                <div className="friend">{this.state.StatusFriend}</div>
             </div>
         );
     }
