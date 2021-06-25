@@ -18,6 +18,7 @@ export default class infomation extends Component {
     }
     //handle manager information
     ClickItemManagerInformation = (Item) => {
+        const FirstElementID = this.props.ID[0];
         switch (Item) {
             case 0:
                 this.setState({
@@ -133,10 +134,10 @@ export default class infomation extends Component {
                     StatusFriend={this.state.StatusFriend}
                 />
                 <Manager Manage={this.props.Manage}
+                    ID={this.props.ID}
                     StatusFriend={this.state.StatusFriend}
                     StatusManager={this.state.StatusManager}
                     ClickItemManagerInformation={this.ClickItemManagerInformation}
-                    Link={this.props.Link}
                 />
                 <ListUserChat
                     ExitAddGroup={this.ExitAddGroup}

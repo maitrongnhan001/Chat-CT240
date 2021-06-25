@@ -10,14 +10,26 @@ export default class Manager extends Component {
     }
     static getDerivedStateFromProps(nextProps, prevState) {
         let Manager = [];
-        for( let index in nextProps.Manage) {
-            Manager.push(nextProps.Manage[index]);
+        const firstElementID = nextProps.ID[0];
+        if (firstElementID === "U") {
+            Manager = [
+                "Add Group",
+                "Delete Chat",
+                "Media",
+            ]
+        } else {
+            Manager = [
+                "Add User",
+                "Out Group",
+                "Member",
+                "Media",
+            ]
         }
-        if(nextProps.StatusFriend !== "") {
+        if (nextProps.StatusFriend !== "") {
             Manager.push(nextProps.StatusFriend);
         }
-        if(Manager !== prevState.Manage) {
-            return {Manager: Manager}
+        if (Manager !== prevState.Manage) {
+            return { Manager: Manager }
         }
         return null;
     }
