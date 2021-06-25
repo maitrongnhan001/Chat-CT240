@@ -9,16 +9,17 @@ import Chat from "./Chat/Chat.js";
 import Input from "./Chat/Input.js";
 import Infomation from "./Infomation/Infomation.js";
 import socket from "./Socket.IO/Socket.js";
-import { Socket } from "net";
 
 export default class ChatApp extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            //data of this user
             Me: {
                 MyName: String,
                 PathAvatar: String
             },
+            //list all user
             user: [
                 {
                     UserName: String,
@@ -26,12 +27,14 @@ export default class ChatApp extends Component {
                     statusOnline: false
                 },
             ],
+            //list user chat with this user
             ListChat: [
                 {
                     ID: String,
                     UserName: String
                 },
             ],
+            //Content of chat
             ListChatContent: [
                 {
                     ID: String,
@@ -45,6 +48,7 @@ export default class ChatApp extends Component {
                     ]
                 }
             ],
+            //ID of group chat is being select
             IdData: "12345",
             StatusSeen: [],
             ListFriend: [],
