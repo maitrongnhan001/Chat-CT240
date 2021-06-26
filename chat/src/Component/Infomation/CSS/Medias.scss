@@ -1,0 +1,30 @@
+.information .Media-of-chat {
+    width: 99%;
+    margin: 0 auto;
+  }
+
+  /* ListChatUser */
+.Media-of-chat .header-media {
+    height: 60px;
+}
+
+.Media-of-chat .header-media .exit-media {
+    top: 13px
+}
+
+.Media-of-chat .header-media h3 {
+    text-align: center;
+    position: relative;
+    top: 10px;
+}
+
+.Media-of-chat .main-media {
+    width: 98%;
+    height: 100%;
+}
+
+.Media-of-chat .main-media .img-media {
+    width: 100%;
+    margin-left: auto;
+    margin-bottom: 10px;
+}
