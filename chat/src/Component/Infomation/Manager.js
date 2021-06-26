@@ -33,7 +33,7 @@ export default class Manager extends Component {
     render() {
         return (
             <div
-                className={this.props.StatusManager}
+                className={"manager-information-user " + this.props.StatusManager}
             >
                 <ul>
                     {
