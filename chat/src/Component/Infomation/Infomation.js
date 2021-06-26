@@ -3,6 +3,7 @@ import axios from 'axios';
 import Manager from "./Manager.js";
 import Header from "./Header.js";
 import ListUserChat from "./ListUserChat.js";
+import Medias from "./Medias.js";
 //simport  "./CSS/ResponsiveInformation.scss";
 
 export default class infomation extends Component {
@@ -10,8 +11,9 @@ export default class infomation extends Component {
         super(props)
         this.state = ({
             ID: "",
-            StatusManager: "manager-information-user",
+            StatusManager: "",
             StatusListChatUser: "hide",
+            StatusMedia: "hide",
             ListUser: [],
             StatusListUser: true
         });
@@ -39,7 +41,11 @@ export default class infomation extends Component {
                 }
                 break;
             case 2:
-                console.log("Media");
+                //click show meidia
+                this.setState({
+                    StatusMedia: "",
+                    StatusManager: "hide"
+                });
                 break;
             case 3:
                 //case click member
@@ -80,12 +86,19 @@ export default class infomation extends Component {
         this.props.ClickCreateRoom(UserName);
         this.ExitAddGroup();
     }
-    //click exit
+    //click exit add group
     ExitAddGroup = () => {
         this.setState({
-            StatusManager: "manager-information-user",
+            StatusManager: "",
             StatusListChatUser: "hide"
         });
+    }
+    //click exit media
+    ExitMedia = () => {
+        this.setState({
+            StatusMedia: "hide",
+            StatusManager: ""
+        })
     }
     //when change props
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -127,6 +140,11 @@ export default class infomation extends Component {
                     ClickCreateRoom={this.ClickChatUser}
                     ListChat={this.props.ListChat}
                     ClickAddGroup={this.ClickAddGroup}
+                />
+                <Medias
+                    StatusMedia={this.state.StatusMedia}
+                    ID={this.props.ID}
+                    ExitMedia={this.ExitMedia}
                 />
             </div>
         );
