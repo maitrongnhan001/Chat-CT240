@@ -35,6 +35,7 @@ const ChangeAvatar = require('./controllers/ChangeAvatar.js');
 const logout = require('./controllers/logout.js');
 const GetOnline = require('./controllers/GetOnline');
 const APIGetListUser = require('./controllers/APIGetListUser');
+const GetMedia = require('./controllers/GetMedia.js');
 
 //requests
 app.use(express.static('public'));
@@ -54,6 +55,8 @@ app.post('/api/statusOnline', GetOnline);
 app.post('/api/checkPassword', checkPassword);
 
 app.post('/api/getListUser', APIGetListUser);
+
+app.post('/api/getMedia', GetMedia);
 
 app.post('/Change/Password', ChangePassword);
 
