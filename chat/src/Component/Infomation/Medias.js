@@ -3,8 +3,28 @@ import axios from "axios";
 import "./CSS/Medias.scss";
 
 export default class extends Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
+        this.state = {
+            ID: "",
+            ListPathImage: []
+        }
+    }
+    //get list path image
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.ID !== prevState.ID) {
+            axios.post('/api/getMedia', { ID: this.props.ID })
+                .then(Response => {
+                    this.setState({
+                        ID: this.props.ID,
+                        ListPathImage: Response.data.ListPathImage
+                    })
+                })
+                .catch(error => { })
+            this.setState({
+                ID: this.props.ID
+            });
+        }
     }
 
     render() {
@@ -31,22 +51,21 @@ export default class extends Component {
                 <hr />
                 <div className="main-media">
                     <div className="container">
-                        <div className="row">
-                            <div className="col-6">
-                                <img className="img-media" src="/images/AvatarUsers/Screen Shot 2021-06-22 at 09.38.09.png"></img>
-                            </div>
-                            <div className="col-6">
-                            <img className="img-media" src="/images/AvatarUsers/Screen Shot 2021-06-22 at 09.38.09.png"></img>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-6">
-                            <img className="img-media" src="/images/AvatarUsers/Screen Shot 2021-06-22 at 09.38.09.png"></img>
-                            </div>
-                            <div className="col-6">
-                            <img className="img-media" src="/images/AvatarUsers/Screen Shot 2021-06-22 at 09.38.09.png"></img>
-                            </div>
-                        </div>
+                        {this.state.ListPathImage.map((Element, Index) => {
+                            //maping each row have two image
+                            if (Index % 2 === 0) {
+                                return (
+                                    <div className="row">
+                                        <div className="col-6">
+                                            <img className="img-media" src={this.state.ListPathImage[Index]}></img>
+                                        </div>
+                                        <div className="col-6">
+                                            <img className="img-media" src={this.state.ListPathImage[Index + 1]}></img>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                        })}
                     </div>
                 </div>
             </div>
