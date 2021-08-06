@@ -542,7 +542,7 @@ export default class ChatApp extends Component {
                 Id = this.state.ListChatContent[0].ID;
                 this.setState({
                     UserChat: UserChatData,
-                    Contents: [],
+                    Contents: ContentsData,
                     IdData: Id
                 });
             } catch (e) { }

@@ -91,6 +91,12 @@ export default class Header extends Component {
                                     <path d="M12.5 18A2.25 2.25 0 118 18a2.25 2.25 0 014.5 0zm7.75 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm5.5 2.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z">
                                     </path>
                                 </svg>
+                                <div class = "br-5"></div>
+                                <Manage
+                                    ClickShowListGroup={this.ClickShowListGroup}
+                                    StatusManage={this.state.StatusManage}
+                                    ChangePassword={this.props.ChangePassword}
+                                    ChangeAvatar={this.props.ChangeAvatar} />
                             </div>
                         </div>
                     </div>
@@ -116,11 +122,11 @@ export default class Header extends Component {
                         </div>
                     </div>
                 </div>
-                <Manage
+                {/* <Manage
                     ClickShowListGroup={this.ClickShowListGroup}
                     StatusManage={this.state.StatusManage}
                     ChangePassword={this.props.ChangePassword}
-                    ChangeAvatar={this.props.ChangeAvatar} />
+                    ChangeAvatar={this.props.ChangeAvatar} /> */}
             </nav>
         );
     }

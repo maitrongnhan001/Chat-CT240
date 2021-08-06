@@ -1,29 +1,31 @@
+.br-5 {
+  height: 10px;
+}
+
 .arrow-down {
     display: block;
     width: 0;
     height: 0;
-    border: 15px solid #fff;
+    border: 9px solid #fff;
     border-top-width: 0;
     border-right-color: transparent;
     border-left-color: transparent;
     position: relative;
     z-index: 250;
-    left: 340px;
-    bottom: 50px;
+    left: 9px;
   }
   
   .menu-manage{
     width: 250px;
-    height: 250px;
+    height: 330px;
     box-shadow: 3px 3px 8px 5px #ccc;
     margin: 0;
     padding: 0;
-    border-radius: 20px;
+    border-radius: 10px;
     position: relative;
     background:#fff;
     z-index: 200;
-    left: 300px;
-    bottom: 50px;
+    right: 10px;
   }
   
   .menu-manage ul {
@@ -40,7 +42,8 @@
     height: 50px;
     text-align: center;
     list-style-type: none;
-    border-radius: 10px;
+    border-radius: 5px;
+    cursor: pointer;
   }
   
   .menu-manage ul hr {
