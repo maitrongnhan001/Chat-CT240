@@ -26,6 +26,7 @@
   .Header-Group-chat .Manage svg{
     margin-left: 2.5px;
     margin-top: 2px;
+    cursor: pointer;
   }
   
   .Header-Group-chat .Manage:hover {
@@ -68,6 +69,7 @@
       border: 0;
       transition: all 0.5s;
       z-index: 200;
+      cursor: pointer;
   }
   
   .exit-search .icon-exit{
