@@ -18,6 +18,7 @@
   .ListGroupChat .chat-user .row {
     border-radius: 10px;
     height: 80px;
+    cursor: pointer;
   }
   
   .ListGroupChat .chat-user .row:hover{
@@ -49,6 +50,11 @@
     text-align: left;
     font-size: 20px;
     margin-top: 25px;
+  }
+
+  .ListGroupChat .chat-user .row p {
+    width: 90%;
+    overflow: hidden;
   }
 
    /*--responsive--*/
