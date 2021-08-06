@@ -214,6 +214,9 @@ module.exports = (Socket) => {
     });
     //delete a chat
     Socket.on("Client-send-delete-chat", IdData => {
+        //Delete media in chat
+        
+        //Delete chat data in database
         const ID = IdData.slice(1);
         Chat.findByIdAndRemove(ID, (error, Data) => {
             if (!error) {
