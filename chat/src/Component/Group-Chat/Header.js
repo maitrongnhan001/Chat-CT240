@@ -36,8 +36,8 @@ export default class Header extends Component {
 
     HandleContent = (event) => {
         const OldValueSearch = this.state.valueSearch;
-        if (!(event.target.value == "" ||
-            (event.target.value - OldValueSearch) == " ")) {
+        if (!(event.target.value === "" ||
+            (event.target.value - OldValueSearch) === " ")) {
             this.props.HandleInputSearch(event.target.value.trim());
         }
         this.setState({ valueSearch: event.target.value });
@@ -75,7 +75,7 @@ export default class Header extends Component {
                 <div className="container">
                     <div className="row" id="row-1-Header-Group-Chat">
                         <div className="col-3">
-                            <img className="infor-img" src={this.props.MyData}></img>
+                            <img alt="Error" className="infor-img" src={this.props.MyData}></img>
                         </div>
                         <div className="col-6">
                             <p>
@@ -112,7 +112,7 @@ export default class Header extends Component {
                         </div>
                         <div className="col-11">
                             <input
-                                role="combobox" placeholder="         Tìm kiếm trên Messenger"
+                                placeholder="         Tìm kiếm trên Messenger"
                                 value={this.state.valueSearch}
                                 class={this.state.StatusSearch}
                                 onChange={this.HandleContent}

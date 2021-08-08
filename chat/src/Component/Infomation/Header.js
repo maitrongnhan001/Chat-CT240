@@ -51,7 +51,7 @@ export default class Header extends Component {
         return (
             <div className="header-information">
                 <div className="center">
-                    <img className="avatar" src={this.props.UserChat.PathAvatar}></img>
+                    <img alt="Error" className="avatar" src={this.props.UserChat.PathAvatar}></img>
                     <div class={this.state.statusOnline}></div>
                 </div>
                 <p>{this.props.UserChat.UserName}</p>

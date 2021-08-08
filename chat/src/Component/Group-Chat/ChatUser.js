@@ -38,7 +38,7 @@ export default class ChatUser extends Component {
         return (
             <div className="row" onClick={this.ClickChatUser}>
                 <div className="col-3">
-                    <img className="avartar-in-list-group" src={this.props.PathAvatar} />
+                    <img alt="Error" className="avartar-in-list-group" src={this.props.PathAvatar} />
                 </div>
                 <div className="col-9">
                     <p className={this.state.StatusSeen}>{this.props.UserName}</p>

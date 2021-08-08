@@ -43,7 +43,7 @@ export default class Manager extends Component {
                                     onClick={() => this.props.ClickItemManagerInformation(index)}
                                 >
                                     <li>
-                                        <a>{this.state.Manager[index]}</a>
+                                        <p>{this.state.Manager[index]}</p>
                                     </li>
                                     <hr />
                                 </div>

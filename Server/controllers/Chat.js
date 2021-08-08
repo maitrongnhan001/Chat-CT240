@@ -214,10 +214,23 @@ module.exports = (Socket) => {
     });
     //delete a chat
     Socket.on("Client-send-delete-chat", IdData => {
-        //Delete media in chat
-        
-        //Delete chat data in database
         const ID = IdData.slice(1);
+        //Delete media in chat
+        ChatImage.find( {ID: ID} , (error, Data) => {
+            Data.forEach(element => {
+                if (element) {
+                    const path_image = element.PathImage;
+                    const IDChat = element._id;
+                    console.log(path.resolve(__dirname, '../public' + path_image));
+                    fs.unlink(path.resolve(__dirname, '../public' + path_image), (err) => {
+                        if (!err) {
+                            ChatImage.findByIdAndRemove( IDChat, (error) => {});
+                        }
+                    })
+                }
+            });
+        });
+        //Delete chat data in database
         Chat.findByIdAndRemove(ID, (error, Data) => {
             if (!error) {
                 Socket.to(IdData).emit("Server-send-delete-chat", IdData);

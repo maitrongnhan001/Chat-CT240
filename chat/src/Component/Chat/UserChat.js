@@ -5,7 +5,8 @@ export default class UserChat extends Component {
         super(props);
         this.state = {
             classMessage: "color-content inline",
-            JSXImage: ""
+            JSXImage: "",
+            Time: ""
         }
     }
 
@@ -26,7 +27,7 @@ export default class UserChat extends Component {
             if (nextProps.Content.PathImage) {
                 const JSXImage = (
                     <div>
-                        <img className="message-img" src={nextProps.Content.PathImage}></img>
+                        <img alt="No Imgae" className="message-img" src={nextProps.Content.PathImage}></img>
                     </div>);
                 const ClassMessage = "block";
                 if (ClassMessage !== prevState.classMessage) {
@@ -43,9 +44,14 @@ export default class UserChat extends Component {
                     ClassMessage = "color-content block";
                 }
                 if (ClassMessage !== prevState.classMessage) {
+                    //get Time
+                    const Time = new Date(nextProps.Content.Time);
+                    const Hours = Time.getHours();
+                    const Minutes = Time.getMinutes();
                     return {
                         classMessage: ClassMessage,
-                        JSXImage: nextProps.Content.Content
+                        JSXImage: nextProps.Content.Content,
+                        Time: Hours + ":" + Minutes
                     }
                 }
             }
@@ -58,15 +64,16 @@ export default class UserChat extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="custom-col-1">
-                            <img className="avatar" src={this.props.PathAvatar}></img>
+                            <img alt="No Imgae" className="avatar" src={this.props.PathAvatar}></img>
                         </div>
                         <div className="col-11">
-                            <div dir="auto" className="chat-content">
-                                <span className={this.state.classMessage}>
-                                    <span>
+                            <div dir="auto" className="chat-content left">
+                                <div className={this.state.classMessage}>
+                                    <div>
                                         {this.state.JSXImage}
-                                    </span>
-                                </span>
+                                    </div>
+                                    <div class="time-right">{this.state.Time}</div>
+                                </div>
                             </div>
                         </div>
                     </div>

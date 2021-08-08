@@ -63,6 +63,9 @@ export default class infomation extends Component {
                     StatusManager: "hide",
                     StatusListChatUser: "ListChatUser"
                 });
+                break;
+            default:
+                break;
         }
     }
     //click button add group

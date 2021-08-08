@@ -53,6 +53,10 @@
   .input-search:hover {
     background-image: none;
   }
+
+  .input-search:focus {
+    outline: 0;
+  }
   
   .searching {
       width: 100%;

@@ -1,7 +1,6 @@
 import { Component } from "react";
 import ChatUser from "../Group-Chat/ChatUser.js";
 import "./CSS/ListUserChat.scss";
-let count = 0;
 
 export default class ListUserChat extends Component {
     //set prop and state
@@ -69,8 +68,8 @@ export default class ListUserChat extends Component {
             let ListUserChat_Temp = [];
             nextProps.ListChat.forEach((element) => {
                 try {
-                    if (element.UserName != nextProps.UserChat) {
-                        if (element.ID.indexOf("U") != -1) {
+                    if (element.UserName !== nextProps.UserChat) {
+                        if (element.ID.indexOf("U") !== -1) {
                             nextProps.ListUser.forEach((user) => {
                                 if (user.UserName === element.UserName) {
                                     ListUserChat_Temp.push({

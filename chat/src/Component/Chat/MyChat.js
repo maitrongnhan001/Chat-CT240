@@ -5,7 +5,8 @@ export default class MyChat extends Component {
         super(props);
         this.state = {
             classMessage: "color-content-me inline",
-            JSXImage: ""
+            JSXImage: "",
+            time: ""
         }
     }
 
@@ -26,7 +27,7 @@ export default class MyChat extends Component {
             if (nextProps.Content.PathImage) {
                 const JSXImage = (
                     <div>
-                        <img className="message-img" src={nextProps.Content.PathImage}></img>
+                        <img alt="Error" className="message-img" src={nextProps.Content.PathImage}></img>
                     </div>);
                 const ClassMessage = "block";
                 if (ClassMessage !== prevState.classMessage) {
@@ -43,9 +44,13 @@ export default class MyChat extends Component {
                     ClassMessage = "color-content-me block";
                 }
                 if (ClassMessage !== prevState.classMessage) {
+                    const Time = new Date(nextProps.Content.Time);
+                    const Hours = Time.getHours();
+                    const Minutes = Time.getMinutes();
                     return {
                         classMessage: ClassMessage,
-                        JSXImage: nextProps.Content.Content
+                        JSXImage: nextProps.Content.Content,
+                        Time: Hours + ":" + Minutes
                     }
                 }
             }
@@ -59,15 +64,16 @@ export default class MyChat extends Component {
                     <div className="row">
                         <div className="col-11">
                             <div dir="auto" className="chat-content right">
-                                <span className={this.state.classMessage}>
-                                    <span>
+                                <div className={this.state.classMessage}>
+                                    <div>
                                         {this.state.JSXImage}
-                                    </span>
-                                </span>
+                                    </div>
+                                    <div class="time-left">{this.state.Time}</div>
+                                </div>
                             </div>
                         </div>
                         <div className="custom-col-1">
-                            <img className="avatar right" src={this.props.PathAvatar}></img>
+                            <img alt="Error" className="avatar right" src={this.props.PathAvatar}></img>
                         </div>
                     </div>
                 </div>

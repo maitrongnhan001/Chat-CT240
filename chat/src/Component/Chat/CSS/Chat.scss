@@ -13,6 +13,7 @@
     width: 50px;
     height: 50px;
     border-radius: 50px;
+    border: 1px solid #ADD8E6;
     padding: 0;
   }
   .user-chat .custom-col-1 {
@@ -45,6 +46,16 @@
       position: relative;
   }
   
+  .user-chat .chat-content .time-left {
+    font-size: 10px;
+    text-align: left;
+  }
+
+  .user-chat .chat-content .time-right {
+    font-size: 10px;
+    text-align: right;
+  }
+  
   .user-chat .chat-content .color-content{
     background: #BBBBBB;
     border-radius: 20px;
@@ -57,13 +68,13 @@
     padding: 10px;
   }
   
-  .inline{
-    display: inline;
-  }
+  // .inline{
+  //   display: inline;
+  // }
   
-  .block {
-    display: block;
-  }
+  // .block {
+  //   display: block;
+  // }
 
       /*--responsive--*/
 

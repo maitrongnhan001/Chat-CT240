@@ -48,7 +48,7 @@ export default class Header extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="custom-col-1">
-                            <img className="avatar" src={this.props.UserChat.PathAvatar}></img>
+                            <img alt="text" className="avatar" src={this.props.UserChat.PathAvatar}></img>
                         </div>
                         <div class={this.state.statusOnline}></div>
                         <div className="col-9">
