@@ -35,7 +35,7 @@ export default class App extends Component {
     ChangePassword = (check) => {
         if (check) {
             this.setState({
-                statusChangePassword: "center-container-P",
+                statusChangePassword: "center-container",
                 statusMain: "hide"
             });
         }
@@ -44,7 +44,7 @@ export default class App extends Component {
     ChangeAvatar = (check) => {
         if (check) {
             this.setState({
-                statusChangeAvatar: "center-container-A",
+                statusChangeAvatar: "center-container",
                 statusMain: "hide"
             });
         }
