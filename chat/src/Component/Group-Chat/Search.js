@@ -2,13 +2,6 @@ import { Component } from "react";
 import ChatUser from "./ChatUser";
 
 export default class Search extends Component {
-    //set prop and state
-    constructor(props) {
-        super(props);
-    }
-
-    
-
     render() {
         return (
             <div className={this.props.StatusSreach}>

@@ -2,9 +2,6 @@ import { Component } from "react";
 import "./CSS/Manager.scss";
 
 export default class Manage extends Component {
-    constructor(props) {
-        super(props)
-    }
 
     render () {
         return (
@@ -14,19 +11,20 @@ export default class Manage extends Component {
                     <ul>
                         <li
                             onClick={() => this.props.ClickShowListGroup()}
-                        ><a>Danh sách nhóm</a></li>
-                        <li><a href = "http://localhost:4000">Tin nhắn đang chờ</a></li>
-                        <li><a href = "http://localhost:4000">Nguời liên hệ đang hoạt động</a></li>
+                        ><p>Danh sách nhóm</p></li>
+                        <li><p>Tin nhắn đang chờ</p></li>
+                        <li><p>Nguời liên hệ đang hoạt động</p></li>
                         <hr/>
-                        <li
-                            onClick={() => this.props.ChangePassword(true)}
-                        ><a>Đổi mật khẩu</a></li>
-                        
+                        <li onClick={() => this.props.ChangePassword(true)}>
+                            <p>
+                                Đổi mật khẩu
+                            </p>
+                        </li>
                         <li
                             onClick={() => this.props.ChangeAvatar(true)}
-                        ><a>Đổi ảnh đại diện</a></li>
+                        ><p>Đổi ảnh đại diện</p></li>
                         <hr/>
-                        <li><a href = "http://localhost:4000">Đăng xuất</a></li>
+                        <li><a href="http://localhost:4000">Đăng xuất</a></li>
                     </ul>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import { Component } from "react";
 import axios from "axios";
 import "./CSS/Medias.scss";
 
-export default class extends Component {
+export default class Media extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -57,14 +57,15 @@ export default class extends Component {
                                 return (
                                     <div className="row">
                                         <div className="col-6">
-                                            <img className="img-media" src={this.state.ListPathImage[Index]}></img>
+                                            <img alt="Error" className="img-media" src={this.state.ListPathImage[Index]}></img>
                                         </div>
                                         <div className="col-6">
-                                            <img className="img-media" src={this.state.ListPathImage[Index + 1]}></img>
+                                            <img alt="Error" className="img-media" src={this.state.ListPathImage[Index + 1]}></img>
                                         </div>
                                     </div>
                                 );
                             }
+                            return null;
                         })}
                     </div>
                 </div>

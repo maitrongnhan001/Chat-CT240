@@ -81,7 +81,7 @@ export default class Login extends Component {
                             <div className="sub-w3l">
                                 <div className="row">
                                     <h6 className="left"><a href="http://localhost:3000/Register">Register</a></h6>
-                                    <h6 className="right"><a href="#">Forgot Password?</a></h6>
+                                    <h6 className="right"><a href="http://localhost:4000/ForgotPassword">Forgot Password?</a></h6>
                                 </div>
                                 <br />
                                 <div className="right-w3l">

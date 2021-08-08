@@ -184,12 +184,12 @@ export default class ChatApp extends Component {
         ArrayUser.forEach((ElementUser, IndexUser) => {
             //loop each element in string value
             value.forEach((ElementKey, IndexKey) => {
-                if (ElementUser.UserName.indexOf(ElementKey) != -1) {
+                if (ElementUser.UserName.indexOf(ElementKey) !== -1) {
                     count++;
                 }
             });
             //check elemet value
-            if (count == value.length) {
+            if (count === value.length) {
                 result.push({
                     UserName: ElementUser.UserName,
                     PathAvatar: ElementUser.PathAvatar

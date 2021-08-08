@@ -24,7 +24,7 @@ export default class ListGroupChat extends Component {
             let ListUserChat_Temp = [];
             nextProps.ListChat.forEach((element) => {
                 try {
-                    if (element.ID.indexOf("G") != -1) {
+                    if (element.ID.indexOf("G") !== -1) {
                         ListUserChat_Temp.push({
                             ID: element.ID,
                             UserName: element.UserName,
@@ -41,7 +41,7 @@ export default class ListGroupChat extends Component {
             let ListUserChat_Temp = [];
             nextProps.ListChat.forEach((element) => {
                 try {
-                    if (element.ID.indexOf("G") != -1) {
+                    if (element.ID.indexOf("G") !== -1) {
                         ListUserChat_Temp.push({
                             ID: element.ID,
                             UserName: element.UserName,
