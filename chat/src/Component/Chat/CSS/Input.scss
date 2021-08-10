@@ -29,28 +29,32 @@
     margin: 0 auto;
     background-color: #fff;
   }
+
+  .ip .r-col-2 .input-chat .row .col-1-file {
+    width: 40px;
+  }
   
-  .ip .r-col-2 .input-chat .col-1 label {
+  .ip .r-col-2 .input-chat .col-1-file label {
       width: 40px;
       height: 40px;
       border-radius: 40px;
       transition: 0.5s;
       position: relative;
-      top: 9px;
+      top: 10px;
       cursor: pointer;
   }
   
-  .ip .r-col-2 .input-chat .col-1 label svg {
+  .ip .r-col-2 .input-chat .col-1-file label svg {
       position: relative;
-      left: 3px;
-      top: 3px;
+      right: 0px;
+      bottom: 0px;
   }
   
-  .ip .r-col-2 .input-chat .col-1 label:hover{
+  .ip .r-col-2 .input-chat .col-1-file label:hover{
       background: #BBBBBB;
   }
   
-  .ip .r-col-2 .input-chat .col-1 input{
+  .ip .r-col-2 .input-chat .col-1-file input{
       display: none;
   }
   
@@ -76,7 +80,6 @@
     top: 12px;
     margin-left: 0px;
   }
-
 /*--responsive--*/
 
 @media(max-width: 1680px){
