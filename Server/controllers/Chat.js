@@ -97,6 +97,10 @@ module.exports = (Socket) => {
         }
 
     });
+    //Listening client send message file
+    Socket.on("Client-send-data-file", Data => {
+        console.log(Data);
+    });
     //add friend
     Socket.on("Client-add-friend", Data => {
         const ListUser = [
