@@ -74,8 +74,8 @@ export default class ChatApp extends Component {
         //user chat (1 user)
         var user = {};
         let StatusSeen = this.state.StatusSeen;
-        for(let index in StatusSeen) {
-            if(StatusSeen[index] === UserChatInformation) {
+        for (let index in StatusSeen) {
+            if (StatusSeen[index] === UserChatInformation) {
                 StatusSeen.splice(index, 1);
             }
         }
@@ -148,6 +148,20 @@ export default class ChatApp extends Component {
             //send message to server
         }
         socket.emit('Client-send-data', ChatData);
+    }
+
+    //handle message file
+    HandleMessageFile = (fileMessage) => {
+        let TimeData = new Date();
+        //set data
+        const ChatData = {
+            Id: this.state.IdData,
+            UserName: this.state.Me.MyName,
+            Content: fileMessage,
+            Time: TimeData.getTime()
+        };
+        //send message to server
+        socket.emit('Client-send-data-file', ChatData);
     }
 
     //handle search
@@ -301,7 +315,7 @@ export default class ChatApp extends Component {
         });
         try {
             this.ClickChatUser(ListChat[0].ID);
-        }catch (e) {}
+        } catch (e) { }
     }
     //click show list group
     ClickShowListGroup = () => {
@@ -338,7 +352,7 @@ export default class ChatApp extends Component {
                     StatusSeen: Response.data.ListStatusSeen
                 });
                 //check data
-                this.props.CheckData(Response.data.ListChat, 
+                this.props.CheckData(Response.data.ListChat,
                     Response.data.user);
                 //send my information to server
                 socket.emit("Client-send-my-information", Response.data.Me.MyName);
@@ -427,7 +441,7 @@ export default class ChatApp extends Component {
                     Chat: []
                 });
                 //if new client, then set layout
-                this.props.CheckData (ListUser, 
+                this.props.CheckData(ListUser,
                     this.state.user);
                 //set data
                 this.setState({
@@ -446,7 +460,7 @@ export default class ChatApp extends Component {
                     Chat: []
                 });
                 //if new client, then set layout
-                this.props.CheckData (ListChat, 
+                this.props.CheckData(ListChat,
                     this.state.user);
                 //set data
                 this.setState({
@@ -522,7 +536,7 @@ export default class ChatApp extends Component {
                 });
                 try {
                     this.ClickChatUser(ListChat[0].ID);
-                }catch (e) {}
+                } catch (e) { }
             });
             //listent event out group
             socket.on("Server-send-out-group", Data => {
@@ -612,7 +626,8 @@ export default class ChatApp extends Component {
                     />
                 </div>
                 <Input
-                        HandleContentChat={this.HandleContentChat}
+                    HandleContentChat={this.HandleContentChat}
+                    HandleMessageFile={this.HandleMessageFile}
                 />
             </div>
         );
