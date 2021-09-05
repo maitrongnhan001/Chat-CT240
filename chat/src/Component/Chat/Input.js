@@ -27,9 +27,15 @@ export default class Input extends Component {
                             File: this.state.file
                         }
                     );
+                } else {
+                    //file is not image
+                    this.props.HandleMessageFile(
+                        {
+                            ContentData: this.state.ContentData,
+                            File: this.state.file
+                        }
+                    );
                 }
-                //file is not image
-                this.props.HandleMessageFile(this.state.file);
             } else {
                 this.props.HandleContentChat(
                     this.state.ContentData
@@ -65,7 +71,7 @@ export default class Input extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col-1-file">
-                                    <label htmlFor="inputGroupFile04">
+                                    <label htmlFor="inputImage">
                                         <svg viewBox="0 0 36 36" height="40px" width="40px">
                                             <path d="M13.5 16.5a2 2 0 100-4 2 2 0 000 4z" fill="#0099FF">
                                             </path>
@@ -75,7 +81,7 @@ export default class Input extends Component {
                                     </label>
                                     <input type="file"
                                         className="form-control"
-                                        id="inputGroupFile04"
+                                        id="inputImage"
                                         aria-describedby="inputGroupFileAddon04"
                                         aria-label="Upload"
                                         accept=".jpg,.png"
@@ -83,7 +89,7 @@ export default class Input extends Component {
                                     />
                                 </div>
                                 <div className="col-1-file">
-                                    <label htmlFor="inputGroupFile04">
+                                    <label htmlFor="inputFile">
                                         <svg viewBox="0 0 40 40" height="45px" width="45px">
                                             <path d="M8 12a4 4 0 014-4h12a4 4 0 014 4v5a1 1 0 01-1 1h-3a6 6 0 00-6 6v3a1 1 0 01-1 1h-5a4 4 0 01-4-4V12z" fill="#0099FF"></path>
                                             <path d="M20 27c0 .89 1.077 1.33 1.707.7l5.993-5.993c.63-.63.19-1.707-.7-1.707h-3a4 4 0 00-4 4v3z" fill="#0099FF"></path>
@@ -91,10 +97,10 @@ export default class Input extends Component {
                                     </label>
                                     <input type="file"
                                         className="form-control"
-                                        id="inputGroupFile04"
+                                        id="inputFile"
                                         aria-describedby="inputGroupFileAddon04"
                                         aria-label="Upload"
-                                        accept = "*"
+                                        accept="file_extension|audio/*|video/*|image/*|media_type"
                                         onChange={this.changeFile}
                                     />
                                 </div>
