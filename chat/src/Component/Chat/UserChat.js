@@ -25,15 +25,38 @@ export default class UserChat extends Component {
     static getDerivedStateFromProps(nextProps, prevState) {
         try {
             if (nextProps.Content.PathImage) {
-                const JSXImage = (
-                    <div>
-                        <img alt="No Imgae" className="message-img" src={nextProps.Content.PathImage}></img>
-                    </div>);
-                const ClassMessage = "block";
-                if (ClassMessage !== prevState.classMessage) {
-                    return {
-                        classMessage: ClassMessage,
-                        JSXImage: JSXImage
+                if (nextProps.Content.PathImage.search("/Documents") === 0) {
+                    //file is document
+                    const lastPosition = nextProps.Content.PathImage.lastIndexOf("/") + 1;
+                    const nameFile = nextProps.Content.PathImage.substring(lastPosition);
+                    const JSXImage = (
+                        <a href = {"http://localhost:4000/" + nextProps.Content.PathImage} download >{nameFile}</a>
+                        );
+                    const ClassMessage = "color-content inline";
+
+                    //get time
+                    const Time = new Date(nextProps.Content.Time);
+                    const Hours = Time.getHours();
+                    const Minutes = Time.getMinutes();
+                    if (ClassMessage !== prevState.classMessage) {
+                        return {
+                            classMessage: ClassMessage,
+                            JSXImage: JSXImage,
+                            Time: Hours + ":" + Minutes
+                        }
+                    }
+                } else {                    
+                    //file is image
+                    const JSXImage = (
+                        <div>
+                            <img alt="Error" className="message-img" src={"http://localhost:4000/" + nextProps.Content.PathImage}></img>
+                        </div>);
+                    const ClassMessage = "block";
+                    if (ClassMessage !== prevState.classMessage) {
+                        return {
+                            classMessage: ClassMessage,
+                            JSXImage: JSXImage
+                        }
                     }
                 }
             } else {
