@@ -67,6 +67,16 @@
     border-radius: 20px;
     padding: 10px;
   }
+
+  .color-content a {
+    color: black;
+    text-decoration: underline;
+  }
+
+  .color-content-me a {
+    color: white;
+    text-decoration: underline;
+  }
   
   // .inline{
   //   display: inline;
