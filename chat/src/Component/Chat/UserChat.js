@@ -49,7 +49,9 @@ export default class UserChat extends Component {
                     //file is image
                     const JSXImage = (
                         <div>
-                            <img alt="Error" className="message-img" src={"http://localhost:4000/" + nextProps.Content.PathImage}></img>
+                            <a href = {"http://localhost:4000/" + nextProps.Content.PathImage} download>
+                                <img alt="Error" className="message-img" src={"http://localhost:4000/" + nextProps.Content.PathImage}></img>
+                            </a>
                         </div>);
                     const ClassMessage = "block";
                     if (ClassMessage !== prevState.classMessage) {
